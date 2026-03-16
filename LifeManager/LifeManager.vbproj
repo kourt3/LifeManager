@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{EC3A11FC-7B26-4490-99EF-C56FF3D6EADF}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <StartupObject>LifeManager.Module1</StartupObject>
+    <RootNamespace>LifeManager</RootNamespace>
+    <AssemblyName>LifeManager</AssemblyName>
+    <FileAlignment>512</FileAlignment>
+    <MyType>Console</MyType>
+    <TargetFrameworkVersion>v4.8.1</TargetFrameworkVersion>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DocumentationFile>LifeManager.xml</DocumentationFile>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <DefineDebug>false</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DocumentationFile>LifeManager.xml</DocumentationFile>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionExplicit>On</OptionExplicit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionCompare>Binary</OptionCompare>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionStrict>Off</OptionStrict>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionInfer>On</OptionInfer>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Net.Http" />
+  </ItemGroup>
+  <ItemGroup>
+    <Import Include="Microsoft.VisualBasic" />
+    <Import Include="System" />
+    <Import Include="System.Collections" />
+    <Import Include="System.Collections.Generic" />
+    <Import Include="System.Data" />
+    <Import Include="System.Diagnostics" />
+    <Import Include="System.Linq" />
+    <Import Include="System.Xml.Linq" />
+    <Import Include="System.Threading.Tasks" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ApartmentModule.vb" />
+    <Compile Include="EconomyModules\BankCardsModule.vb" />
+    <Compile Include="BuildingsModule.vb" />
+    <Compile Include="ContactModule.vb" />
+    <Compile Include="EconomyModules\EconomyModule.vb" />
+    <Compile Include="FamilyModule.vb" />
+    <Compile Include="EconomyModules\GiftsCardsModule.vb" />
+    <Compile Include="Help.vb" />
+    <Compile Include="LoginModule.vb" />
+    <Compile Include="Module1.vb" />
+    <Compile Include="My Project\AssemblyInfo.vb" />
+    <Compile Include="My Project\Application.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Application.myapp</DependentUpon>
+    </Compile>
+    <Compile Include="My Project\Resources.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="My Project\Settings.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="PersonModule.vb" />
+    <Compile Include="EconomyModules\PortofolioModule.vb" />
+    <Compile Include="CohrabitionModule.vb" />
+    <Compile Include="ProfileModule.vb" />
+    <Compile Include="RelationShipModule.vb" />
+    <Compile Include="TransferModule.vb" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="My Project\Resources.resx">
+      <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.vb</LastGenOutput>
+      <CustomToolNamespace>My.Resources</CustomToolNamespace>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="My Project\Application.myapp">
+      <Generator>MyApplicationCodeGenerator</Generator>
+      <LastGenOutput>Application.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="My Project\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <CustomToolNamespace>My</CustomToolNamespace>
+      <LastGenOutput>Settings.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.8.1">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.8.1 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Apartment\Apartment.vbproj">
+      <Project>{b939d5c4-6d1b-4f7e-a738-e43189eecbf0}</Project>
+      <Name>Apartment</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Buildings\Buildings.vbproj">
+      <Project>{0bcdaa00-219e-4032-b0ea-684f529b068d}</Project>
+      <Name>Buildings</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ContactsProject\ContactsProject.vbproj">
+      <Project>{36680a83-8dac-424b-b951-62c243c72bec}</Project>
+      <Name>ContactsProject</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Economy\Economy.vbproj">
+      <Project>{1c044c67-2813-4ab7-a469-3458920ebfc3}</Project>
+      <Name>Economy</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FamilyProject\FamilyProject.vbproj">
+      <Project>{9d148d1b-473c-44e6-b21a-be379073ee49}</Project>
+      <Name>FamilyProject</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LoginPersonComponent\AccountComponent.vbproj">
+      <Project>{25e1724b-792d-477e-b2f5-74ba54d9875f}</Project>
+      <Name>AccountComponent</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LoginProject\LoginProject.vbproj">
+      <Project>{93646ac7-dd23-4e28-8529-924140fd7036}</Project>
+      <Name>LoginProject</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MyBook\MyBook.vbproj">
+      <Project>{966b3a01-e481-4d41-8797-9a4338c10767}</Project>
+      <Name>MyBook</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PersonProject\PersonProject.vbproj">
+      <Project>{f442e2ac-4818-40b5-8d6d-f03ad0cca734}</Project>
+      <Name>PersonProject</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProfileAndApartmentComponent\CohrabitionComponent.vbproj">
+      <Project>{2dd49e7a-f6ff-4180-9485-7ab1637a9736}</Project>
+      <Name>CohrabitionComponent</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RelationShipComponent\RelationShipComponent.vbproj">
+      <Project>{d8bfab64-d74d-44dd-a5d5-0e5241bd2784}</Project>
+      <Name>RelationShipComponent</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
+</Project>

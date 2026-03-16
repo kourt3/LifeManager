@@ -1,0 +1,15 @@
+<Solution>
+  <Project Path="Apartment/Apartment.vbproj" Id="b939d5c4-6d1b-4f7e-a738-e43189eecbf0" />
+  <Project Path="Buildings/Buildings.vbproj" Id="0bcdaa00-219e-4032-b0ea-684f529b068d" />
+  <Project Path="ContactsProject/ContactsProject.vbproj" Id="36680a83-8dac-424b-b951-62c243c72bec" />
+  <Project Path="Economy/Economy.vbproj" Id="1c044c67-2813-4ab7-a469-3458920ebfc3" />
+  <Project Path="FamilyProject/FamilyProject.vbproj" Id="9d148d1b-473c-44e6-b21a-be379073ee49" />
+  <Project Path="LifeManager/LifeManager.vbproj" Id="ec3a11fc-7b26-4490-99ef-c56ff3d6eadf" />
+  <Project Path="LoginPersonComponent/AccountComponent.vbproj" Id="25e1724b-792d-477e-b2f5-74ba54d9875f" />
+  <Project Path="LoginProject/LoginProject.vbproj" Id="93646ac7-dd23-4e28-8529-924140fd7036" />
+  <Project Path="MyBook/MyBook.vbproj" Id="966b3a01-e481-4d41-8797-9a4338c10767" />
+  <Project Path="PersonProject/PersonProject.vbproj" Id="f442e2ac-4818-40b5-8d6d-f03ad0cca734" />
+  <Project Path="ProfileAndApartmentComponent/CohrabitionComponent.vbproj" Id="2dd49e7a-f6ff-4180-9485-7ab1637a9736" />
+  <Project Path="RelationShipComponent/RelationShipComponent.vbproj" Id="d8bfab64-d74d-44dd-a5d5-0e5241bd2784" />
+  <Project Path="testing/testing.vbproj" Id="a5db107b-7b05-48d6-b220-1dc1103f5a85" />
+</Solution>

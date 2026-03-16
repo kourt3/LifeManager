@@ -1,0 +1,1 @@
+Y:\lifemanager\bin\debug\LifeManager.exe
