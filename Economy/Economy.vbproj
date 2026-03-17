@@ -68,6 +68,7 @@
     <Compile Include="BankCard\Entity.vb" />
     <Compile Include="BankCard\Repository.vb" />
     <Compile Include="BankCard\Services.vb" />
+    <Compile Include="Base\Entity.vb" />
     <Compile Include="Controller.vb" />
     <Compile Include="Economy\Contact.vb" />
     <Compile Include="Economy\Entity.vb" />

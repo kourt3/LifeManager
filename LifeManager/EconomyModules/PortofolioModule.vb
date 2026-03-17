@@ -33,9 +33,9 @@ Module PortofolioModule
             Dim Str As String = Console.ReadLine
             Select Case Str
                 Case 1
-                    TransferModule.SearchMenu(RefPortofolio)
+                    TransferModule.SearchMenu(Ref, "Portofolio", RefPortofolio.PrimaryKey)
                 Case 2
-                    TransferModule.Register(RefPortofolio)
+                    TransferModule.Register(Ref, "Portofolio", RefPortofolio.PrimaryKey)
                 Case 3
                     ChangeName(RefPortofolio)
                 Case 4
