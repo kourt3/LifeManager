@@ -36,9 +36,9 @@ Module GiftsCardsModule
             Dim Str As String = Console.ReadLine
             Select Case Str
                 Case 1
-                    TransferModule.SearchMenu(RefGifts)
+                    TransferModule.SearchMenu(Ref, "Gifts", RefGifts.PrimaryKey)
                 Case 2
-                    TransferModule.Register(RefGifts)
+                    TransferModule.Register(Ref,"Gifts", RefGifts.PrimaryKey)
                 Case 3
                     ChangeName(RefGifts)
                 Case 4

@@ -6,8 +6,9 @@ Module EconomyModule
         If Model.BankCards IsNot Nothing Then Console.WriteLine("Bank Cards: " & Model.BankCards.Count)
         If Model.Gifts IsNot Nothing Then Console.WriteLine("Gifts Cards: " & Model.Gifts.Count)
     End Sub
-    Friend Sub Menu(Ref As AccountComponent.Contracts.IReference)
-        Do
+    Friend Sub Menu(Ref As AccountComponent.Contracts.IReference, Optional Choice As Boolean = False, Optional ByRef Category As String = Nothing, Optional ByRef ExternalId As Integer = Nothing)
+
+        While Choice = False
             Console.Clear()
             Dim ValEconomy As MyBook.ValMsg(Of Controller.IModel) = EconomyController.Model(Ref.PrimaryKey)
 
@@ -35,14 +36,61 @@ Module EconomyModule
                 Case 3
                     ListOfGiftsCards(Ref)
                 Case 4
-                    Exit Do
+                    Exit While
                 Case Else
-                    Continue Do
+                    Continue While
             End Select
-        Loop
+        End While
+
+        While Choice = True
+            Console.Clear()
+            Dim ValEconomy As MyBook.ValMsg(Of Controller.IModel) = EconomyController.Model(Ref.PrimaryKey)
+
+
+
+            Console.WriteLine("------------- Economy -------------")
+            If ValEconomy.Success = False Then
+                Console.WriteLine(ValEconomy.Msg)
+            Else
+                Info(ValEconomy.Model)
+            End If
+            Console.WriteLine("------------------------------------")
+            Console.WriteLine()
+            Console.WriteLine("------------ Menu -------------")
+            Console.WriteLine("1) Πορτοφόλια.")
+            Console.WriteLine("2) Bank Cards.")
+            Console.WriteLine("3) Gifts Cards.")
+            Console.WriteLine("4) Exit.")
+            Dim Str As String = Console.ReadLine
+            Select Case Str
+                Case 1
+                    Category = "Portofolio"
+                    Dim RefPortofolio As Economy.Portofolio.Entity.IReference = New Portofolio.Entity.Entity
+                    ListOfPortofolio(Ref, True, RefPortofolio)
+                    ExternalId = RefPortofolio.PrimaryKey
+                    Exit While
+                Case 2
+                    Category = "BankCard"
+                    Dim RefBankCard As Economy.BankCardsProject.My.Entity.IReference = New Economy.BankCardsProject.My.Entity.Entity
+                    ListOfBanksCards(Ref, True, RefBankCard)
+                    ExternalId = RefBankCard.PrimaryKey
+                    Exit While
+                Case 3
+                    Category = "Gifts"
+                    Dim RefGiftsCard As Economy.GiftsCard.Entity.IReference = New Economy.GiftsCard.Entity.Entity
+                    ListOfGiftsCards(Ref, True, RefGiftsCard)
+                    ExternalId = RefGiftsCard.PrimaryKey
+                    Exit While
+                Case 4
+                    Exit While
+                Case Else
+                    Continue While
+            End Select
+        End While
+
     End Sub
 
-    Friend Sub ListOfPortofolio(Ref As AccountComponent.Contracts.IReference, Optional Choice As Boolean = False, Optional ChoiceRef As Portofolio.Entity.IReference = Nothing)
+    Friend Sub ListOfPortofolio(Ref As AccountComponent.Contracts.IReference, Optional Choice As Boolean = False, Optional ByRef ChoiceRef As Portofolio.Entity.IReference = Nothing)
         Do
 
             Dim Val As MyBook.ValMsg(Of Controller.IModel) = EconomyController.Model(Ref.PrimaryKey)
@@ -54,7 +102,14 @@ Module EconomyModule
                     Console.WriteLine(i + 1 & ") " & Val.Model.Portofolies(i).Name & " " & Val.Model.Portofolies(i).Description)
                 Next
                 Console.WriteLine("-----------------------------------")
-                Console.WriteLine(1 & "-" & Val.Model.Portofolies.Count & ") Open Portofolio.")
+
+                If Choice = False Then
+                    Console.WriteLine(1 & "-" & Val.Model.Portofolies.Count & ") Open Portofolio.")
+                Else
+                    Console.WriteLine(1 & "-" & Val.Model.Portofolies.Count & ") Choice Portofolio.")
+                End If
+
+
                 Console.WriteLine(Val.Model.Portofolies.Count + 1 & ") Add Portofolio.")
                 Console.WriteLine(Val.Model.Portofolies.Count + 2 & ") Exit.")
                 Console.WriteLine("------------------------------------")
@@ -62,6 +117,10 @@ Module EconomyModule
                 Dim Str As String = Console.ReadLine - 1
                 Select Case Str
                     Case 0 To Val.Model.Portofolies.Count - 1
+                        If Choice = True Then
+                            ChoiceRef = Val.Model.Portofolies(Str)
+                            Exit Do
+                        End If
                         PortofolioModule.Menu(Ref, Val.Model.Portofolies(Str))
                         Continue Do
                     Case Val.Model.Portofolies.Count
@@ -103,12 +162,11 @@ Module EconomyModule
                         Continue Do
                 End Select
             End While
-
-
         Loop
+
     End Sub
 
-    Friend Sub ListOfBanksCards(Ref As AccountComponent.Contracts.IReference, Optional Choice As Boolean = False, Optional ChoiceRef As BankCardsProject.My.Entity.IReference = Nothing)
+    Friend Sub ListOfBanksCards(Ref As AccountComponent.Contracts.IReference, Optional Choice As Boolean = False, Optional ByRef ChoiceRef As BankCardsProject.My.Entity.IReference = Nothing)
         Do
 
             Dim Val As MyBook.ValMsg(Of Controller.IModel) = EconomyController.Model(Ref.PrimaryKey)
@@ -120,7 +178,13 @@ Module EconomyModule
                     Console.WriteLine(i + 1 & ") " & Val.Model.BankCards(i).NumberCard & " " & Val.Model.BankCards(i).Description)
                 Next
                 Console.WriteLine("-----------------------------------")
-                Console.WriteLine(1 & "-" & Val.Model.BankCards.Count & ") Open Bank Card.")
+                If Choice = False Then
+                    Console.WriteLine(1 & "-" & Val.Model.BankCards.Count & ") Open Bank Card.")
+                Else
+                    Console.WriteLine(1 & "-" & Val.Model.BankCards.Count & ") Choice Bank Card.")
+                End If
+
+
                 Console.WriteLine(Val.Model.BankCards.Count + 1 & ") Add Bank Card.")
                 Console.WriteLine(Val.Model.BankCards.Count + 2 & ") Exit.")
                 Console.WriteLine("------------------------------------")
@@ -128,6 +192,10 @@ Module EconomyModule
                 Dim Str As String = Console.ReadLine - 1
                 Select Case Str
                     Case 0 To Val.Model.BankCards.Count - 1
+                        If Choice = True Then
+                            ChoiceRef = Val.Model.BankCards(Str)
+                            Exit Do
+                        End If
                         BankCardsModule.Menu(Ref, Val.Model.BankCards(Str))
                         Continue Do
                     Case Val.Model.BankCards.Count
@@ -174,7 +242,7 @@ Module EconomyModule
         Loop
     End Sub
 
-    Friend Sub ListOfGiftsCards(Ref As AccountComponent.Contracts.IReference, Optional Choice As Boolean = False, Optional ChoiceRef As GiftsCard.Entity.IReference = Nothing)
+    Friend Sub ListOfGiftsCards(Ref As AccountComponent.Contracts.IReference, Optional Choice As Boolean = False, Optional ByRef ChoiceRef As GiftsCard.Entity.IReference = Nothing)
         Do
 
             Dim Val As MyBook.ValMsg(Of Controller.IModel) = EconomyController.Model(Ref.PrimaryKey)
@@ -186,7 +254,13 @@ Module EconomyModule
                     Console.WriteLine(i + 1 & ") " & Val.Model.Gifts(i).NumberCard & " " & Val.Model.Gifts(i).Description)
                 Next
                 Console.WriteLine("-----------------------------------")
-                Console.WriteLine(1 & "-" & Val.Model.Gifts.Count & ") Open Gift Card.")
+                If Choice = False Then
+                    Console.WriteLine(1 & "-" & Val.Model.Gifts.Count & ") Open Gift Card.")
+                Else
+                    Console.WriteLine(1 & "-" & Val.Model.Gifts.Count & ") Choice Gift Card.")
+                End If
+
+
                 Console.WriteLine(Val.Model.Gifts.Count + 1 & ") Add Gift Card.")
                 Console.WriteLine(Val.Model.Gifts.Count + 2 & ") Exit.")
                 Console.WriteLine("------------------------------------")
@@ -194,6 +268,10 @@ Module EconomyModule
                 Dim Str As String = Console.ReadLine - 1
                 Select Case Str
                     Case 0 To Val.Model.Gifts.Count - 1
+                        If Choice = True Then
+                            ChoiceRef = Val.Model.Gifts(Str)
+                            Exit Do
+                        End If
                         GiftsCardsModule.Menu(Ref, Val.Model.Gifts(Str))
                         Continue Do
                     Case Val.Model.Gifts.Count

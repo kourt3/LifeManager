@@ -23,6 +23,7 @@ Namespace Controller
 
     Public Class Controller(Of TExternalRef As MyBook.IHasPrimaryKey(Of Int32))
 
+        Public Base
 
         Public EconomyService As EconomyProject.Services.Service
         Public PortofolioService As Portofolio.Service.PortofolioService

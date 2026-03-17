@@ -34,9 +34,9 @@ Module BankCardsModule
             Dim Str As String = Console.ReadLine
             Select Case Str
                 Case 1
-                    TransferModule.SearchMenu(RefBankCard)
+                    TransferModule.SearchMenu(Ref, "BankCard", RefBankCard.PrimaryKey)
                 Case 2
-                    TransferModule.Register(RefBankCard)
+                    TransferModule.Register(Ref, "BankCard", RefBankCard.PrimaryKey)
                 Case 3
                     ChangeName(RefBankCard)
                 Case 4

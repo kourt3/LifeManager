@@ -2,13 +2,15 @@
 Module TransferModule
     Friend Sub Info(Model As Contracts.IModel)
         Console.WriteLine("ID: " & Model.PrimaryKey)
+        Console.WriteLine("Category: " & Model.FromCategory)
         Console.WriteLine("From: " & Model.ExternalID)
         Console.WriteLine("Money: " & Model.MoneyValue)
+        Console.WriteLine("To Category: " & Model.ToCategory)
         Console.WriteLine("To: " & Model.ToExternalID)
         Console.WriteLine("Date: " & Model.CreateAt)
         Console.WriteLine("Description: " & Model.Description)
     End Sub
-    Friend Sub Menu(Ref As Contracts.IReference)
+    Friend Sub Menu(Ref As Entity.IReference)
         Do
             Console.Clear()
             Dim Val As MyBook.ValMsg(Of Contracts.Contract) = TransferService.Exist(Ref)
@@ -43,7 +45,45 @@ Module TransferModule
             End Select
         Loop
     End Sub
-    Friend Sub Register(Ref As Economy.Portofolio.Entity.IReference)
+    Friend Sub ChoiceListEconomy(Myref As AccountComponent.Contracts.IReference, ByRef ChoiceCategoryEconomy As String, ByRef ChoiceEconomyId As Integer)
+        Dim RefPerson As AccountComponent.Contracts.IReference = New AccountComponent.Contracts.Contracts
+        Do
+            Console.WriteLine("------------- Choice on the list --------------")
+            Console.WriteLine("1) Friends.")
+            Console.WriteLine("2) Cohrabition.")
+            Console.WriteLine("3) Family.")
+            Console.WriteLine("4) Exit.")
+            Console.WriteLine("---------------------")
+            Console.WriteLine("Επέλεξε:")
+            Dim ChoicePerson As String = Console.ReadLine
+            Select Case ChoicePerson
+                Case 1
+                    RelationShipModule.ListOfFriend(Myref, True, RefPerson)
+                Case 2
+                    Dim ApartmentRef As Apartment.Contracts.IReference = New Apartment.Contracts.Contracts
+                    CohrabitionModule.ListOfApartment(Myref, True, ApartmentRef)
+                    CohrabitionModule.ListOfCohrabition(ApartmentRef, Myref, Nothing, True, RefPerson)
+                Case 3
+                    FamilyModule.Menu(Myref, AccountService.Exist(Myref).Model.FamilyModel, RefPerson)
+                Case 4
+                    Exit Do
+                Case Else
+                    Continue Do
+            End Select
+
+            If RefPerson IsNot Nothing Then
+                EconomyModule.Menu(RefPerson, True, ChoiceCategoryEconomy, ChoiceEconomyId)
+                Exit Do
+            End If
+
+        Loop
+
+
+    End Sub
+
+
+
+    Friend Sub Register(Myref As AccountComponent.Contracts.IReference, CategoryEconomy As String, ExternalId As Integer)
         'Να κανουμε να επιλογη (Friends,relationship,cohrabition, family) -  ισως χρειαστει ενα generic function Choicer για ολα τα Project
         'Μετα να κανουμε αναζητηση το portofolio που εχει
         'και μετα να βαλουμε το ποσο 
@@ -64,13 +104,16 @@ Module TransferModule
                     Console.Clear()
                     Console.WriteLine("Καταχωρήστε ποιος σας Έστειλε Λεφτά:")
 
-                    RegisterDTO.ExternalID = Console.ReadLine
-                    RegisterDTO.ToExternalID = Ref.PrimaryKey
+                    ChoiceListEconomy(Myref, RegisterDTO.FromCategory, RegisterDTO.ExternalID)
+                    RegisterDTO.ToExternalID = ExternalId
+                    RegisterDTO.ToCategory = CategoryEconomy
+
                 Case 2
                     Console.Clear()
                     Console.WriteLine("Καταχωρήστε Σε ποιον Στέλνετε Λεφτά:")
-                    RegisterDTO.ToExternalID = Console.ReadLine
-                    RegisterDTO.ExternalID = Ref.PrimaryKey
+                    ChoiceListEconomy(Myref, RegisterDTO.ToCategory, RegisterDTO.ToExternalID)
+                    RegisterDTO.ExternalID = ExternalId
+                    RegisterDTO.FromCategory = CategoryEconomy
                 Case 3
                     Exit Do
                 Case Else
@@ -87,7 +130,7 @@ Module TransferModule
             Exit Sub
         Loop
     End Sub
-    Friend Sub ChangeMoney(Ref As Contracts.IReference)
+    Friend Sub ChangeMoney(Ref As Entity.IReference)
         Console.Clear()
         Dim Val As MyBook.ValMsg(Of Contracts.Contract) = TransferService.Exist(Ref)
         If Val.Success = False Then
@@ -106,7 +149,7 @@ Module TransferModule
             Exit Sub
         End If
     End Sub
-    Friend Sub ChangeDescription(Ref As Contracts.IReference)
+    Friend Sub ChangeDescription(Ref As Entity.IReference)
 
         Console.Clear()
         Dim Val As MyBook.ValMsg(Of Contracts.Contract) = TransferService.Exist(Ref)
@@ -127,7 +170,7 @@ Module TransferModule
         End If
 
     End Sub
-    Sub SearchMenu(Ref As Economy.Portofolio.Entity.IReference)
+    Sub SearchMenu(Myref As AccountComponent.Contracts.IReference, CategoryEconomy As String, ExternalId As Integer)
         Do
             Console.Clear()
             Console.WriteLine("---------- Analusis Data Transfer ----------")
@@ -139,21 +182,25 @@ Module TransferModule
             Dim Creteria As Contracts.ICreateria = New Contracts.Contract
             Select Case Str
                 Case 1
-                    Creteria.ToExternalID = Ref.PrimaryKey
+                    Creteria.ToCategory = CategoryEconomy
+                    Creteria.ToExternalID = ExternalId
                 Case 2
-                    Creteria.ExternalID = Ref.PrimaryKey
+                    Creteria.FromCategory = CategoryEconomy
+                    Creteria.ExternalID = ExternalId
                 Case 3
-                    Creteria.ExternalID = Ref.PrimaryKey
-                    Creteria.ToExternalID = Ref.PrimaryKey
+                    Creteria.FromCategory = CategoryEconomy
+                    Creteria.ToCategory = CategoryEconomy
+                    Creteria.ExternalID = ExternalId
+                    Creteria.ToExternalID = ExternalId
                 Case 4
                     Exit Do
                 Case Else
                     Continue Do
             End Select
-            ListOfTransfer(Ref, Creteria)
+            ListOfTransfer(Myref, CategoryEconomy, ExternalId, Creteria)
         Loop
     End Sub
-    Friend Sub ListOfTransfer(ref As Economy.Portofolio.Entity.IReference, Creteria As Economy.TransferProject.Contracts.ICreateria)
+    Friend Sub ListOfTransfer(Myref As AccountComponent.Contracts.IReference, CategoryEconomy As String, ExternalId As Integer, Creteria As Economy.TransferProject.Contracts.ICreateria)
         Do
             Console.Clear()
             Dim Val As MyBook.ValMsg(Of List(Of Contracts.IModel)) = TransferService.Search(Creteria)
@@ -167,7 +214,7 @@ Module TransferModule
                 Dim str As String = Console.ReadLine
                 Select Case str
                     Case 1
-                        Register(ref)
+                        Register(Myref, CategoryEconomy, ExternalId)
                         Continue Do
                     Case 2
                         Exit Do
@@ -193,7 +240,7 @@ Module TransferModule
                     Case 0 To index - 1
                         Menu(Val.Model(Int(Str)))
                     Case index
-                        Register(ref)
+                        Register(Myref, CategoryEconomy, ExternalId)
                         Continue Do
                     Case index + 1
                         Exit Do
@@ -205,7 +252,7 @@ Module TransferModule
 
         Loop
     End Sub
-    Friend Sub Remove(ref As Contracts.IReference)
+    Friend Sub Remove(ref As Entity.IReference)
         Console.Clear()
         Dim Val As MyBook.ValMsg(Of Contracts.Contract) = TransferService.Exist(ref)
         If Val.Success = False Then

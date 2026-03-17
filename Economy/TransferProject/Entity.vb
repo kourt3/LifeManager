@@ -1,7 +1,8 @@
-﻿Imports Economy.TransferProject.My.Ables
+﻿Imports Economy.TransferProject.Ables
 Imports MyBook
 
-Namespace TransferProject.My.Ables
+Namespace TransferProject.Ables
+
     Public Interface ICreateAT
         Property CreateAt As Date
     End Interface
@@ -10,26 +11,41 @@ Namespace TransferProject.My.Ables
         Property MoneyValue As Double
     End Interface
 
+    Public Interface ICategory
+        Interface IFromCategory
+            Property FromCategory As String
+        End Interface
+        Interface IToCategory
+            Property ToCategory As String
+        End Interface
+    End Interface
 End Namespace
-Namespace TransferProject.My.Entity
+Namespace TransferProject.Entity
 
     Structure Data
         Public Id As Integer
         Public CreateAt As Date
+        Public FromCategory As String
         Public FromExternalId As Integer
         Public MoneyValue As Double
         Public ToExternaId As Integer
+        Public ToCategory As String
         Public Desctiption As String
     End Structure
-    Public Interface IEntity
+
+    Public Interface IReference
         Inherits MyBook.IHasPrimaryKey(Of Integer)
+    End Interface
+    Public Interface IEntity
+        Inherits IReference
         Inherits MyBook.IHasDescription
         Inherits MyBook.IHasExtrernalID(Of Integer).IHasFromExternalID, MyBook.IHasExtrernalID(Of Integer).IHasToExternalID
         Inherits Ables.ICreateAT, Ables.IMoneyValue
+        Inherits Ables.ICategory.IFromCategory, Ables.ICategory.IToCategory
     End Interface
 
     Public Class Entity
-        Implements IEntity
+        Implements IEntity, IReference
 
         Private Data As New Data
         Public Property PrimaryKey As Integer Implements MyBook.IHasPrimaryKey(Of Integer).PrimaryKey
@@ -83,6 +99,24 @@ Namespace TransferProject.My.Entity
             End Get
             Set(value As Double)
                 Data.MoneyValue = value
+            End Set
+        End Property
+
+        Public Property FromCategory As String Implements ICategory.IFromCategory.FromCategory
+            Get
+                Return Data.FromCategory
+            End Get
+            Set(value As String)
+                Data.FromCategory = value
+            End Set
+        End Property
+
+        Public Property ToCategory As String Implements ICategory.IToCategory.ToCategory
+            Get
+                Return Data.ToCategory
+            End Get
+            Set(value As String)
+                Data.ToCategory = value
             End Set
         End Property
     End Class

@@ -2,7 +2,7 @@
 Imports CohrabitionComponent
 Module CohrabitionModule
 
-    Friend Sub ListOfCohrabition(ApartmentRef As Apartment.Contracts.IReference, MyRef As AccountComponent.Contracts.IReference, Optional ThridRef As Contracts.IReference = Nothing)
+    Friend Sub ListOfCohrabition(ApartmentRef As Apartment.Contracts.IReference, MyRef As AccountComponent.Contracts.IReference, Optional ThridRef As Contracts.IReference = Nothing, Optional Choice As Boolean = False, Optional ByRef ChoiceRefPerson As AccountComponent.Contracts.IReference = Nothing)
         Do
             Console.Clear()
             Console.WriteLine("-------------- List Of Cograbition --------------------")
@@ -46,6 +46,10 @@ Module CohrabitionModule
                 Dim Str As String = Console.ReadLine - 1
                 Select Case Str
                     Case 0 To Index - 1
+                        If Choice = True Then
+                            ChoiceRefPerson = AccountService.Exist(New AccountComponent.Contracts.Contracts With {.PrimaryKey = Val.Model(Int(Str)).ExternalID}).Model
+                            Exit Do
+                        End If
                         ProfileModule.Menu(AccountService.Exist(New AccountComponent.Contracts.Contracts With {.PrimaryKey = Val.Model(Int(Str)).ExternalID}).Model)
                         Continue Do
                     Case Index
@@ -178,7 +182,7 @@ Module CohrabitionModule
         End Select
 
     End Sub
-    Friend Sub ListOfApartment(Ref As AccountComponent.Contracts.IReference)
+    Friend Sub ListOfApartment(Ref As AccountComponent.Contracts.IReference, Optional Choice As Boolean = Nothing, Optional ByRef ChoiceApartmentRef As Apartment.Contracts.IReference = Nothing)
         Do
             Console.Clear()
             Console.WriteLine("---------- List Of Apartment -------------")
@@ -216,6 +220,10 @@ Module CohrabitionModule
                 Dim Str As String = Console.ReadLine - 1
                 Select Case Str
                     Case 0 To index - 1
+                        If Choice = True Then
+                            ChoiceApartmentRef = Val.Model(Int(Str)).ApartmentModel
+                            Exit Do
+                        End If
                         ApartmentModule.Menu(Val.Model(Int(Str)).ApartmentModel, Ref)
                         Continue Do
                     Case index
