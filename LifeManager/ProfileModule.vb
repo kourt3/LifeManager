@@ -75,7 +75,7 @@ Module ProfileModule
 
                 Select Case Str
                     Case 1
-                        EconomyModule.Menu(Ref)
+                        EconomyModule.Menu(ThirdRef)
                     Case 2
                         PersonModule.Menu(Model.PersonModel)
                     Case 3
@@ -121,7 +121,7 @@ Module ProfileModule
 
                 Select Case Str
                     Case 1
-                        EconomyModule.Menu(Ref)
+                        EconomyModule.Menu(ThirdRef)
                     Case 2
                         PersonModule.Menu(Model.PersonModel)
                     Case 3

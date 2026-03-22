@@ -2,21 +2,27 @@
 
 Namespace Controller
     Public Interface IModel
+
         Property Portofolies As List(Of Portofolio.Contracts.IModel)
         Property BankCards As List(Of BankCardsProject.Contracts.IModel)
         Property Gifts As List(Of GiftsCard.Contracs.IModel)
+
+
     End Interface
     Public Class Model
         Implements IModel
+
 
         Public Property Portofolies As List(Of Portofolio.Contracts.IModel) Implements IModel.Portofolies
         Public Property BankCards As List(Of BankCardsProject.Contracts.IModel) Implements IModel.BankCards
         Public Property Gifts As List(Of GiftsCard.Contracs.IModel) Implements IModel.Gifts
 
+
         Sub New()
             Portofolies = New List(Of Portofolio.Contracts.IModel)
             BankCards = New List(Of BankCardsProject.Contracts.IModel)
             Gifts = New List(Of GiftsCard.Contracs.IModel)
+
         End Sub
 
     End Class

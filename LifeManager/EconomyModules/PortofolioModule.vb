@@ -5,6 +5,13 @@ Module PortofolioModule
         Console.WriteLine("ID: " & Model.PrimaryKey)
         Console.WriteLine("Name: " & Model.Name)
         Console.WriteLine("Description: " & Model.Description)
+
+        Dim ValTransferController As MyBook.ValMsg(Of Economy.TransferController.IModelController) = TransferController.Model("Portofolio", Model.PrimaryKey)
+        If ValTransferController.Model IsNot Nothing Then
+            Console.WriteLine("Έσοδα: " & ValTransferController.Model.Esoda)
+            Console.WriteLine("Έξοδα: " & ValTransferController.Model.Exoda)
+            Console.WriteLine("Σύνολο: " & ValTransferController.Model.Sum)
+        End If
     End Sub
 
     Friend Sub Menu(Ref As AccountComponent.Contracts.IReference, RefPortofolio As Economy.Portofolio.Entity.IReference)

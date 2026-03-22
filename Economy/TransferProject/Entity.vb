@@ -11,7 +11,37 @@ Namespace TransferProject.Ables
         Property MoneyValue As Double
     End Interface
 
+    ''' <summary>
+    ''' For Economy
+    ''' </summary>
+    Public Interface IEconomyId
+        Property EconomyID As Integer
+        Interface FromEconomyId
+            Property FromEconomyID As Integer
+        End Interface
+        Interface ToEconomyID
+            Property ToEconomyID As Integer
+        End Interface
+    End Interface
+
+    ''' <summary>
+    ''' For PartEconomy("Portofolio,BankCard,GiftCard")
+    ''' </summary>
+    Public Interface PartEconomyID
+        Property PartEconomyId As Integer
+        Interface FromPartEconomyID
+            Property FromPartEconomyID As Integer
+        End Interface
+        Interface ToPartEconomyID
+            Property ToPartEconomyID As Integer
+        End Interface
+    End Interface
+
+    ''' <summary>
+    ''' Category
+    ''' </summary>
     Public Interface ICategory
+        Property Category As String
         Interface IFromCategory
             Property FromCategory As String
         End Interface
@@ -25,9 +55,11 @@ Namespace TransferProject.Entity
     Structure Data
         Public Id As Integer
         Public CreateAt As Date
+        Public FromEconomyID As Integer
         Public FromCategory As String
         Public FromExternalId As Integer
         Public MoneyValue As Double
+        Public ToEconomyID As Integer
         Public ToExternaId As Integer
         Public ToCategory As String
         Public Desctiption As String
@@ -39,9 +71,10 @@ Namespace TransferProject.Entity
     Public Interface IEntity
         Inherits IReference
         Inherits MyBook.IHasDescription
-        Inherits MyBook.IHasExtrernalID(Of Integer).IHasFromExternalID, MyBook.IHasExtrernalID(Of Integer).IHasToExternalID
-        Inherits Ables.ICreateAT, Ables.IMoneyValue
+        Inherits Ables.IEconomyId.FromEconomyId, Ables.IEconomyId.ToEconomyID
+        Inherits Ables.PartEconomyID.FromPartEconomyID, Ables.PartEconomyID.ToPartEconomyID
         Inherits Ables.ICategory.IFromCategory, Ables.ICategory.IToCategory
+        Inherits Ables.ICreateAT, Ables.IMoneyValue
     End Interface
 
     Public Class Entity
@@ -65,25 +98,6 @@ Namespace TransferProject.Entity
                 Data.Desctiption = value
             End Set
         End Property
-
-        Public Property ExternalID As Integer Implements IHasExtrernalID(Of Integer).IHasFromExternalID.ExternalID
-            Get
-                Return Data.FromExternalId
-            End Get
-            Set(value As Integer)
-                Data.FromExternalId = value
-            End Set
-        End Property
-
-        Public Property ToExternalID As Integer Implements IHasExtrernalID(Of Integer).IHasToExternalID.ToExternalID
-            Get
-                Return Data.ToExternaId
-            End Get
-            Set(value As Integer)
-                Data.ToExternaId = value
-            End Set
-        End Property
-
         Public Property CreateAt As Date Implements ICreateAT.CreateAt
             Get
                 Return Data.CreateAt
@@ -117,6 +131,42 @@ Namespace TransferProject.Entity
             End Get
             Set(value As String)
                 Data.ToCategory = value
+            End Set
+        End Property
+
+        Public Property FromEconomyID As Integer Implements IEconomyId.FromEconomyId.FromEconomyID
+            Get
+                Return Data.FromEconomyID
+            End Get
+            Set(value As Integer)
+                Data.FromEconomyID = value
+            End Set
+        End Property
+
+        Public Property ToEconomyID As Integer Implements IEconomyId.ToEconomyID.ToEconomyID
+            Get
+                Return Data.ToEconomyID
+            End Get
+            Set(value As Integer)
+                Data.ToEconomyID = value
+            End Set
+        End Property
+
+        Public Property FromPartEconomyID As Integer Implements PartEconomyID.FromPartEconomyID.FromPartEconomyID
+            Get
+                Return Data.FromExternalId
+            End Get
+            Set(value As Integer)
+                Data.FromExternalId = value
+            End Set
+        End Property
+
+        Public Property ToPartEconomyID As Integer Implements PartEconomyID.ToPartEconomyID.ToPartEconomyID
+            Get
+                Return Data.ToExternaId
+            End Get
+            Set(value As Integer)
+                Data.ToExternaId = value
             End Set
         End Property
     End Class

@@ -2,11 +2,13 @@
 Module TransferModule
     Friend Sub Info(Model As Contracts.IModel)
         Console.WriteLine("ID: " & Model.PrimaryKey)
-        Console.WriteLine("Category: " & Model.FromCategory)
-        Console.WriteLine("From: " & Model.ExternalID)
+        Console.WriteLine("From Economy ID: " & Model.FromEconomyID)
+        Console.WriteLine("From Category: " & Model.FromCategory)
+        Console.WriteLine("From: " & Model.FromPartEconomyID)
         Console.WriteLine("Money: " & Model.MoneyValue)
+        Console.WriteLine("To Economy ID: " & Model.ToEconomyID)
         Console.WriteLine("To Category: " & Model.ToCategory)
-        Console.WriteLine("To: " & Model.ToExternalID)
+        Console.WriteLine("To: " & Model.ToPartEconomyID)
         Console.WriteLine("Date: " & Model.CreateAt)
         Console.WriteLine("Description: " & Model.Description)
     End Sub
@@ -52,7 +54,8 @@ Module TransferModule
             Console.WriteLine("1) Friends.")
             Console.WriteLine("2) Cohrabition.")
             Console.WriteLine("3) Family.")
-            Console.WriteLine("4) Exit.")
+            Console.WriteLine("4) Find System.")
+            Console.WriteLine("5) Exit.")
             Console.WriteLine("---------------------")
             Console.WriteLine("Επέλεξε:")
             Dim ChoicePerson As String = Console.ReadLine
@@ -66,6 +69,8 @@ Module TransferModule
                 Case 3
                     FamilyModule.Menu(Myref, AccountService.Exist(Myref).Model.FamilyModel, RefPerson)
                 Case 4
+                    ProfileModule.ListOfProfiles(Myref, True, RefPerson)
+                Case 5
                     Exit Do
                 Case Else
                     Continue Do
@@ -81,13 +86,7 @@ Module TransferModule
 
     End Sub
 
-
-
     Friend Sub Register(Myref As AccountComponent.Contracts.IReference, CategoryEconomy As String, ExternalId As Integer)
-        'Να κανουμε να επιλογη (Friends,relationship,cohrabition, family) -  ισως χρειαστει ενα generic function Choicer για ολα τα Project
-        'Μετα να κανουμε αναζητηση το portofolio που εχει
-        'και μετα να βαλουμε το ποσο 
-
         Do
             Dim FromTrans As String = Nothing, ToTrans As String = Nothing
             Dim RegisterDTO As Contracts.IRegisterDTO = New Contracts.Contract
@@ -104,15 +103,15 @@ Module TransferModule
                     Console.Clear()
                     Console.WriteLine("Καταχωρήστε ποιος σας Έστειλε Λεφτά:")
 
-                    ChoiceListEconomy(Myref, RegisterDTO.FromCategory, RegisterDTO.ExternalID)
-                    RegisterDTO.ToExternalID = ExternalId
+                    ChoiceListEconomy(Myref, RegisterDTO.FromCategory, RegisterDTO.FromPartEconomyID)
+                    RegisterDTO.ToPartEconomyID = ExternalId
                     RegisterDTO.ToCategory = CategoryEconomy
 
                 Case 2
                     Console.Clear()
                     Console.WriteLine("Καταχωρήστε Σε ποιον Στέλνετε Λεφτά:")
-                    ChoiceListEconomy(Myref, RegisterDTO.ToCategory, RegisterDTO.ToExternalID)
-                    RegisterDTO.ExternalID = ExternalId
+                    ChoiceListEconomy(Myref, RegisterDTO.ToCategory, RegisterDTO.ToPartEconomyID)
+                    RegisterDTO.FromPartEconomyID = ExternalId
                     RegisterDTO.FromCategory = CategoryEconomy
                 Case 3
                     Exit Do
@@ -124,7 +123,8 @@ Module TransferModule
             Console.WriteLine("Δωστε καποια πληροφορία:")
             RegisterDTO.Description = Console.ReadLine
             RegisterDTO.CreateAt = Now
-            Dim Val As MyBook.ValMsg(Of Contracts.Contract) = TransferService.Register(RegisterDTO)
+            Dim Val As MyBook.ValMsg(Of Economy.TransferProject.Contracts.Contract) = TransferService.Register(RegisterDTO)
+
             Console.WriteLine(Val.Msg)
             Console.ReadLine()
             Exit Sub
@@ -183,15 +183,15 @@ Module TransferModule
             Select Case Str
                 Case 1
                     Creteria.ToCategory = CategoryEconomy
-                    Creteria.ToExternalID = ExternalId
+                    Creteria.ToPartEconomyID = ExternalId
                 Case 2
                     Creteria.FromCategory = CategoryEconomy
-                    Creteria.ExternalID = ExternalId
+                    Creteria.FromPartEconomyID = ExternalId
                 Case 3
                     Creteria.FromCategory = CategoryEconomy
                     Creteria.ToCategory = CategoryEconomy
-                    Creteria.ExternalID = ExternalId
-                    Creteria.ToExternalID = ExternalId
+                    Creteria.FromPartEconomyID = ExternalId
+                    Creteria.ToPartEconomyID = ExternalId
                 Case 4
                     Exit Do
                 Case Else
@@ -228,7 +228,7 @@ Module TransferModule
                 Dim index As Integer = 0
                 For Each Transfer In Val.Model
                     index += 1
-                    Console.WriteLine(index & ") " & Transfer.ExternalID & " " & Transfer.MoneyValue & " " & Transfer.ToExternalID & " " & Transfer.Description & " " & Transfer.CreateAt)
+                    Console.WriteLine(index & ") " & Transfer.FromPartEconomyID & " " & Transfer.MoneyValue & " " & Transfer.ToPartEconomyID & " " & Transfer.Description & " " & Transfer.CreateAt)
                 Next
                 Console.WriteLine("-------------------------------------------")
                 Console.WriteLine("1 -" & index & ") Επιλογη κίνησης.")

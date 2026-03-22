@@ -34,44 +34,12 @@ Namespace Contracts
     Public Class Contracts
         Implements IRegisterDTO, IChangeFirstNameDTO, IChangeSecondNameDTO, IChangeFirstNameAndSecondNameDTO, IBirthDay, IModel
 
-        Private NewData As New My.Enity.Data
-        Private _Choice As Boolean
+
 
         Public Property FristName As String Implements IFirstName.FristName
-            Get
-                Return NewData.FirstName
-            End Get
-            Set(value As String)
-                NewData.FirstName = value
-            End Set
-        End Property
-
         Public Property SecondName As String Implements ISecondName.SecondName
-            Get
-                Return NewData.SecondName
-            End Get
-            Set(value As String)
-                NewData.SecondName = value
-            End Set
-        End Property
-
         Public Property Birthday As Date Implements My.Ables.IBirthDay.Birthday
-            Get
-                Return NewData.Birthday
-            End Get
-            Set(value As Date)
-                NewData.Birthday = value
-            End Set
-        End Property
         Public Property PrimaryKey As Integer Implements IHasPrimaryKey(Of Integer).PrimaryKey
-            Get
-                Return NewData.Id
-            End Get
-            Set(value As Integer)
-                NewData.Id = value
-            End Set
-        End Property
-
         Public ReadOnly Property FullName As String Implements IFullName.FullName
             Get
                 Return FristName & " " & SecondName

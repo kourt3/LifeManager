@@ -2,17 +2,55 @@
 
 Module EconomyModule
     Friend Sub Info(Model As Economy.Controller.IModel)
-        If Model.Portofolies IsNot Nothing Then Console.WriteLine("Portofolies: " & Model.Portofolies.Count)
-        If Model.BankCards IsNot Nothing Then Console.WriteLine("Bank Cards: " & Model.BankCards.Count)
-        If Model.Gifts IsNot Nothing Then Console.WriteLine("Gifts Cards: " & Model.Gifts.Count)
+        Dim Esoda, Exoda, Sum As Double
+
+
+
+        If Model.Portofolies IsNot Nothing Then
+            Console.WriteLine("Portofolies: " & Model.Portofolies.Count)
+            For Each Portofolies In Model.Portofolies
+                Dim Models As TransferController.IModelController = TransferController.Model("Portofolio", Portofolies.PrimaryKey).Model
+                If Models IsNot Nothing Then
+                    Esoda += Models.Esoda
+                    Exoda += Models.Exoda
+                End If
+            Next
+        End If
+        If Model.BankCards IsNot Nothing Then
+            Console.WriteLine("Bank Cards: " & Model.BankCards.Count)
+            For Each BankCards In Model.BankCards
+                Dim Models As TransferController.IModelController = TransferController.Model("BankCard", BankCards.PrimaryKey).Model
+                If Models IsNot Nothing Then
+                    Esoda += Models.Esoda
+                    Exoda += Models.Exoda
+                End If
+            Next
+        End If
+
+        If Model.Gifts IsNot Nothing Then
+            Console.WriteLine("Gifts Cards: " & Model.Gifts.Count)
+            For Each Gifts In Model.Gifts
+                Dim Models As TransferController.IModelController = TransferController.Model("Gifts", Gifts.PrimaryKey).Model
+                If Models IsNot Nothing Then
+                    Esoda += Models.Esoda
+                    Exoda += Models.Exoda
+                End If
+            Next
+        End If
+
+        Sum = Esoda - Exoda
+
+        Console.WriteLine("------------------")
+        Console.WriteLine("Έσοδα: " & Esoda)
+        Console.WriteLine("Έξοδα: " & Exoda)
+        Console.WriteLine("Σύνολο: " & Sum)
+        Console.WriteLine("------------------")
     End Sub
     Friend Sub Menu(Ref As AccountComponent.Contracts.IReference, Optional Choice As Boolean = False, Optional ByRef Category As String = Nothing, Optional ByRef ExternalId As Integer = Nothing)
 
         While Choice = False
             Console.Clear()
             Dim ValEconomy As MyBook.ValMsg(Of Controller.IModel) = EconomyController.Model(Ref.PrimaryKey)
-
-
 
             Console.WriteLine("------------- Economy -------------")
             If ValEconomy.Success = False Then

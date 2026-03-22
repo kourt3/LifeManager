@@ -11,6 +11,7 @@ Namespace Services
     ''' <summary>
     ''' Service And Mapping Και PK για Μοναδικες Εγραφες!
     ''' ToModel,ToEntity
+    ''' Return Model
     ''' </summary>
     ''' <typeparam name="TKey"></typeparam>
     ''' <typeparam name="TModel"></typeparam>

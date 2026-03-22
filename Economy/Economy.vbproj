@@ -97,6 +97,7 @@
     <Compile Include="PortofolioProject\PortofolioService.vb" />
     <Compile Include="Economy\Repository.vb" />
     <Compile Include="Economy\Service.vb" />
+    <Compile Include="TransferController.vb" />
     <Compile Include="TransferProject\Contracts.vb" />
     <Compile Include="TransferProject\Entity.vb" />
     <Compile Include="TransferProject\TransferRepository.vb" />
