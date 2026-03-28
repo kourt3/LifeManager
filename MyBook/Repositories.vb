@@ -5,7 +5,6 @@
     ''' <typeparam name="Tkey">Type PK</typeparam>
     ''' <typeparam name="TEntity">Entity</typeparam>
     Public Interface IRepository(Of Tkey, TEntity As MyBook.IHasPrimaryKey(Of Tkey))
-        Property Rep As List(Of TEntity)
         ''' <summary>
         ''' Δινει καινουργιο ID
         ''' </summary>
@@ -62,7 +61,7 @@
     Public MustInherit Class Repository(Of Tkey, TEntity As MyBook.IHasPrimaryKey(Of Tkey))
         Implements IRepository(Of Tkey, TEntity)
 
-        Protected Friend Property Rep As New List(Of TEntity) Implements IRepository(Of Tkey, TEntity).Rep
+        Protected Friend Property Rep As New List(Of TEntity)
 
         Public Overridable Sub RemoveAll() Implements IRepository(Of Tkey, TEntity).RemoveAll
             Rep.Clear()
@@ -71,7 +70,7 @@
         Public Overridable Function Create(Entity As TEntity) As Boolean Implements IRepository(Of Tkey, TEntity).Create
             Dim rnd As New Random
 Again:
-                Randomize()
+            Randomize()
             Entity.PrimaryKey = CType(rnd.Next, Object)
             For i = 0 To Rep.Count - 1
                 If Equals(Rep(i).PrimaryKey, Entity.PrimaryKey) Then
@@ -159,8 +158,8 @@ Again:
             Dim rnd As New Random
             Dim PK As Tkey = CType(0, Object)
 Again:
-                Randomize()
-                PK = CType(rnd.Next, Object)
+            Randomize()
+            PK = CType(rnd.Next, Object)
 
             For i = 0 To Rep.Count - 1
                 If Equals(Rep(i).PrimaryKey, PK) Then
@@ -185,8 +184,8 @@ Again:
         Public Function CreateAndReturnID(Entity As TEntity, ByRef PK As Tkey) As Boolean Implements IRepository(Of Tkey, TEntity).CreateAndReturnID
             Dim rnd As New Random
 Again:
-                Randomize()
-                PK = CType(rnd.Next, Object)
+            Randomize()
+            PK = CType(rnd.Next, Object)
             Entity.PrimaryKey = PK
             For i = 0 To Rep.Count - 1
                 If Equals(Rep(i).PrimaryKey, Entity.PrimaryKey) Then
@@ -236,6 +235,7 @@ Again:
         End Function
 
         MustOverride Function Match(Of TCreteria)(Entity As TEntity, Creteria As TCreteria) As Boolean
+
         Public Function Find(Of TCreteria)(Creteria As TCreteria) As TEntity Implements IRepository(Of Tkey, TEntity).Find
             For i = 0 To Rep.Count - 1
                 If Match(Rep(i), Creteria) Then Return Rep(i)
@@ -264,5 +264,194 @@ Again:
             Return True
         End Function
     End Class
+
+
+
+
+    Public MustInherit Class DatabaseRepository(Of Tkey, TEntity As MyBook.IHasPrimaryKey(Of Tkey))
+
+        Implements MyBook.Repositories.IRepository(Of Tkey, TEntity)
+
+        ReadOnly Table As String
+        ReadOnly Columns As String
+        Public Database As database.DatabaseContecter
+
+        Sub New(Version As String, ConnectDatabase As String, tablelink As String, ColumnsString As String)
+            Database = New database.DatabaseContecter(Version, ConnectDatabase)
+            Table = tablelink
+            Columns = ColumnsString
+        End Sub
+
+        MustOverride Function ConvertRows(Entity As TEntity) As String()
+        MustOverride Function ConvertEntity(DT As DataRow) As TEntity
+        MustOverride Function Match(Of TCreteria)(Entity As TEntity, Creteria As TCreteria) As Boolean
+
+        Public Sub RemoveAll() Implements IRepository(Of Tkey, TEntity).RemoveAll
+            Database.TableDbOLe(Database.DeleteDB(Table))
+        End Sub
+
+        Public Function GeneredID() As Tkey Implements IRepository(Of Tkey, TEntity).GeneredID
+            Dim rnd As New Random
+            Dim PK As Tkey = CType(0, Object)
+            Dim DT As New DataTable
+
+
+Again:
+            Randomize()
+            PK = CType(rnd.Next, Object)
+            Database.TableDbOLe(Database.SelectWhereDB(Table, "[ID]=" & CType(PK, Object)), DT)
+
+            If DT.Rows.Count > 0 Then
+                DT.Clear()
+                GoTo Again
+            End If
+
+
+            Return PK
+        End Function
+
+        Public Function Create(Entity As TEntity) As Boolean Implements IRepository(Of Tkey, TEntity).Create
+            Dim rnd As New Random
+            Dim DT As New DataTable
+Again:
+            Randomize()
+            Entity.PrimaryKey = CType(rnd.Next, Object)
+            Database.TableDbOLe(Database.SelectWhereDB(Table, "[ID]=" & CType(Entity.PrimaryKey, Object)), DT)
+
+            If DT.Rows.Count > 0 Then
+                DT.Clear()
+                GoTo Again
+            End If
+            Database.TableDbOLe(Database.insertDB(Table, Columns, ConvertRows(Entity)))
+            Return True
+        End Function
+
+        Public Function Add(Entity As TEntity) As Boolean Implements IRepository(Of Tkey, TEntity).Add
+            Database.TableDbOLe(Database.insertDB(Table, Columns, ConvertRows(Entity)))
+            Return True
+        End Function
+
+        Public Function TryCreate(Entity As TEntity, PK As Tkey) As Boolean Implements IRepository(Of Tkey, TEntity).TryCreate
+            Database.TableDbOLe(Database.insertDB(Table, Columns, ConvertRows(Entity)))
+            Return True
+        End Function
+
+        Public Function CreateAndReturnID(Entity As TEntity, ByRef PK As Tkey) As Boolean Implements IRepository(Of Tkey, TEntity).CreateAndReturnID
+            Throw New NotImplementedException()
+        End Function
+
+        Public Function Update(PK As Tkey, Entity As TEntity) As Boolean Implements IRepository(Of Tkey, TEntity).Update
+            Database.TableDbOLe(Database.updateDB(Table, "[ID]=" & CType(PK, Object), Columns, ConvertRows(Entity)))
+            Return True
+        End Function
+
+        Public Function UpdateAt(index As Integer, Entity As TEntity) As Boolean Implements IRepository(Of Tkey, TEntity).UpdateAt
+            Dim DT As New DataTable
+            Database.TableDbOLe(Database.SelectDB(Table), DT)
+            Dim ID As Integer = DT(index)(0)
+            Database.TableDbOLe(Database.updateDB(Table, "[ID]=" & ID, Columns, ConvertRows(Entity)))
+            Return True
+        End Function
+
+        Public Function UpdateWhere(Match As Predicate(Of TEntity), Update As Func(Of TEntity, TEntity)) As Boolean Implements IRepository(Of Tkey, TEntity).UpdateWhere
+            Throw New NotImplementedException()
+        End Function
+
+        Public Function Delete(Entity As TEntity) As Boolean Implements IRepository(Of Tkey, TEntity).Delete
+            Throw New NotImplementedException()
+        End Function
+
+        Public Function Delete(PK As Tkey) As Boolean Implements IRepository(Of Tkey, TEntity).Delete
+            Database.TableDbOLe(Database.DeleteDB(Table, "[ID]=" & CType(PK, Object)))
+            Return True
+        End Function
+
+        Public Function DeleteAt(Index As Integer) As Boolean Implements IRepository(Of Tkey, TEntity).DeleteAt
+            Dim DT As New DataTable
+            Database.TableDbOLe(Database.SelectDB(Table), DT)
+            Dim ID As Integer = DT(Index)(0)
+            Database.TableDbOLe(Database.DeleteDB(Table, "[ID]=" & ID))
+            Return True
+        End Function
+
+        Public Function DeleteWhere(Match As Predicate(Of TEntity)) As Boolean Implements IRepository(Of Tkey, TEntity).DeleteWhere
+            Throw New NotImplementedException()
+        End Function
+
+        Public Function Read_All() As List(Of TEntity) Implements IRepository(Of Tkey, TEntity).Read_All
+            Dim DT As New DataTable
+            Dim ListEntity As New List(Of TEntity)
+            Database.TableDbOLe(Database.SelectDB(Table), DT)
+            For i = 0 To DT.Rows.Count - 1
+                ListEntity.Add(ConvertEntity(DT(i)))
+            Next
+            Return ListEntity
+        End Function
+
+        Public Function Read_Item(PK As Tkey) As TEntity Implements IRepository(Of Tkey, TEntity).Read_Item
+            Dim DT As New DataTable
+            Database.TableDbOLe(Database.SelectWhereDB(Table, "[ID]=" & CType(PK, Object)), DT)
+            If DT.Rows.Count = 0 Then
+                Return Nothing
+            End If
+            Return ConvertEntity(DT(0))
+        End Function
+
+        Public Function Read_ItemAt(Index As Integer) As TEntity Implements IRepository(Of Tkey, TEntity).Read_ItemAt
+            Dim DT As New DataTable
+            Database.TableDbOLe(Database.SelectDB(Table), DT)
+            Return ConvertEntity(DT(Index))
+        End Function
+
+        Public Function Exist(PK As Tkey) As Boolean Implements IRepository(Of Tkey, TEntity).Exist
+            Dim DT As New DataTable
+            Database.TableDbOLe(Database.SelectWhereDB(Table, "[ID]=" & CType(PK, Object)), DT)
+            If DT.Rows.Count = 0 Then
+                Return False
+            End If
+            Return True
+        End Function
+
+        Public Function Find(Of TCreteria)(Creteria As TCreteria) As TEntity Implements IRepository(Of Tkey, TEntity).Find
+            Dim DT As New DataTable
+            Database.TableDbOLe(Database.SelectDB(Table), DT)
+            For i = 0 To DT.Rows.Count - 1
+                If Match(ConvertEntity(DT(i)), Creteria) Then Return ConvertEntity(DT(i))
+            Next
+        End Function
+
+        Public Function Find(Match As Predicate(Of TEntity)) As TEntity Implements IRepository(Of Tkey, TEntity).Find
+            Dim DT As New DataTable
+            Database.TableDbOLe(Database.SelectDB(Table), DT)
+            For i = 0 To DT.Rows.Count - 1
+                If Match(ConvertEntity(DT(i))) Then Return ConvertEntity(DT(i))
+            Next
+        End Function
+
+        Public Function Search(Of TCreteria)(Creteria As TCreteria) As List(Of TEntity) Implements IRepository(Of Tkey, TEntity).Search
+            Dim Entity As New List(Of TEntity)
+            Dim DT As New DataTable
+            Database.TableDbOLe(Database.SelectDB(Table), DT)
+            For i = 0 To DT.Rows.Count - 1
+                If Match(ConvertEntity(DT(i)), Creteria) Then
+                    Entity.Add(ConvertEntity(DT(i)))
+                End If
+            Next
+            Return Entity
+        End Function
+
+        Public Function Search(Matches As Predicate(Of TEntity)) As List(Of TEntity) Implements IRepository(Of Tkey, TEntity).Search
+            Dim Entity As New List(Of TEntity)
+            Dim DT As New DataTable
+            Database.TableDbOLe(Database.SelectDB(Table), DT)
+            For i = 0 To DT.Rows.Count - 1
+                If Matches(ConvertEntity(DT(i))) Then
+                    Entity.Add(ConvertEntity(DT(i)))
+                End If
+            Next
+            Return Entity
+        End Function
+    End Class
+
 End Namespace
 

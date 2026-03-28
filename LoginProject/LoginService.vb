@@ -1,7 +1,12 @@
 ﻿Imports MyBook
 Namespace Service
     Public Class LoginService
-        Inherits MyBook.Services.Service(Of Integer, Contracts.Contracts, My.Entity.Entity, LoginProject.Repositories.LoginRepository)
+        Inherits MyBook.Services.Service(Of Integer, Contracts.Contracts, My.Entity.Entity, LoginProject.Repositories.DatabaseRepository)
+
+        Sub New()
+            MyBase.New(New Repositories.DatabaseRepository)
+        End Sub
+
 
         Function Login(LoginDTO As Contracts.ILoginDTO) As MyBook.ValMsg(Of Contracts.IModel)
             Dim Result As New ValMsg(Of Contracts.IModel)
@@ -41,11 +46,10 @@ Namespace Service
                 End With
                 Return Val
             End If
+
             Return MyBase.Register(RegisterDTO)
         End Function
-        Sub New()
-            MyBase.New(New Repositories.LoginRepository)
-        End Sub
+
 
         Public Overrides Function ToModel(Entity As My.Entity.Entity) As Contracts.Contracts
             Dim Model As Contracts.IModel = New Contracts.Contracts

@@ -1,9 +1,9 @@
 ﻿Namespace Service
     Public Class PersonService
-        Inherits MyBook.Services.Service(Of Integer, Contracts.Contracts, My.Enity.Entity, PersonRepository)
+        Inherits MyBook.Services.Service(Of Integer, Contracts.Contracts, My.Enity.Entity, DatabaseRepository)
 
         Sub New()
-            MyBase.New(New PersonRepository)
+            MyBase.New(New DatabaseRepository)
         End Sub
 
 

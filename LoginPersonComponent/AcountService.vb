@@ -1,11 +1,11 @@
 ﻿Public Class AcountService
-    Inherits MyBook.Services.Service(Of Integer, Contracts.Contracts, My.Entity.Entity, AcountRepository)
+    Inherits MyBook.Services.Service(Of Integer, Contracts.Contracts, My.Entity.Entity, AccountDatabaseRepository)
 
     Private LoginService As LoginProject.Service.LoginService
     Private PersonService As PersonProject.Service.PersonService
     Private FamilyService As FamilyProject.Service.Service
     Sub New(LoginServiceLink As LoginProject.Service.LoginService, PersonServiceLink As PersonProject.Service.PersonService, FamilyServiceLink As FamilyProject.Service.Service)
-        MyBase.New(New AcountRepository)
+        MyBase.New(New AccountDatabaseRepository)
         LoginService = LoginServiceLink
         PersonService = PersonServiceLink
         FamilyService = FamilyServiceLink
@@ -117,7 +117,7 @@
     Public Overrides Function ToModel(Entity As My.Entity.Entity) As Contracts.Contracts
         Dim Model As Contracts.IModel = New Contracts.Contracts
         Model.LoginModel = LoginService.Exist(New LoginProject.Contracts.Contracts With {.PrimaryKey = Entity.LoginID}).Model
-        Model.PersonModel = PersonService.Exist(New PersonProject.Contracts.Contracts With {.PrimaryKey = Entity.PrimaryKey}).Model
+        Model.PersonModel = PersonService.Exist(New PersonProject.Contracts.Contracts With {.PrimaryKey = Entity.PersonID}).Model
         Model.FamilyModel = FamilyService.Exist(New FamilyProject.Contracts.Contracts With {.PrimaryKey = Entity.FamilyID}).Model
         Model.PrimaryKey = Entity.PrimaryKey
         Return Model

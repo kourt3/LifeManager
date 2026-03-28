@@ -12,44 +12,13 @@
     Public TransferController As New Economy.TransferController(TransferService)
 
 
+
     Public ProfileAndApartments As New CohrabitionComponent.Service.Service(Buildings, Apartnment)
     Public AccountService As New AccountComponent.AcountService(LoginService, PersonService, Family)
 
 
 
     Sub Main()
-
-        Dim DTO As AccountComponent.Contracts.ILoginAndPersonRegisterDTO = New AccountComponent.Contracts.Contracts
-        DTO.LoginDTO.Username = "paok"
-        DTO.LoginDTO.Password = "paok"
-        DTO.PersonDTO.FristName = "Dimitrios"
-        DTO.PersonDTO.SecondName = "Kourtesis"
-        DTO.PersonDTO.Birthday = "23/06/1995"
-        Dim Model As AccountComponent.Contracts.IModel = AccountService.Register(DTO).Model
-        Dim EconomyDTO As Economy.Portofolio.Contracts.IRegisterDTO = New Economy.Portofolio.Contracts.Contract
-        With EconomyDTO
-            .Name = "Spiti"
-            .Description = "Apo to spiti"
-        End With
-        EconomyController.AddPortofolio(Model, EconomyDTO)
-
-
-        DTO.LoginDTO.Username = "Pablos"
-        DTO.LoginDTO.Password = "Kourtesis"
-        DTO.PersonDTO.FristName = "Pavlos"
-        DTO.PersonDTO.SecondName = "Kourtesis"
-        DTO.PersonDTO.Birthday = "23/06/1997"
-        Model = AccountService.Register(DTO).Model
-
-
-        With EconomyDTO
-            .Name = "Spiti1"
-            .Description = "Apo to spiti1"
-        End With
-
-        EconomyController.AddPortofolio(Model, EconomyDTO)
-
-
 
         Console.Clear()
         Console.OutputEncoding = System.Text.Encoding.UTF8
