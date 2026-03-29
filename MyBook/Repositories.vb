@@ -341,7 +341,14 @@ Again:
         End Function
 
         Public Function Update(PK As Tkey, Entity As TEntity) As Boolean Implements IRepository(Of Tkey, TEntity).Update
-            Database.TableDbOLe(Database.updateDB(Table, "[ID]=" & CType(PK, Object), Columns, ConvertRows(Entity)))
+            Entity.PrimaryKey = PK
+            Dim Str As String() = ConvertRows(Entity)
+            Dim Str1(Str.Length - 2) As String
+            For i = 1 To Str.Length - 1
+                Str1(i - 1) = Str(i)
+            Next
+            Dim ColumnCopy As String = Columns.Replace("[ID],", Nothing)
+            Database.TableDbOLe(Database.updateDB(Table, "[ID]=" & CType(PK, Object), ColumnCopy, Str1))
             Return True
         End Function
 
@@ -349,7 +356,13 @@ Again:
             Dim DT As New DataTable
             Database.TableDbOLe(Database.SelectDB(Table), DT)
             Dim ID As Integer = DT(index)(0)
-            Database.TableDbOLe(Database.updateDB(Table, "[ID]=" & ID, Columns, ConvertRows(Entity)))
+            Dim Str As String() = ConvertRows(Entity)
+            Dim Str1(Str.Length - 2) As String
+            For i = 1 To Str.Length - 1
+                Str1(i - 1) = Str(i)
+            Next
+            Dim ColumnCopy As String = Columns.Replace("[ID],", Nothing)
+            Database.TableDbOLe(Database.updateDB(Table, "[ID]=" & ID, ColumnCopy, Str1))
             Return True
         End Function
 

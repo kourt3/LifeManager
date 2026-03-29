@@ -2,6 +2,7 @@
   <Project Path="Apartment/Apartment.vbproj" Id="b939d5c4-6d1b-4f7e-a738-e43189eecbf0" />
   <Project Path="Buildings/Buildings.vbproj" Id="0bcdaa00-219e-4032-b0ea-684f529b068d" />
   <Project Path="ContactsProject/ContactsProject.vbproj" Id="36680a83-8dac-424b-b951-62c243c72bec" />
+  <Project Path="DiplomataProject/DiplomataProject.vbproj" Id="da08d8b3-2ebe-4460-b094-23219999c21a" />
   <Project Path="Economy/Economy.vbproj" Id="1c044c67-2813-4ab7-a469-3458920ebfc3" />
   <Project Path="FamilyProject/FamilyProject.vbproj" Id="9d148d1b-473c-44e6-b21a-be379073ee49" />
   <Project Path="LifeManager/LifeManager.vbproj" Id="ec3a11fc-7b26-4490-99ef-c56ff3d6eadf" />

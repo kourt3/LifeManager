@@ -83,10 +83,10 @@
         Help.AddOption(Opt, Action, "Προφιλ.", Sub() ProfileModule.Menu(Model))
             Help.AddOption(Opt, Action, "Build.", Sub() BuildingsModule.ListOfBuild(Ref))
             Help.AddOption(Opt, Action, "List Of Profiles.", Sub() ProfileModule.ListOfProfiles(Ref))
+            Help.AddOption(Opt, Action, "Διπλώματα.", Sub() Diplomata.Menu())
             Help.AddOption(Opt, Action, "Διαχήρηση Είσοδου.", Sub() LoginModule.Menu(Model.LoginModel))
             Help.AddOption(Opt, Action, "Διαγραφή Λογαρισμού.", Sub() RemoveAcc(Model))
             Help.AddOption(Opt, Action, "Exit.", Sub() ContinueMenu = False)
-
             Help.PrintMenu(Opt)
 
             Dim Str As Integer = Nothing

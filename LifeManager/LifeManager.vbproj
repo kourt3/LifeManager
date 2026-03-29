@@ -64,6 +64,9 @@
     <OptionInfer>On</OptionInfer>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="MultiChoiceQuiz">
+      <HintPath>..\..\Quizs\Quizs\bin\Debug\MultiChoiceQuiz.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Deployment" />
@@ -86,6 +89,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApartmentModule.vb" />
+    <Compile Include="Diplomata.vb" />
     <Compile Include="EconomyModules\BankCardsModule.vb" />
     <Compile Include="BuildingsModule.vb" />
     <Compile Include="ContactModule.vb" />
@@ -161,6 +165,10 @@
     <ProjectReference Include="..\ContactsProject\ContactsProject.vbproj">
       <Project>{36680a83-8dac-424b-b951-62c243c72bec}</Project>
       <Name>ContactsProject</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DiplomataProject\DiplomataProject.vbproj">
+      <Project>{da08d8b3-2ebe-4460-b094-23219999c21a}</Project>
+      <Name>DiplomataProject</Name>
     </ProjectReference>
     <ProjectReference Include="..\Economy\Economy.vbproj">
       <Project>{1c044c67-2813-4ab7-a469-3458920ebfc3}</Project>
