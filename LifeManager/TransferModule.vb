@@ -63,7 +63,7 @@ Module TransferModule
                 Case 1
                     RelationShipModule.ListOfFriend(Myref, True, RefPerson)
                 Case 2
-                    Dim ApartmentRef As Apartment.Contracts.IReference = New Apartment.Contracts.Contracts
+                    Dim ApartmentRef As BuildAndApartmentCompoent.BuildAndApartment.Apartment.Contracts.IReference = New BuildAndApartmentCompoent.BuildAndApartment.Apartment.Contracts.Contracts
                     CohrabitionModule.ListOfApartment(Myref, True, ApartmentRef)
                     CohrabitionModule.ListOfCohrabition(ApartmentRef, Myref, Nothing, True, RefPerson)
                 Case 3

@@ -2,8 +2,8 @@
     Public LoginService As New LoginProject.Service.LoginService
     Public PersonService As New PersonProject.Service.PersonService
     Public TransferService As New Economy.TransferProject.Service.TransferService
-    Public Apartnment As New Apartment.Service.Service
-    Public Buildings As New Buildings.Service.Service
+    Public Apartnment As New BuildAndApartmentCompoent.BuildAndApartment.Apartment.Service.Service
+    Public Buildings As New BuildAndApartmentCompoent.BuildAndApartment.Build.Service.Service
     Public RelationShip As New RelationShipComponent.Service
     Public Family As New FamilyProject.Service.Service(PersonService)
     Public Contact As New ContactsProject.Service.Service
@@ -13,7 +13,8 @@
 
 
 
-    Public ProfileAndApartments As New CohrabitionComponent.Service.Service(Buildings, Apartnment)
+    Public ProfileAndApartments As New BuildAndApartmentCompoent.BuildAndApartment.Cohrabication.Service.Service(Buildings, Apartnment)
+    Public BuildAndApartment As New BuildAndApartmentCompoent.Controller(Buildings, Apartnment, ProfileAndApartments)
     Public AccountService As New AccountComponent.AcountService(LoginService, PersonService, Family)
 
 

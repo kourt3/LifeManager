@@ -1,4 +1,4 @@
-﻿Imports Buildings
+﻿Imports BuildAndApartmentCompoent.BuildAndApartment.Build
 Friend Module BuildingsModule
     Friend Sub Info(Model As Contracts.IModel)
         Console.WriteLine("ID: " & Model.PrimaryKey)
@@ -166,9 +166,9 @@ Friend Module BuildingsModule
 
             While Val.Success = True
                 Dim Index As Integer = 0
-                For Each Entity In Val.Model
+                For Each Entit In Val.Model
                     Index += 1
-                    Console.WriteLine(Index & ") " & Entity.Addresess & " | " & Entity.Description)
+                    Console.WriteLine(Index & ") " & Entit.Addresess & " | " & Entit.Description)
                 Next
                 Console.WriteLine("------------ Menu -----------")
                 Console.WriteLine(1 & "-" & Index & ") Open Building.")

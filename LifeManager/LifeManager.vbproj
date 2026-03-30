@@ -154,13 +154,9 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Apartment\Apartment.vbproj">
-      <Project>{b939d5c4-6d1b-4f7e-a738-e43189eecbf0}</Project>
-      <Name>Apartment</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Buildings\Buildings.vbproj">
-      <Project>{0bcdaa00-219e-4032-b0ea-684f529b068d}</Project>
-      <Name>Buildings</Name>
+    <ProjectReference Include="..\BuildAndApartmentCompoent\BuildAndApartmentCompoent.vbproj">
+      <Project>{c35dee32-34e0-4451-8fa0-2619accbf616}</Project>
+      <Name>BuildAndApartmentCompoent</Name>
     </ProjectReference>
     <ProjectReference Include="..\ContactsProject\ContactsProject.vbproj">
       <Project>{36680a83-8dac-424b-b951-62c243c72bec}</Project>
@@ -193,10 +189,6 @@
     <ProjectReference Include="..\PersonProject\PersonProject.vbproj">
       <Project>{f442e2ac-4818-40b5-8d6d-f03ad0cca734}</Project>
       <Name>PersonProject</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ProfileAndApartmentComponent\CohrabitionComponent.vbproj">
-      <Project>{2dd49e7a-f6ff-4180-9485-7ab1637a9736}</Project>
-      <Name>CohrabitionComponent</Name>
     </ProjectReference>
     <ProjectReference Include="..\RelationShipComponent\RelationShipComponent.vbproj">
       <Project>{d8bfab64-d74d-44dd-a5d5-0e5241bd2784}</Project>

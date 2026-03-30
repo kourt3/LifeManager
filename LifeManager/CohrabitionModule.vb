@@ -1,8 +1,8 @@
 ﻿
-Imports CohrabitionComponent
+Imports BuildAndApartmentCompoent.BuildAndApartment.Cohrabication
 Module CohrabitionModule
 
-    Friend Sub ListOfCohrabition(ApartmentRef As Apartment.Contracts.IReference, MyRef As AccountComponent.Contracts.IReference, Optional ThridRef As Contracts.IReference = Nothing, Optional Choice As Boolean = False, Optional ByRef ChoiceRefPerson As AccountComponent.Contracts.IReference = Nothing)
+    Friend Sub ListOfCohrabition(ApartmentRef As BuildAndApartmentCompoent.BuildAndApartment.Apartment.Contracts.IReference, MyRef As AccountComponent.Contracts.IReference, Optional ThridRef As Contracts.IReference = Nothing, Optional Choice As Boolean = False, Optional ByRef ChoiceRefPerson As AccountComponent.Contracts.IReference = Nothing)
         Do
             Console.Clear()
             Console.WriteLine("-------------- List Of Cograbition --------------------")
@@ -75,12 +75,12 @@ Module CohrabitionModule
         AddThirdFriend
         Search
     End Enum
-    Friend Sub RegisterCohrabition(ApartmentRef As Apartment.Contracts.IReference, Optional MyRef As AccountComponent.Contracts.IReference = Nothing, Optional ThirdRef As AccountComponent.Contracts.IReference = Nothing)
+    Friend Sub RegisterCohrabition(ApartmentRef As BuildAndApartmentCompoent.BuildAndApartment.Apartment.Contracts.IReference, Optional MyRef As AccountComponent.Contracts.IReference = Nothing, Optional ThirdRef As AccountComponent.Contracts.IReference = Nothing)
         Console.Clear()
         Dim Opt As New List(Of String)
         Dim Action As New List(Of Action)
         Dim Choicer As New Choice
-        Dim Val As MyBook.ValMsg(Of List(Of CohrabitionComponent.Contracts.IModel)) = ProfileAndApartments.Search(New Contracts.Contracts With {.ApartmentID = ApartmentRef.PrimaryKey})
+        Dim Val As MyBook.ValMsg(Of List(Of BuildAndApartmentCompoent.BuildAndApartment.Cohrabication.Contracts.IModel)) = ProfileAndApartments.Search(New Contracts.Contracts With {.ApartmentID = ApartmentRef.PrimaryKey})
         Console.WriteLine("---------- Add Cohrabition -----------")
         If MyRef IsNot Nothing Then
 
@@ -182,7 +182,7 @@ Module CohrabitionModule
         End Select
 
     End Sub
-    Friend Sub ListOfApartment(Ref As AccountComponent.Contracts.IReference, Optional Choice As Boolean = Nothing, Optional ByRef ChoiceApartmentRef As Apartment.Contracts.IReference = Nothing)
+    Friend Sub ListOfApartment(Ref As AccountComponent.Contracts.IReference, Optional Choice As Boolean = Nothing, Optional ByRef ChoiceApartmentRef As BuildAndApartmentCompoent.BuildAndApartment.Apartment.Contracts.IReference = Nothing)
         Do
             Console.Clear()
             Console.WriteLine("---------- List Of Apartment -------------")
@@ -243,10 +243,10 @@ Module CohrabitionModule
         Console.WriteLine("---------- Add Apartment ---------")
         If Help.AccessChoice("Θέλει να κανεις εγραφή ?") Then
             Dim DTO As Contracts.IRegisterDTO = New Contracts.Contracts
-            Dim BuildRef As Buildings.Contracts.IReference = New Buildings.Contracts.Contracts
+            Dim BuildRef As BuildAndApartmentCompoent.BuildAndApartment.Build.Contracts.IReference = New BuildAndApartmentCompoent.BuildAndApartment.Build.Contracts.Contracts
             BuildingsModule.ListOfBuild(Ref, Nothing, True, BuildRef)
             DTO.BuildID = BuildRef.PrimaryKey
-            Dim ApartMentRef As Apartment.Contracts.IReference = New Apartment.Contracts.Contracts
+            Dim ApartMentRef As BuildAndApartmentCompoent.BuildAndApartment.Apartment.Contracts.IReference = New BuildAndApartmentCompoent.BuildAndApartment.Apartment.Contracts.Contracts
             ApartmentModule.ListOfApartment(BuildRef, Ref, Nothing, True, ApartMentRef)
             DTO.ApartmentID = ApartMentRef.PrimaryKey
             DTO.ExternalID = Ref.PrimaryKey
@@ -256,7 +256,7 @@ Module CohrabitionModule
         End If
     End Sub
 
-    Friend Sub RemoveCohrabition(ApartmentRef As Apartment.Contracts.IReference)
+    Friend Sub RemoveCohrabition(ApartmentRef As BuildAndApartmentCompoent.BuildAndApartment.Apartment.Contracts.IReference)
         Do
 
 
