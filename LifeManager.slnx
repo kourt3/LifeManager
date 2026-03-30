@@ -1,4 +1,5 @@
 <Solution>
+  <Project Path="../database/database/database.vbproj" Id="e42b942f-ff2a-48b6-b4fc-1588e1c95d79" />
   <Project Path="Apartment/Apartment.vbproj" Id="b939d5c4-6d1b-4f7e-a738-e43189eecbf0" />
   <Project Path="Buildings/Buildings.vbproj" Id="0bcdaa00-219e-4032-b0ea-684f529b068d" />
   <Project Path="ContactsProject/ContactsProject.vbproj" Id="36680a83-8dac-424b-b951-62c243c72bec" />
