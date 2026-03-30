@@ -102,15 +102,6 @@
       <CustomToolNamespace>My</CustomToolNamespace>
       <LastGenOutput>Settings.Designer.vb</LastGenOutput>
     </None>
-    <None Include="TestDrive\machine.dat" />
-    <None Include="TestDrive\SET.DAT" />
-    <None Include="TestDrive\ST6UNST.000" />
-    <None Include="TestDrive\ST6UNST.001" />
-    <None Include="TestDrive\ST6UNST.002" />
-    <None Include="TestDrive\ST6UNST.003" />
-    <None Include="TestDrive\ST6UNST.004" />
-    <None Include="TestDrive\ST6UNST.LOG" />
-    <None Include="TestDrive\YME.MDW" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Database1.accdb">
@@ -469,9 +460,6 @@
     <Content Include="TestDrive\E10.JPG" />
     <Content Include="TestDrive\E11.JPG" />
     <Content Include="TestDrive\E12.JPG" />
-    <Content Include="TestDrive\ExerBase.mdb">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Include="TestDrive\f-01.jpg" />
     <Content Include="TestDrive\f-011.jpg" />
     <Content Include="TestDrive\f-012.jpg" />
@@ -5131,13 +5119,6 @@
     <Content Include="TestDrive\ST10.JPG" />
     <Content Include="TestDrive\ST12.JPG" />
     <Content Include="TestDrive\ST14.JPG" />
-    <Content Include="TestDrive\STestDrive.exe" />
-    <Content Include="TestDrive\Test-0.mdb">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="TestDrive\Test-Templ.mdb">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Include="TestDrive\Th02.jpg" />
     <Content Include="TestDrive\Th03.JPG" />
     <Content Include="TestDrive\Th05.JPG" />
