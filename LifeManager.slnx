@@ -1,4 +1,5 @@
 <Solution>
+  <Project Path="AdressesProject/AdressesProject.vbproj" Id="dec29add-a3c9-4cb8-811a-10bd0b4dfce0" />
   <Project Path="BuildAndApartmentCompoent/BuildAndApartmentCompoent.vbproj" Id="c35dee32-34e0-4451-8fa0-2619accbf616" />
   <Project Path="ContactsProject/ContactsProject.vbproj" Id="36680a83-8dac-424b-b951-62c243c72bec" />
   <Project Path="DiplomataProject/DiplomataProject.vbproj" Id="da08d8b3-2ebe-4460-b094-23219999c21a" />

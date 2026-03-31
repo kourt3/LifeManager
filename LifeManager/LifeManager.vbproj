@@ -88,10 +88,10 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ApartmentModule.vb" />
+    <Compile Include="BuildAndApartment\ApartmentModule.vb" />
     <Compile Include="Diplomata.vb" />
     <Compile Include="EconomyModules\BankCardsModule.vb" />
-    <Compile Include="BuildingsModule.vb" />
+    <Compile Include="BuildAndApartment\BuildingsModule.vb" />
     <Compile Include="ContactModule.vb" />
     <Compile Include="EconomyModules\EconomyModule.vb" />
     <Compile Include="FamilyModule.vb" />
@@ -116,10 +116,10 @@
     </Compile>
     <Compile Include="PersonModule.vb" />
     <Compile Include="EconomyModules\PortofolioModule.vb" />
-    <Compile Include="CohrabitionModule.vb" />
+    <Compile Include="BuildAndApartment\CohrabitionModule.vb" />
     <Compile Include="ProfileModule.vb" />
     <Compile Include="RelationShipModule.vb" />
-    <Compile Include="TransferModule.vb" />
+    <Compile Include="EconomyModules\TransferModule.vb" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="My Project\Resources.resx">
