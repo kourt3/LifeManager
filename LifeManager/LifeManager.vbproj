@@ -88,6 +88,7 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Adresses\AddressesModule.vb" />
     <Compile Include="BuildAndApartment\ApartmentModule.vb" />
     <Compile Include="Diplomata.vb" />
     <Compile Include="EconomyModules\BankCardsModule.vb" />
@@ -154,6 +155,10 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\AdressesProject\AdressesProject.vbproj">
+      <Project>{dec29add-a3c9-4cb8-811a-10bd0b4dfce0}</Project>
+      <Name>AdressesProject</Name>
+    </ProjectReference>
     <ProjectReference Include="..\BuildAndApartmentCompoent\BuildAndApartmentCompoent.vbproj">
       <Project>{c35dee32-34e0-4451-8fa0-2619accbf616}</Project>
       <Name>BuildAndApartmentCompoent</Name>

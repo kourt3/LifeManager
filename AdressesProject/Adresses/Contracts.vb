@@ -2,7 +2,7 @@
 
 Namespace Adresses.Contracts
     Public Interface IModel
-        Inherits MyBook.IHasPrimaryKey(Of Integer)
+        Inherits My.Ables.IReference
         Inherits My.Ables.IValue
     End Interface
 
@@ -10,9 +10,13 @@ Namespace Adresses.Contracts
         Inherits My.Ables.IValue
     End Interface
 
+    Public Interface ICreteriaValue
+        Inherits My.Ables.IValue
+    End Interface
+
 
     Public Class Contracts
-        Implements IModel, IUpdateAndRegisterDTO
+        Implements IModel, IUpdateAndRegisterDTO, ICreteriaValue
 
         Public Property PrimaryKey As Integer Implements MyBook.IHasPrimaryKey(Of Integer).PrimaryKey
         Public Property Value As String Implements IValue.Value

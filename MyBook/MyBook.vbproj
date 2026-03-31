@@ -67,6 +67,9 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="RelationShipProject\Contracts.vb" />
+    <Compile Include="RelationShipProject\Entity.vb" />
+    <Compile Include="RelationShipProject\Repository.vb" />
     <Compile Include="Repositories.vb" />
     <Compile Include="IValMsg.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />

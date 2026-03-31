@@ -65,10 +65,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AddressesController.vb" />
+    <Compile Include="AddressRelationship\Service.vb" />
     <Compile Include="Adresses\Contracts.vb" />
-    <Compile Include="Adresses\Repository.vb" />
-    <Compile Include="Adresses\Entity.vb" />
+    <Compile Include="BasicAddress\Repository.vb" />
+    <Compile Include="BasicAddress\Entity.vb" />
     <Compile Include="Adresses\Service.vb" />
+    <Compile Include="FullAdress\Contracts.vb" />
+    <Compile Include="FullAdress\Service.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>
@@ -109,6 +112,10 @@
     <ProjectReference Include="..\MyBook\MyBook.vbproj">
       <Project>{966b3a01-e481-4d41-8797-9a4338c10767}</Project>
       <Name>MyBook</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RelationShipComponent\RelationShipComponent.vbproj">
+      <Project>{d8bfab64-d74d-44dd-a5d5-0e5241bd2784}</Project>
+      <Name>RelationShipComponent</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />

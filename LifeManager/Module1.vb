@@ -7,11 +7,9 @@
     Public RelationShip As New RelationShipComponent.Service
     Public Family As New FamilyProject.Service.Service(PersonService)
     Public Contact As New ContactsProject.Service.Service
-
+    Public AddressController As New AdressesProject.AddressesController
     Public EconomyController As New Economy.Controller.Controller(Of AccountComponent.Contracts.IReference)
     Public TransferController As New Economy.TransferController(TransferService)
-
-
 
     Public ProfileAndApartments As New BuildAndApartmentCompoent.BuildAndApartment.Cohrabication.Service.Service(Buildings, Apartnment)
     Public BuildAndApartment As New BuildAndApartmentCompoent.Controller(Buildings, Apartnment, ProfileAndApartments)
@@ -84,6 +82,7 @@
         Help.AddOption(Opt, Action, "Προφιλ.", Sub() ProfileModule.Menu(Model))
             Help.AddOption(Opt, Action, "Build.", Sub() BuildingsModule.ListOfBuild(Ref))
             Help.AddOption(Opt, Action, "List Of Profiles.", Sub() ProfileModule.ListOfProfiles(Ref))
+            Help.AddOption(Opt, Action, "Address.", Sub() AddressesModule.Menu())
             Help.AddOption(Opt, Action, "Διπλώματα.", Sub() Diplomata.Menu())
             Help.AddOption(Opt, Action, "Διαχήρηση Είσοδου.", Sub() LoginModule.Menu(Model.LoginModel))
             Help.AddOption(Opt, Action, "Διαγραφή Λογαρισμού.", Sub() RemoveAcc(Model))

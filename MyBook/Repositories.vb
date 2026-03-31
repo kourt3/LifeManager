@@ -51,6 +51,8 @@
         Function Read_Item(PK As Tkey) As TEntity
         Function Read_ItemAt(Index As Integer) As TEntity
         Function Exist(PK As Tkey) As Boolean
+        Function Exist(Of TCreteria)(Creteria As TCreteria) As Boolean
+        Function Exist(Match As Predicate(Of TEntity)) As Boolean
         Function Find(Of TCreteria)(Creteria As TCreteria) As TEntity
         Function Find(Match As Predicate(Of TEntity)) As TEntity
         Function Search(Of TCreteria)(Creteria As TCreteria) As List(Of TEntity)
@@ -199,6 +201,22 @@ Again:
         Public Function Exist(PK As Tkey) As Boolean Implements IRepository(Of Tkey, TEntity).Exist
             For i = 0 To Rep.Count - 1
                 If Equals(Rep(i).PrimaryKey, PK) Then
+                    Return True
+                End If
+            Next
+            Return False
+        End Function
+
+        Public Function Exist(Of TCreteria)(Creteria As TCreteria) As Boolean Implements IRepository(Of Tkey, TEntity).Exist
+            For i = 0 To Rep.Count - 1
+                If Match(Rep(i), Creteria) Then Return True
+            Next
+            Return False
+        End Function
+
+        Public Function Exist(Match As Predicate(Of TEntity)) As Boolean Implements IRepository(Of Tkey, TEntity).Exist
+            For i = 0 To Rep.Count - 1
+                If Match(Rep(i)) Then
                     Return True
                 End If
             Next
@@ -463,6 +481,14 @@ Again:
                 End If
             Next
             Return Entity
+        End Function
+
+        Public Function Exist(Of TCreteria)(Creteria As TCreteria) As Boolean Implements IRepository(Of Tkey, TEntity).Exist
+            Throw New NotImplementedException()
+        End Function
+
+        Public Function Exist(Match As Predicate(Of TEntity)) As Boolean Implements IRepository(Of Tkey, TEntity).Exist
+            Throw New NotImplementedException()
         End Function
     End Class
 
