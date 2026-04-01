@@ -15,8 +15,6 @@
     Public BuildAndApartment As New BuildAndApartmentCompoent.Controller(Buildings, Apartnment, ProfileAndApartments)
     Public AccountService As New AccountComponent.AcountService(LoginService, PersonService, Family)
 
-
-
     Sub Main()
 
         Console.Clear()
@@ -82,7 +80,7 @@
         Help.AddOption(Opt, Action, "Προφιλ.", Sub() ProfileModule.Menu(Model))
             Help.AddOption(Opt, Action, "Build.", Sub() BuildingsModule.ListOfBuild(Ref))
             Help.AddOption(Opt, Action, "List Of Profiles.", Sub() ProfileModule.ListOfProfiles(Ref))
-            Help.AddOption(Opt, Action, "Address.", Sub() AddressesModule.Menu())
+            Help.AddOption(Opt, Action, "Address.", Sub() AddressRelationShipModule.Menu())
             Help.AddOption(Opt, Action, "Διπλώματα.", Sub() Diplomata.Menu())
             Help.AddOption(Opt, Action, "Διαχήρηση Είσοδου.", Sub() LoginModule.Menu(Model.LoginModel))
             Help.AddOption(Opt, Action, "Διαγραφή Λογαρισμού.", Sub() RemoveAcc(Model))

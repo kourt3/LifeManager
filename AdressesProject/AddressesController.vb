@@ -1,4 +1,6 @@
-﻿Public Class AddressesController
+﻿
+Public Class AddressesController
+
     Public Country As New Service
     Public Perifereia As New Service
     Public Nomos As New Service
@@ -15,6 +17,5 @@
     Public TKTODhmos As New AddressRelationShip.Service.Service
     Public DhmosToAddress As New AddressRelationShip.Service.Service
     Public AddressToNumber As New AddressRelationShip.Service.Service
-
 
 End Class

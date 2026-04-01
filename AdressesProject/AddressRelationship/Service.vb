@@ -9,6 +9,20 @@ Namespace AddressRelationShip.Service
             MyBase.New(New MyBook.RelationShip.Repositories.Repository)
         End Sub
 
+        Public Function Search(Of TCreteria)(Creteria As TCreteria) As MyBook.ValMsg(Of List(Of RelationShip.Contracts.Contracts))
+            Dim Val As New MyBook.ValMsg(Of List(Of RelationShip.Contracts.Contracts))
+            Val.Model = New List(Of Contracts)
+            Val.Success = False
+            Val.Msg = "Δεν βρέθηκε εγραφή!"
+            For Each Entity In Repository.Search(Creteria)
+                Val.Success = True
+                Val.Msg = "Βρέθηκε Εγραφή!"
+                Val.Model.Add(ToModel(Entity))
+            Next
+            Return Val
+        End Function
+
+
         Public Overrides Function Register(Of DTO)(RegisterDTO As DTO) As ValMsg(Of Contracts)
             Dim Val As New MyBook.ValMsg(Of Contracts)
             Dim RegisterDTOLink As RelationShip.Contracts.IRegisterDTO = RegisterDTO

@@ -17,7 +17,7 @@ Module AddressesModule
             Console.WriteLine("1) Country.")
             Console.WriteLine("2) Perifereia.")
             Console.WriteLine("3) Nomos.")
-            Console.WriteLine("4) TK")
+            Console.WriteLine("4) TK.")
             Console.WriteLine("5) Dhmos.")
             Console.WriteLine("6) Adresses.")
             Console.WriteLine("7) Number.")
@@ -231,7 +231,7 @@ Module AddressesModule
             Console.WriteLine(Service.Change(Ref, RegisterDTO).Msg)
         End If
     End Sub
-    Sub ListOf(AddressType As AddressType)
+    Sub ListOf(AddressType As AddressType, Optional Choicer As Boolean = False, Optional ByRef AddressRef As AdressesProject.My.Ables.IReference = Nothing)
         While AddressType = AddressType.County
             Console.Clear()
             Console.WriteLine("--------- List of Country ----------")
@@ -263,6 +263,10 @@ Module AddressesModule
                 Dim Choice As String = Console.ReadLine - 1
                 Select Case Choice
                     Case 0 To val.Model.Count - 1
+                        If Choicer = True Then
+                            AddressRef = val.Model(Choice)
+                            Exit Sub
+                        End If
                         Open(val.Model(Choice), AddressType.County)
                     Case val.Model.Count
                         Register(AddressType.County)
@@ -305,6 +309,10 @@ Module AddressesModule
                 Dim Choice As String = Console.ReadLine - 1
                 Select Case Choice
                     Case 0 To val.Model.Count - 1
+                        If Choicer = True Then
+                            AddressRef = val.Model(Choice)
+                            Exit Sub
+                        End If
                         Open(val.Model(Choice), AddressType.Perifereia)
                     Case val.Model.Count
                         Register(AddressType.Perifereia)
@@ -347,6 +355,10 @@ Module AddressesModule
                 Dim Choice As String = Console.ReadLine - 1
                 Select Case Choice
                     Case 0 To val.Model.Count - 1
+                        If Choicer = True Then
+                            AddressRef = val.Model(Choice)
+                            Exit Sub
+                        End If
                         Open(val.Model(Choice), AddressType.Nomos)
                     Case val.Model.Count
                         Register(AddressType.Nomos)
@@ -389,6 +401,10 @@ Module AddressesModule
                 Dim Choice As String = Console.ReadLine - 1
                 Select Case Choice
                     Case 0 To val.Model.Count - 1
+                        If Choicer = True Then
+                            AddressRef = val.Model(Choice)
+                            Exit Sub
+                        End If
                         Open(val.Model(Choice), AddressType.TK)
                     Case val.Model.Count
                         Register(AddressType.TK)
@@ -431,6 +447,10 @@ Module AddressesModule
                 Dim Choice As String = Console.ReadLine - 1
                 Select Case Choice
                     Case 0 To val.Model.Count - 1
+                        If Choicer = True Then
+                            AddressRef = val.Model(Choice)
+                            Exit Sub
+                        End If
                         Open(val.Model(Choice), AddressType.Dhmos)
                     Case val.Model.Count
                         Register(AddressType.Dhmos)
@@ -473,6 +493,10 @@ Module AddressesModule
                 Dim Choice As String = Console.ReadLine - 1
                 Select Case Choice
                     Case 0 To val.Model.Count - 1
+                        If Choicer = True Then
+                            AddressRef = val.Model(Choice)
+                            Exit Sub
+                        End If
                         Open(val.Model(Choice), AddressType.Address)
                     Case val.Model.Count
                         Register(AddressType.Address)
@@ -515,6 +539,10 @@ Module AddressesModule
                 Dim Choice As String = Console.ReadLine - 1
                 Select Case Choice
                     Case 0 To val.Model.Count - 1
+                        If Choicer = True Then
+                            AddressRef = val.Model(Choice)
+                            Exit Sub
+                        End If
                         Open(val.Model(Choice), AddressType.Number)
                     Case val.Model.Count
                         Register(AddressType.Number)

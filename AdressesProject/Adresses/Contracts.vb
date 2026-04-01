@@ -16,7 +16,7 @@ Namespace Adresses.Contracts
 
 
     Public Class Contracts
-        Implements IModel, IUpdateAndRegisterDTO, ICreteriaValue
+        Implements IModel, IUpdateAndRegisterDTO, ICreteriaValue, My.Ables.IReference
 
         Public Property PrimaryKey As Integer Implements MyBook.IHasPrimaryKey(Of Integer).PrimaryKey
         Public Property Value As String Implements IValue.Value
