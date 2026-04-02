@@ -13,32 +13,4 @@
         ApartmentService = New BuildAndApartment.Apartment.Service.Service
         Cohrabication = New BuildAndApartment.Cohrabication.Service.Service(BuildService, ApartmentService)
     End Sub
-
-    Sub AddBuild()
-
-    End Sub
-    Sub UpdateBuild()
-
-    End Sub
-    Sub RemoveBuild()
-
-    End Sub
-    Sub AddApartment()
-
-    End Sub
-    Sub UpdateApartment()
-
-    End Sub
-    Sub RemoveApartment()
-
-    End Sub
-    Sub AddCohrabication()
-
-    End Sub
-    Sub UpdateCohrabication()
-
-    End Sub
-    Sub RemoveCohrabication()
-
-    End Sub
 End Class

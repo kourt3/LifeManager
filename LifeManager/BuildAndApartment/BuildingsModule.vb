@@ -2,7 +2,9 @@
 Friend Module BuildingsModule
     Friend Sub Info(Model As Contracts.IModel)
         Console.WriteLine("ID: " & Model.PrimaryKey)
-        Console.WriteLine("Addresess:" & Model.Addresess)
+        Console.Write("Addresess: ")
+        FullAddressModule.SimpleInfo(New AdressesProject.FullAdress.Contracts.Contracts With {.PrimaryKey = Model.AddresessId})
+        Console.WriteLine()
         Console.WriteLine("Lenght: " & Model.Lenght)
         Console.WriteLine("Width: " & Model.Width)
         Console.WriteLine("Description: " & Model.Description)
@@ -48,21 +50,14 @@ Friend Module BuildingsModule
         Do
             Console.Clear()
             Console.WriteLine("--------- Register Building -----------")
-            If Not Help.IfNotInputOrMsg("Δώσε Διευθηνση: ", DTO.Addresess) Then
-                Continue Do
-            End If
+            Dim AddressRef As New AdressesProject.FullAdress.Contracts.Contracts
+            FullAddressModule.ListOf(True, AddressRef)
+            DTO.AddresessId = AddressRef.PrimaryKey
 
-            If Not Help.IfNotInputOrMsg("Δώσε Μήκος: ", DTO.Lenght) Then
-                Continue Do
-            End If
+            If Not Help.IfNotInputOrMsg("Δώσε Μήκος: ", DTO.Lenght) Then Continue Do
+            If Not Help.IfNotInputOrMsg("Δώσε Πλάτος: ", DTO.Width) Then Continue Do
+            If Not Help.IfNotInputOrMsg("Δώσε Περιγραφή: ", DTO.Description) Then Continue Do
 
-            If Not Help.IfNotInputOrMsg("Δώσε Πλάτος: ", DTO.Width) Then
-                Continue Do
-            End If
-
-            If Not Help.IfNotInputOrMsg("Δώσε Περιγραφή: ", DTO.Description) Then
-                Continue Do
-            End If
 
             If Help.AccessChoice("Θέλεις να Συνεχίσεις?") Then
                 Console.WriteLine(Buildings.Register(DTO).Msg)
@@ -82,7 +77,9 @@ Friend Module BuildingsModule
         If Help.AccessChoice("Θέλεις να αλλάξεις Διευθηνση?") Then
             Dim DTO As Contracts.IChangeAddressesDTO = New Contracts.Contracts
             Console.WriteLine("Δώσε Διευθηνση: ")
-            DTO.Addresess = Console.ReadLine
+            Dim AddressRef As New AdressesProject.FullAdress.Contracts.Contracts
+            FullAddressModule.ListOf(True, AddressRef)
+            DTO.AddresessId = AddressRef.PrimaryKey
             Console.Clear()
             Console.WriteLine(Buildings.Change(Ref, DTO).Msg)
             Console.ReadLine()
@@ -168,7 +165,9 @@ Friend Module BuildingsModule
                 Dim Index As Integer = 0
                 For Each Entit In Val.Model
                     Index += 1
-                    Console.WriteLine(Index & ") " & Entit.Addresess & " | " & Entit.Description)
+                    Console.Write(Index & ") ")
+                    FullAddressModule.SimpleInfo(New AdressesProject.FullAdress.Contracts.Contracts With {.PrimaryKey = Entit.AddresessID})
+                    Console.WriteLine(" | " & Entit.Description)
                 Next
                 Console.WriteLine("------------ Menu -----------")
                 Console.WriteLine(1 & "-" & Index & ") Open Building.")

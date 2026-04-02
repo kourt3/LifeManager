@@ -10,7 +10,7 @@
             Dim Model As Contracts.IModel = New Contracts.Contracts
             With Model
                 .PrimaryKey = Entity.PrimaryKey
-                .Addresess = Entity.Addresess
+                .AddresessId = Entity.AddresessID
                 .Lenght = Entity.Lenght
                 .Width = Entity.Width
                 .Description = Entity.Description
@@ -23,7 +23,7 @@
             If GetType(DTO) Is GetType(Contracts.IRegisterDTO) Then
                 Dim DTOs As Contracts.IRegisterDTO = DTOLink
                 With Entity
-                    .Addresess = DTOs.Addresess
+                    .AddresessID = DTOs.AddresessId
                     .Description = DTOs.Description
                     .Lenght = DTOs.Lenght
                     .Width = DTOs.Width
@@ -31,7 +31,7 @@
             ElseIf GetType(DTO) Is GetType(Contracts.IChangeAddressesDTO) Then
                 Dim DTOs As Contracts.IChangeAddressesDTO = DTOLink
                 With Entity
-                    .Addresess = DTOs.Addresess
+                    .AddresessID = DTOs.AddresessId
                 End With
 
             ElseIf GetType(DTO) Is GetType(Contracts.IChangeDescriptionDTO) Then
@@ -53,7 +53,7 @@
             If GetType(DTO) Is GetType(Contracts.IRegisterDTO) Then
                 Dim DTOs As Contracts.IRegisterDTO = DTOLink
                 With Entity
-                    .Addresess = DTOs.Addresess
+                    .AddresessID = DTOs.AddresessId
                     .Description = DTOs.Description
                     .Lenght = DTOs.Lenght
                     .Width = DTOs.Width
@@ -61,7 +61,7 @@
             ElseIf GetType(DTO) Is GetType(Contracts.IChangeAddressesDTO) Then
                 Dim DTOs As Contracts.IChangeAddressesDTO = DTOLink
                 With Entity
-                    .Addresess = DTOs.Addresess
+                    .AddresessID = DTOs.AddresessId
                 End With
 
             ElseIf GetType(DTO) Is GetType(Contracts.IChangeDescriptionDTO) Then

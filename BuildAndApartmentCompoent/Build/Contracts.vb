@@ -29,7 +29,7 @@ Namespace BuildAndApartment.Build.Contracts
         Public Property Lenght As Double Implements MyBook.ISquareMeters.Lenght
         Public Property Width As Double Implements MyBook.ISquareMeters.Width
         Public Property Description As String Implements MyBook.IHasDescription.Description
-        Public Property Addresess As String Implements IAddresess.Addresess
+        Public Property AddresessID As Integer Implements IAddresess.AddresessId
 
     End Class
 End Namespace

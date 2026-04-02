@@ -90,6 +90,7 @@
   <ItemGroup>
     <Compile Include="Adresses\AddressesModule.vb" />
     <Compile Include="Adresses\AddressRelationShipModule.vb" />
+    <Compile Include="Adresses\FullAddressModule.vb" />
     <Compile Include="BuildAndApartment\ApartmentModule.vb" />
     <Compile Include="Diplomata.vb" />
     <Compile Include="EconomyModules\BankCardsModule.vb" />

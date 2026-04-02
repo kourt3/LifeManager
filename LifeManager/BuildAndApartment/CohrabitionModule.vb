@@ -212,7 +212,9 @@ Module CohrabitionModule
                 Dim index As Integer = 0
                 For Each Model In Val.Model
                     index += 1
-                    Console.WriteLine(index & ") " & Model.BuildModel.Addresess & " | " & Model.ApartmentModel.Koudouni)
+                    Console.Write(index & ") ")
+                    FullAddressModule.SimpleInfo(New AdressesProject.FullAdress.Contracts.Contracts With {.PrimaryKey = Model.BuildModel.AddresessId})
+                    Console.Write(" | " & Model.ApartmentModel.Koudouni)
                 Next
                 Console.WriteLine(index + 1 & ") Add Apartment.")
                 Console.WriteLine(index + 2 & ") Exit.")

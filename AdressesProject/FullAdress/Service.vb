@@ -2,8 +2,10 @@
     Public Class Service
         Inherits MyBook.Services.Service(Of Integer, FullAdress.Contracts.Contracts, My.Entity.Entity, Repository)
 
+
         Sub New()
             MyBase.New(New Repository)
+
         End Sub
 
         Public Overrides Function Register(Of DTO)(RegisterDTO As DTO) As MyBook.ValMsg(Of Contracts.Contracts)

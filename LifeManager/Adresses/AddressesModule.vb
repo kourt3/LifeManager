@@ -234,7 +234,11 @@ Module AddressesModule
     Sub ListOf(AddressType As AddressType, Optional Choicer As Boolean = False, Optional ByRef AddressRef As AdressesProject.My.Ables.IReference = Nothing)
         While AddressType = AddressType.County
             Console.Clear()
-            Console.WriteLine("--------- List of Country ----------")
+            If Choicer = True Then
+                Console.WriteLine("--------- Choice Country ----------")
+            Else
+                Console.WriteLine("--------- List of Country ----------")
+            End If
             Dim val As MyBook.ValMsg(Of List(Of AdressesProject.Adresses.Contracts.Contracts)) = AddressController.Country.Get_All
             If val.Success = False Then
                 Console.WriteLine(val.Msg)
@@ -257,7 +261,11 @@ Module AddressesModule
 
                 Console.WriteLine()
                 Console.WriteLine("------- Menu -------")
-                Console.WriteLine(1 & " - " & val.Model.Count & ") Open Country.")
+                If Choicer = True Then
+                    Console.WriteLine(1 & " - " & val.Model.Count & ") Choice Country.")
+                Else
+                    Console.WriteLine(1 & " - " & val.Model.Count & ") Open Country.")
+                End If
                 Console.WriteLine(val.Model.Count + 1 & ") Register Country.")
                 Console.WriteLine(val.Model.Count + 2 & ") Exit.")
                 Dim Choice As String = Console.ReadLine - 1
@@ -280,7 +288,11 @@ Module AddressesModule
 
         While AddressType = AddressType.Perifereia
             Console.Clear()
-            Console.WriteLine("--------- List of Perifereia----------")
+            If Choicer = True Then
+                Console.WriteLine("--------- Choice Perifereia----------")
+            Else
+                Console.WriteLine("--------- List of Perifereia----------")
+            End If
             Dim val As MyBook.ValMsg(Of List(Of AdressesProject.Adresses.Contracts.Contracts)) = AddressController.Perifereia.Get_All
             If val.Success = False Then
                 Console.WriteLine(val.Msg)
@@ -303,7 +315,11 @@ Module AddressesModule
 
                 Console.WriteLine()
                 Console.WriteLine("------- Menu -------")
-                Console.WriteLine(1 & " - " & val.Model.Count & ") Open Perifereia.")
+                If Choicer = True Then
+                    Console.WriteLine(1 & " - " & val.Model.Count & ") Choice Perifereia.")
+                Else
+                    Console.WriteLine(1 & " - " & val.Model.Count & ") Open Perifereia.")
+                End If
                 Console.WriteLine(val.Model.Count + 1 & ") Register Perifereia.")
                 Console.WriteLine(val.Model.Count + 2 & ") Exit.")
                 Dim Choice As String = Console.ReadLine - 1
@@ -326,7 +342,11 @@ Module AddressesModule
 
         While AddressType = AddressType.Nomos
             Console.Clear()
-            Console.WriteLine("--------- List of Nomos ----------")
+            If Choicer = True Then
+                Console.WriteLine("--------- Choice Nomos ----------")
+            Else
+                Console.WriteLine("--------- List of Nomos ----------")
+            End If
             Dim val As MyBook.ValMsg(Of List(Of AdressesProject.Adresses.Contracts.Contracts)) = AddressController.Nomos.Get_All
             If val.Success = False Then
                 Console.WriteLine(val.Msg)
@@ -349,7 +369,11 @@ Module AddressesModule
 
                 Console.WriteLine()
                 Console.WriteLine("------- Menu -------")
-                Console.WriteLine(1 & " - " & val.Model.Count & ") Open Nomos.")
+                If Choicer = True Then
+                    Console.WriteLine(1 & " - " & val.Model.Count & ") Choice Nomos.")
+                Else
+                    Console.WriteLine(1 & " - " & val.Model.Count & ") Open Nomos.")
+                End If
                 Console.WriteLine(val.Model.Count + 1 & ") Register Nomos.")
                 Console.WriteLine(val.Model.Count + 2 & ") Exit.")
                 Dim Choice As String = Console.ReadLine - 1
@@ -372,7 +396,11 @@ Module AddressesModule
 
         While AddressType = AddressType.TK
             Console.Clear()
-            Console.WriteLine("--------- List of TK ----------")
+            If Choicer = True Then
+                Console.WriteLine("--------- Choice TK ----------")
+            Else
+                Console.WriteLine("--------- List of TK ----------")
+            End If
             Dim val As MyBook.ValMsg(Of List(Of AdressesProject.Adresses.Contracts.Contracts)) = AddressController.TK.Get_All
             If val.Success = False Then
                 Console.WriteLine(val.Msg)
@@ -395,7 +423,11 @@ Module AddressesModule
 
                 Console.WriteLine()
                 Console.WriteLine("------- Menu -------")
-                Console.WriteLine(1 & " - " & val.Model.Count & ") Open TK.")
+                If Choicer = True Then
+                    Console.WriteLine(1 & " - " & val.Model.Count & ") Choice TK.")
+                Else
+                    Console.WriteLine(1 & " - " & val.Model.Count & ") Open TK.")
+                End If
                 Console.WriteLine(val.Model.Count + 1 & ") Register TK.")
                 Console.WriteLine(val.Model.Count + 2 & ") Exit.")
                 Dim Choice As String = Console.ReadLine - 1
@@ -418,7 +450,11 @@ Module AddressesModule
 
         While AddressType = AddressType.Dhmos
             Console.Clear()
-            Console.WriteLine("--------- List of Dhmos ----------")
+            If Choicer = True Then
+                Console.WriteLine("--------- Choice Dhmos ----------")
+            Else
+                Console.WriteLine("--------- List of Dhmos ----------")
+            End If
             Dim val As MyBook.ValMsg(Of List(Of AdressesProject.Adresses.Contracts.Contracts)) = AddressController.Dhmos.Get_All
             If val.Success = False Then
                 Console.WriteLine(val.Msg)
@@ -441,7 +477,11 @@ Module AddressesModule
 
                 Console.WriteLine()
                 Console.WriteLine("------- Menu -------")
-                Console.WriteLine(1 & " - " & val.Model.Count & ") Open Dhmos.")
+                If Choicer = True Then
+                    Console.WriteLine(1 & " - " & val.Model.Count & ") Choice Dhmos.")
+                Else
+                    Console.WriteLine(1 & " - " & val.Model.Count & ") Open Dhmos.")
+                End If
                 Console.WriteLine(val.Model.Count + 1 & ") Register Dhmos.")
                 Console.WriteLine(val.Model.Count + 2 & ") Exit.")
                 Dim Choice As String = Console.ReadLine - 1
@@ -464,7 +504,11 @@ Module AddressesModule
 
         While AddressType = AddressType.Address
             Console.Clear()
-            Console.WriteLine("--------- List of Address ----------")
+            If Choicer = True Then
+                Console.WriteLine("--------- Choice Address ----------")
+            Else
+                Console.WriteLine("--------- List of Address ----------")
+            End If
             Dim val As MyBook.ValMsg(Of List(Of AdressesProject.Adresses.Contracts.Contracts)) = AddressController.Address.Get_All
             If val.Success = False Then
                 Console.WriteLine(val.Msg)
@@ -487,7 +531,11 @@ Module AddressesModule
 
                 Console.WriteLine()
                 Console.WriteLine("------- Menu -------")
-                Console.WriteLine(1 & " - " & val.Model.Count & ") Open Address.")
+                If Choicer = True Then
+                    Console.WriteLine(1 & " - " & val.Model.Count & ") Choice Address.")
+                Else
+                    Console.WriteLine(1 & " - " & val.Model.Count & ") Open Address.")
+                End If
                 Console.WriteLine(val.Model.Count + 1 & ") Register Address.")
                 Console.WriteLine(val.Model.Count + 2 & ") Exit.")
                 Dim Choice As String = Console.ReadLine - 1
@@ -510,7 +558,11 @@ Module AddressesModule
 
         While AddressType = AddressType.Number
             Console.Clear()
-            Console.WriteLine("--------- List of Number ----------")
+            If Choicer = True Then
+                Console.WriteLine("--------- Choice Number ----------")
+            Else
+                Console.WriteLine("--------- List of Number ----------")
+            End If
             Dim val As MyBook.ValMsg(Of List(Of AdressesProject.Adresses.Contracts.Contracts)) = AddressController.Number.Get_All
             If val.Success = False Then
                 Console.WriteLine(val.Msg)
@@ -533,7 +585,11 @@ Module AddressesModule
 
                 Console.WriteLine()
                 Console.WriteLine("------- Menu -------")
-                Console.WriteLine(1 & " - " & val.Model.Count & ") Open Number.")
+                If Choicer = True Then
+                    Console.WriteLine(1 & " - " & val.Model.Count & ") Choice Number.")
+                Else
+                    Console.WriteLine(1 & " - " & val.Model.Count & ") Open Number.")
+                End If
                 Console.WriteLine(val.Model.Count + 1 & ") Register Number.")
                 Console.WriteLine(val.Model.Count + 2 & ") Exit.")
                 Dim Choice As String = Console.ReadLine - 1

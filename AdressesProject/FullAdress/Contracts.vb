@@ -18,7 +18,7 @@ Namespace FullAdress.Contracts
 
 
     Public Class Contracts
-        Implements IModel
+        Implements IModel, IRegisterDTO, ICreteriaFullAdress
 
         Public Property PrimaryKey As Integer Implements MyBook.IHasPrimaryKey(Of Integer).PrimaryKey
         Public Property Country As Integer Implements ICountry.Country

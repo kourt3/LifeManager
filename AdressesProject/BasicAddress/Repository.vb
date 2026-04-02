@@ -11,6 +11,7 @@
                     CreteriaL.TK = Entity.TK And CreteriaL.Dhmos = Entity.Dhmos And CreteriaL.Addresses = Entity.Addresses And CreteriaL.Number = Entity.Number Then
                 Return True
             End If
+
         End If
         Return False
     End Function

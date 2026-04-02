@@ -5,11 +5,11 @@
         Dim Length As Double
         Dim Width As Double
         Dim Description As String
-        Dim Dieythinsi As String
+        Dim AddressId As Integer
     End Structure
 
     Public Interface IAddresess
-        Property Addresess As String
+        Property AddresessId As Integer
     End Interface
 
     Public Interface IEntity
@@ -57,12 +57,12 @@
             End Set
         End Property
 
-        Public Property Addresess As String Implements IAddresess.Addresess
+        Public Property AddresessID As Integer Implements IAddresess.AddresessId
             Get
-                Return data.Dieythinsi
+                Return data.AddressId
             End Get
-            Set(value As String)
-                data.Dieythinsi = value
+            Set(value As Integer)
+                data.AddressId = value
             End Set
         End Property
 
