@@ -3,7 +3,7 @@ Friend Module BuildingsModule
     Friend Sub Info(Model As Contracts.IModel)
         Console.WriteLine("ID: " & Model.PrimaryKey)
         Console.Write("Addresess: ")
-        FullAddressModule.SimpleInfo(New AdressesProject.FullAdress.Contracts.Contracts With {.PrimaryKey = Model.AddresessId})
+        FullAddressModule.SimpleInfo(New AdressesProject.FullAdress.Contracts.Model With {.PrimaryKey = Model.AddresessId})
         Console.WriteLine()
         Console.WriteLine("Lenght: " & Model.Lenght)
         Console.WriteLine("Width: " & Model.Width)
@@ -50,7 +50,7 @@ Friend Module BuildingsModule
         Do
             Console.Clear()
             Console.WriteLine("--------- Register Building -----------")
-            Dim AddressRef As New AdressesProject.FullAdress.Contracts.Contracts
+            Dim AddressRef As New AdressesProject.FullAdress.Contracts.Model
             FullAddressModule.ListOf(True, AddressRef)
             DTO.AddresessId = AddressRef.PrimaryKey
 
@@ -77,7 +77,7 @@ Friend Module BuildingsModule
         If Help.AccessChoice("Θέλεις να αλλάξεις Διευθηνση?") Then
             Dim DTO As Contracts.IChangeAddressesDTO = New Contracts.Contracts
             Console.WriteLine("Δώσε Διευθηνση: ")
-            Dim AddressRef As New AdressesProject.FullAdress.Contracts.Contracts
+            Dim AddressRef As New AdressesProject.FullAdress.Contracts.Model
             FullAddressModule.ListOf(True, AddressRef)
             DTO.AddresessId = AddressRef.PrimaryKey
             Console.Clear()
@@ -166,7 +166,7 @@ Friend Module BuildingsModule
                 For Each Entit In Val.Model
                     Index += 1
                     Console.Write(Index & ") ")
-                    FullAddressModule.SimpleInfo(New AdressesProject.FullAdress.Contracts.Contracts With {.PrimaryKey = Entit.AddresessID})
+                    FullAddressModule.SimpleInfo(New AdressesProject.FullAdress.Contracts.Model With {.PrimaryKey = Entit.AddresessID})
                     Console.WriteLine(" | " & Entit.Description)
                 Next
                 Console.WriteLine("------------ Menu -----------")

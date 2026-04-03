@@ -3,23 +3,23 @@
 Module FullAddressModule
     Sub SimpleInfo(Ref As AdressesProject.My.Ables.IReference)
         Dim Model As AdressesProject.FullAdress.Contracts.IModel = AddressController.FullAddress.Exist(Ref).Model
-        Console.Write(AddressController.Country.Exist(New AdressesProject.Adresses.Contracts.Contracts With {.PrimaryKey = Model.Country}).Model.Value)
-        Console.Write("," & AddressController.Perifereia.Exist(New AdressesProject.Adresses.Contracts.Contracts With {.PrimaryKey = Model.Perifereia}).Model.Value)
-        Console.Write("," & AddressController.Nomos.Exist(New AdressesProject.Adresses.Contracts.Contracts With {.PrimaryKey = Model.Nomos}).Model.Value)
-        Console.Write("," & AddressController.TK.Exist(New AdressesProject.Adresses.Contracts.Contracts With {.PrimaryKey = Model.TK}).Model.Value)
-        Console.Write("," & AddressController.Dhmos.Exist(New AdressesProject.Adresses.Contracts.Contracts With {.PrimaryKey = Model.Dhmos}).Model.Value)
-        Console.Write("," & AddressController.Address.Exist(New AdressesProject.Adresses.Contracts.Contracts With {.PrimaryKey = Model.Addresses}).Model.Value)
-        Console.Write("," & AddressController.Number.Exist(New AdressesProject.Adresses.Contracts.Contracts With {.PrimaryKey = Model.Number}).Model.Value)
+        Console.Write(Model.Country.Value)
+        Console.Write("," & Model.Perifereia.Value)
+        Console.Write("," & Model.Nomos.Value)
+        Console.Write("," & Model.TK.Value)
+        Console.Write("," & Model.Dhmos.Value)
+        Console.Write("," & Model.Addresses.Value)
+        Console.Write("," & Model.Number.Value)
     End Sub
     Sub Info(Model As AdressesProject.FullAdress.Contracts.IModel)
         Console.WriteLine("ID: " & Model.PrimaryKey)
-        Console.WriteLine("Country: " & AddressController.Country.Exist(New AdressesProject.Adresses.Contracts.Contracts With {.PrimaryKey = Model.Country}).Model.Value)
-        Console.WriteLine("Perifereia: " & AddressController.Perifereia.Exist(New AdressesProject.Adresses.Contracts.Contracts With {.PrimaryKey = Model.Perifereia}).Model.Value)
-        Console.WriteLine("Nomoi: " & AddressController.Nomos.Exist(New AdressesProject.Adresses.Contracts.Contracts With {.PrimaryKey = Model.Nomos}).Model.Value)
-        Console.WriteLine("TK: " & AddressController.TK.Exist(New AdressesProject.Adresses.Contracts.Contracts With {.PrimaryKey = Model.TK}).Model.Value)
-        Console.WriteLine("Dhmos: " & AddressController.Dhmos.Exist(New AdressesProject.Adresses.Contracts.Contracts With {.PrimaryKey = Model.Dhmos}).Model.Value)
-        Console.WriteLine("Address: " & AddressController.Address.Exist(New AdressesProject.Adresses.Contracts.Contracts With {.PrimaryKey = Model.Addresses}).Model.Value)
-        Console.WriteLine("Number: " & AddressController.Number.Exist(New AdressesProject.Adresses.Contracts.Contracts With {.PrimaryKey = Model.Number}).Model.Value)
+        Console.WriteLine("Country: " & Model.Country.Value)
+        Console.WriteLine("Perifereia: " & Model.Perifereia.Value)
+        Console.WriteLine("Nomoi: " & Model.Nomos.Value)
+        Console.WriteLine("TK: " & Model.TK.Value)
+        Console.WriteLine("Dhmos: " & Model.Dhmos.Value)
+        Console.WriteLine("Address: " & Model.Addresses.Value)
+        Console.WriteLine("Number: " & Model.Number.Value)
     End Sub
     Sub ListOf(Optional Choice As Boolean = False, Optional ByRef ChoiceRef As AdressesProject.My.Ables.IReference = Nothing)
         Do
@@ -29,7 +29,7 @@ Module FullAddressModule
             Else
                 Console.WriteLine("----------- Choice Address -------------")
             End If
-            Dim Val As MyBook.ValMsg(Of List(Of AdressesProject.FullAdress.Contracts.Contracts)) = AddressController.FullAddress.Get_All
+            Dim Val As MyBook.ValMsg(Of List(Of AdressesProject.FullAdress.Contracts.Model)) = AddressController.FullAddress.Get_All
             If Val.Success = False Then
                 Console.WriteLine("---------- Menu ---------")
                 Console.WriteLine("1) Register Address")
@@ -75,7 +75,7 @@ Module FullAddressModule
     End Sub
     Sub Open(Ref As AdressesProject.My.Ables.IReference)
         Do
-            Dim Val As MyBook.ValMsg(Of AdressesProject.FullAdress.Contracts.Contracts) = AddressController.FullAddress.Exist(Ref)
+            Dim Val As MyBook.ValMsg(Of AdressesProject.FullAdress.Contracts.Model) = AddressController.FullAddress.Exist(Ref)
             If Val.Success = False Then Exit Sub
             Console.Clear()
             Console.WriteLine("----------- Address -----------")
@@ -113,16 +113,22 @@ Module FullAddressModule
         AddressesModule.ListOf(AddressType.County, True, CountryRef)
         Console.Clear()
         AddressRelationShipModule.ListOfRelationShipAdress(CountryRef, AddressRelationShipType.CountryToPerifereies, PerifereiaRef)
+        If CountryRef.PrimaryKey = Nothing OrElse CountryRef.PrimaryKey = Nothing Then Exit Sub
         Console.Clear()
         AddressRelationShipModule.ListOfRelationShipAdress(PerifereiaRef, AddressRelationShipType.PerifereiesToNomoi, NomoiRef)
+        If PerifereiaRef.PrimaryKey = Nothing OrElse NomoiRef.PrimaryKey = Nothing Then Exit Sub
         Console.Clear()
         AddressRelationShipModule.ListOfRelationShipAdress(NomoiRef, AddressRelationShipType.NomosToTK, TKRef)
+        If NomoiRef.PrimaryKey = Nothing OrElse TKRef.PrimaryKey = Nothing Then Exit Sub
         Console.Clear()
         AddressRelationShipModule.ListOfRelationShipAdress(TKRef, AddressRelationShipType.TKToDhmos, DhmoiRef)
+        If TKRef.PrimaryKey = Nothing OrElse DhmoiRef.PrimaryKey = Nothing Then Exit Sub
         Console.Clear()
         AddressRelationShipModule.ListOfRelationShipAdress(DhmoiRef, AddressRelationShipType.DhmosToAddress, AddressRef)
+        If DhmoiRef.PrimaryKey = Nothing OrElse AddressRef.PrimaryKey = Nothing Then Exit Sub
         Console.Clear()
         AddressRelationShipModule.ListOfRelationShipAdress(AddressRef, AddressRelationShipType.AddressToNumber, NumberRef)
+        If AddressRef.PrimaryKey = Nothing OrElse NumberRef.PrimaryKey = Nothing Then Exit Sub
         Console.Clear()
 
 
@@ -151,7 +157,7 @@ Module FullAddressModule
         End If
     End Sub
     Sub Remove(Ref As AdressesProject.My.Ables.IReference)
-        Dim Val As MyBook.ValMsg(Of AdressesProject.FullAdress.Contracts.Contracts) = AddressController.FullAddress.Exist(Ref)
+        Dim Val As MyBook.ValMsg(Of AdressesProject.FullAdress.Contracts.Model) = AddressController.FullAddress.Exist(Ref)
         If Val.Success = False Then Exit Sub
         Console.Clear()
         Console.WriteLine("---------- Remove Address ---------")

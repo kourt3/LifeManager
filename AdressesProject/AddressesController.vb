@@ -9,7 +9,8 @@ Public Class AddressesController
     Public Address As New Service
     Public Number As New Service
 
-    Public FullAddress As New FullAdress.Service.Service
+    Public FullAddress As New FullAdress.Service.Service(Country, Perifereia, Nomos, TK, Dhmos, Address, Number)
+
 
     Public CountryTOPeriferia As New AddressRelationShip.Service.Service
     Public PeriferiaTONomo As New AddressRelationShip.Service.Service

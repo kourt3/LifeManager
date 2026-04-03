@@ -1,15 +1,30 @@
 ﻿Namespace FullAdress.Service
+
     Public Class Service
-        Inherits MyBook.Services.Service(Of Integer, FullAdress.Contracts.Contracts, My.Entity.Entity, Repository)
+        Inherits MyBook.Services.Service(Of Integer, FullAdress.Contracts.Model, My.Entity.Entity, Repository)
 
+        Dim Country As AdressesProject.Service
+        Dim Perifereia As AdressesProject.Service
+        Dim Nomoi As AdressesProject.Service
+        Dim TK As AdressesProject.Service
+        Dim Dhmoi As AdressesProject.Service
+        Dim Address As AdressesProject.Service
+        Dim Number As AdressesProject.Service
 
-        Sub New()
+        Sub New(CountryServ As AdressesProject.Service, PerifereiaServ As AdressesProject.Service, NomoiServ As AdressesProject.Service,
+                TKServ As AdressesProject.Service, DhmoiServ As AdressesProject.Service, AddressServ As AdressesProject.Service, NumberServ As AdressesProject.Service)
             MyBase.New(New Repository)
-
+            Country = CountryServ
+            Perifereia = PerifereiaServ
+            Nomoi = NomoiServ
+            TK = TKServ
+            Dhmoi = DhmoiServ
+            Address = AddressServ
+            Number = NumberServ
         End Sub
 
-        Public Overrides Function Register(Of DTO)(RegisterDTO As DTO) As MyBook.ValMsg(Of Contracts.Contracts)
-            Dim Val As New MyBook.ValMsg(Of Contracts.Contracts)
+        Public Overrides Function Register(Of DTO)(RegisterDTO As DTO) As MyBook.ValMsg(Of Contracts.Model)
+            Dim Val As New MyBook.ValMsg(Of Contracts.Model)
             Dim Creteria As Contracts.ICreteriaFullAdress = New Contracts.Contracts
             Dim RegisterL As Contracts.IRegisterDTO = RegisterDTO
             With Creteria
@@ -30,17 +45,17 @@
 
             Return MyBase.Register(RegisterDTO)
         End Function
-        Public Overrides Function ToModel(Entity As My.Entity.Entity) As Contracts.Contracts
-            Dim Model As New FullAdress.Contracts.Contracts
+        Public Overrides Function ToModel(Entity As My.Entity.Entity) As Contracts.Model
+            Dim Model As New FullAdress.Contracts.Model
             With Model
                 .PrimaryKey = Entity.PrimaryKey
-                .Country = Entity.Country
-                .Perifereia = Entity.Perifereia
-                .Nomos = Entity.Nomos
-                .TK = Entity.TK
-                .Dhmos = Entity.Dhmos
-                .Addresses = Entity.Addresses
-                .Number = Entity.Number
+                .Country = Country.Exist(New Adresses.Contracts.Contracts With {.PrimaryKey = Entity.Country}).Model
+                .Perifereia = Perifereia.Exist(New Adresses.Contracts.Contracts With {.PrimaryKey = Entity.Perifereia}).Model
+                .Nomos = Nomoi.Exist(New Adresses.Contracts.Contracts With {.PrimaryKey = Entity.Nomos}).Model
+                .TK = TK.Exist(New Adresses.Contracts.Contracts With {.PrimaryKey = Entity.TK}).Model
+                .Dhmos = Dhmoi.Exist(New Adresses.Contracts.Contracts With {.PrimaryKey = Entity.Dhmos}).Model
+                .Addresses = Address.Exist(New Adresses.Contracts.Contracts With {.PrimaryKey = Entity.Addresses}).Model
+                .Number = Number.Exist(New Adresses.Contracts.Contracts With {.PrimaryKey = Entity.Number}).Model
             End With
             Return Model
         End Function
