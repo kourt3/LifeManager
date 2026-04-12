@@ -6,6 +6,9 @@ Namespace Vehicle.Vehicles.Contracts
         Inherits Vehicle.Vehicles.Entity.ICreatedAt, Base.IReference, Vehicle.Model.Contracts.IModelId
     End Interface
 
+    Public Interface ICreteria
+        Inherits Vehicle.Model.Contracts.IModelId
+    End Interface
     Public Interface IRegisterDTO
         Inherits Vehicle.Vehicles.Entity.ICreatedAt, Vehicle.Model.Contracts.IModelId
     End Interface
@@ -14,7 +17,7 @@ Namespace Vehicle.Vehicles.Contracts
     End Interface
 
     Public Class Contracrs
-        Implements IRegisterDTO, IChangeCreatedDTO, IModel, Base.IReference
+        Implements IRegisterDTO, IChangeCreatedDTO, IModel, Base.IReference, ICreteria
 
         Public Property CretatedAt As Date Implements ICreatedAt.CretatedAt
         Public Property PrimaryKey As Integer Implements IHasPrimaryKey(Of Integer).PrimaryKey

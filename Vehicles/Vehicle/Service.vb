@@ -5,6 +5,18 @@
         Sub New()
             MyBase.New(New Vehicle.Vehicles.Repository.Repository)
         End Sub
+        Public Function Search(Creteria As Vehicle.Vehicles.Contracts.ICreteria) As MyBook.ValMsg(Of List(Of Vehicle.Vehicles.Contracts.Contracrs))
+            Dim Val As New MyBook.ValMsg(Of List(Of Vehicle.Vehicles.Contracts.Contracrs))
+            Val.Model = New List(Of Contracts.Contracrs)
+            Val.Success = False
+            Val.Msg = "Δεν βρέθηκε Εγραφή!"
+            For Each EntityL In Repository.Search(Creteria)
+                Val.Model.Add(ToModel(EntityL))
+                Val.Success = True
+                Val.Msg = "Βρέθηκε εγραφή!"
+            Next
+            Return Val
+        End Function
 
         Public Overrides Function ToModel(Entity As Entity.Entity) As Contracts.Contracrs
             Dim Model As New Contracts.Contracrs

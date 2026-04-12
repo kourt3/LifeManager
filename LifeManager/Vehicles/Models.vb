@@ -19,20 +19,23 @@
             Dim Val As MyBook.ValMsg(Of Vehicles.Vehicle.Model.Contracts.Contracts) = VehiclesController.Model.Exist(VmodelRef)
             Info(Val.Model)
             Console.WriteLine("------------ Menu -------------")
-            Console.WriteLine("1) Change Name.")
-            Console.WriteLine("2) Change Category.")
-            Console.WriteLine("3) Remove Model.")
-            Console.WriteLine("4) Exit.")
+            Console.WriteLine("1) List Of Vehicles.")
+            Console.WriteLine("2) Change Name.")
+            Console.WriteLine("3) Change Category.")
+            Console.WriteLine("4) Remove Model.")
+            Console.WriteLine("5) Exit.")
             Console.WriteLine("Επέλεξε ενα απο το Μενου:")
             Dim Choice As String = Console.ReadLine
             Select Case Choice
                 Case 1
-                    ChangeName(VmodelRef)
+                    VehiclesModule.ListOfVehicles(VmodelRef)
                 Case 2
-                    ChangeCategory(VmodelRef)
+                    ChangeName(VmodelRef)
                 Case 3
-                    Remove(VmodelRef)
+                    ChangeCategory(VmodelRef)
                 Case 4
+                    Remove(VmodelRef)
+                Case 5
                     Exit Do
                 Case Else
             End Select
@@ -93,219 +96,28 @@
         Loop
     End Sub
     Sub ListModels(BrandRef As Vehicles.Vehicle.Base.IReference, ChoiceCategory As VehicleCategory, Optional ChoiceModel As Boolean = False, Optional ByRef ChoiceRef As Vehicles.Vehicle.Base.IReference = Nothing)
-        While ChoiceCategory = VehicleCategory.Car
-            Dim Creteria As Vehicles.Vehicle.Model.Contracts.ICreteria = New Vehicles.Vehicle.Model.Contracts.Contracts
-            Creteria.BrandId = BrandRef.PrimaryKey
-            Creteria.CategoryName = "Car"
-            Dim Val As MyBook.ValMsg(Of List(Of Vehicles.Vehicle.Model.Contracts.Contracts)) = VehiclesController.Model.Search(Creteria)
-            Console.Clear()
-            Console.WriteLine("-------------------- Models Of Cars ---------------")
-            If Val.Success = False Then
-                Console.WriteLine(Val.Msg)
-                Console.WriteLine("------------- Menu -----------")
-                Console.WriteLine("1) Register Model.")
-                Console.WriteLine("2) Exit.")
-                Console.WriteLine("Επέλεξε ενα απο το μενου: ")
-                Dim Choice As String = Console.ReadLine
-                Select Case Choice
-                    Case 1
-                        Register(BrandRef, VehicleCategory.Car)
-                    Case 2
-                        Exit Sub
-                    Case Else
-                        Continue While
-                End Select
-            Else
-                For i = 0 To Val.Model.Count - 1
-                    Console.WriteLine(i + 1 & ") " & Val.Model(i).Name)
-                Next
-                Console.WriteLine("----------- Menu -------------")
-                If ChoiceModel = False Then
-                    Console.WriteLine(1 & " - " & Val.Model.Count & ") Open Model.")
-                Else
-                    Console.WriteLine(1 & " - " & Val.Model.Count & ") Choice Model.")
-                End If
-                Console.WriteLine(Val.Model.Count + 1 & ") Register Model.")
-                Console.WriteLine(Val.Model.Count + 2 & ") Exit.")
-                Dim Choice As String = Console.ReadLine - 1
-                Select Case Choice
-                    Case 0 To Val.Model.Count - 1
-                        If ChoiceModel = False Then
-                            Menu(Val.Model(Choice))
-                        Else
-                            ChoiceRef = Val.Model(Choice)
-                            Exit Sub
-                        End If
-                    Case Val.Model.Count
-                        Register(BrandRef, VehicleCategory.Car)
-                    Case Val.Model.Count + 1
-                        Exit While
-                    Case Else
-                        Continue While
-                End Select
-            End If
-        End While
-        While ChoiceCategory = VehicleCategory.Moto
-            Dim Creteria As Vehicles.Vehicle.Model.Contracts.ICreteria = New Vehicles.Vehicle.Model.Contracts.Contracts
-            Creteria.BrandId = BrandRef.PrimaryKey
-            Creteria.CategoryName = "Moto"
-            Dim Val As MyBook.ValMsg(Of List(Of Vehicles.Vehicle.Model.Contracts.Contracts)) = VehiclesController.Model.Search(Creteria)
-            Console.Clear()
-            Console.WriteLine("-------------------- Models Of Moto ---------------")
-            If Val.Success = False Then
-                Console.WriteLine(Val.Msg)
-                Console.WriteLine("------------- Menu -----------")
-                Console.WriteLine("1) Register Model.")
-                Console.WriteLine("2) Exit.")
-                Console.WriteLine("Επέλεξε ενα απο το μενου: ")
-                Dim Choice As String = Console.ReadLine
-                Select Case Choice
-                    Case 1
-                        Register(BrandRef, VehicleCategory.Moto)
-                    Case 2
-                        Exit Sub
-                    Case Else
-                        Continue While
-                End Select
-            Else
-                For i = 0 To Val.Model.Count - 1
-                    Console.WriteLine(i + 1 & ") " & Val.Model(i).Name)
-                Next
-                Console.WriteLine("----------- Menu -------------")
-                If ChoiceModel = False Then
-                    Console.WriteLine(1 & " - " & Val.Model.Count & ") Open Model.")
-                Else
-                    Console.WriteLine(1 & " - " & Val.Model.Count & ") Choice Model.")
-                End If
-                Console.WriteLine(Val.Model.Count + 1 & ") Register Model.")
-                Console.WriteLine(Val.Model.Count + 2 & ") Exit.")
-                Dim Choice As String = Console.ReadLine - 1
-                Select Case Choice
-                    Case 0 To Val.Model.Count - 1
-                        If ChoiceModel = False Then
-                            Menu(Val.Model(Choice))
-                        Else
-                            ChoiceRef = Val.Model(Choice)
-                            Exit Sub
-                        End If
-                    Case Val.Model.Count
-                        Register(BrandRef, VehicleCategory.Moto)
-                    Case Val.Model.Count + 1
-                        Exit While
-                    Case Else
-                        Continue While
-                End Select
-            End If
-        End While
-        While ChoiceCategory = VehicleCategory.Track
-            Dim Creteria As Vehicles.Vehicle.Model.Contracts.ICreteria = New Vehicles.Vehicle.Model.Contracts.Contracts
-            Creteria.BrandId = BrandRef.PrimaryKey
-            Creteria.CategoryName = "Track"
-            Dim Val As MyBook.ValMsg(Of List(Of Vehicles.Vehicle.Model.Contracts.Contracts)) = VehiclesController.Model.Search(Creteria)
-            Console.Clear()
-            Console.WriteLine("-------------------- Models Of Track ---------------")
-            If Val.Success = False Then
-                Console.WriteLine(Val.Msg)
-                Console.WriteLine("------------- Menu -----------")
-                Console.WriteLine("1) Register Model.")
-                Console.WriteLine("2) Exit.")
-                Console.WriteLine("Επέλεξε ενα απο το μενου: ")
-                Dim Choice As String = Console.ReadLine
-                Select Case Choice
-                    Case 1
-                        Register(BrandRef, VehicleCategory.Track)
-                    Case 2
-                        Exit Sub
-                    Case Else
-                        Continue While
-                End Select
-            Else
-                For i = 0 To Val.Model.Count - 1
-                    Console.WriteLine(i + 1 & ") " & Val.Model(i).Name)
-                Next
-                Console.WriteLine("----------- Menu -------------")
-                If ChoiceModel = False Then
-                    Console.WriteLine(1 & " - " & Val.Model.Count & ") Open Model.")
-                Else
-                    Console.WriteLine(1 & " - " & Val.Model.Count & ") Choice Model.")
-                End If
-                Console.WriteLine(Val.Model.Count + 1 & ") Register Model.")
-                Console.WriteLine(Val.Model.Count + 2 & ") Exit.")
-                Dim Choice As String = Console.ReadLine - 1
-                Select Case Choice
-                    Case 0 To Val.Model.Count - 1
-                        If ChoiceModel = False Then
-                            Menu(Val.Model(Choice))
-                        Else
-                            ChoiceRef = Val.Model(Choice)
-                            Exit Sub
-                        End If
-                    Case Val.Model.Count
-                        Register(BrandRef, VehicleCategory.Track)
-                    Case Val.Model.Count + 1
-                        Exit While
-                    Case Else
-                        Continue While
-                End Select
-            End If
-        End While
-        While ChoiceCategory = VehicleCategory.all
-            Dim Creteria As Vehicles.Vehicle.Model.Contracts.ICreteria = New Vehicles.Vehicle.Model.Contracts.Contracts
-            Creteria.BrandId = BrandRef.PrimaryKey
-            Dim Val As MyBook.ValMsg(Of List(Of Vehicles.Vehicle.Model.Contracts.Contracts)) = VehiclesController.Model.Search(Creteria)
-            Console.Clear()
-            Console.WriteLine("-------------------- All Models ---------------")
-            If Val.Success = False Then
-                Console.WriteLine(Val.Msg)
-                Console.WriteLine("------------- Menu -----------")
-                Console.WriteLine("1) Register Model.")
-                Console.WriteLine("2) Exit.")
-                Console.WriteLine("Επέλεξε ενα απο το μενου: ")
-                Dim Choice As String = Console.ReadLine
-                Select Case Choice
-                    Case 1
-                        Register(BrandRef, VehicleCategory.all)
-                    Case 2
-                        Exit Sub
-                    Case Else
-                        Continue While
-                End Select
-            Else
-                For i = 0 To Val.Model.Count - 1
-                    Console.WriteLine(i + 1 & ") " & Val.Model(i).Name & " | Category:" & Val.Model(i).CategoryName)
-                Next
-                Console.WriteLine("----------- Menu -------------")
-                If ChoiceModel = False Then
-                    Console.WriteLine(1 & " - " & Val.Model.Count & ") Open Model.")
-                Else
-                    Console.WriteLine(1 & " - " & Val.Model.Count & ") Choice Model.")
-                End If
-                Console.WriteLine(Val.Model.Count + 1 & ") Register Model.")
-                Console.WriteLine(Val.Model.Count + 2 & ") Exit.")
-                Dim Choice As String = Console.ReadLine - 1
-                Select Case Choice
-                    Case 0 To Val.Model.Count - 1
-                        If ChoiceModel = False Then
-                            Menu(Val.Model(Choice))
-                        Else
-                            ChoiceRef = Val.Model(Choice)
-                            Exit Sub
-                        End If
-                    Case Val.Model.Count
-                        Register(BrandRef, VehicleCategory.all)
-                    Case Val.Model.Count + 1
-                        Exit While
-                    Case Else
-                        Continue While
-                End Select
-            End If
-        End While
 
-        While ChoiceCategory = VehicleCategory.None
-
-            Dim Val As MyBook.ValMsg(Of List(Of Vehicles.Vehicle.Model.Contracts.Contracts)) = VehiclesController.Model.Get_All
+        Do
+            Dim Val As New MyBook.ValMsg(Of List(Of Vehicles.Vehicle.Model.Contracts.Contracts))
+            Dim Creteria As Vehicles.Vehicle.Model.Contracts.ICreteria = New Vehicles.Vehicle.Model.Contracts.Contracts
             Console.Clear()
-            Console.WriteLine("-------------------- All Models ---------------")
+            If ChoiceCategory = VehicleCategory.Car Then
+                Creteria.CategoryName = "Car"
+                Val = VehiclesController.Model.Search(Creteria)
+                Console.WriteLine("-------------------- Models Of Cars ---------------")
+            ElseIf ChoiceCategory = VehicleCategory.Moto Then
+                Creteria.CategoryName = "Moto"
+                Val = VehiclesController.Model.Search(Creteria)
+                Console.WriteLine("-------------------- Models Of Moto ---------------")
+            ElseIf ChoiceCategory = VehicleCategory.Track Then
+                Creteria.CategoryName = "Tracks"
+                Val = VehiclesController.Model.Search(Creteria)
+                Console.WriteLine("-------------------- Models Of Tracks ---------------")
+            ElseIf ChoiceCategory = VehicleCategory.all Or ChoiceCategory = VehicleCategory.None Then
+                Val = VehiclesController.Model.Get_All
+
+            End If
+
             If Val.Success = False Then
                 Console.WriteLine(Val.Msg)
                 Console.WriteLine("------------- Menu -----------")
@@ -315,15 +127,15 @@
                 Dim Choice As String = Console.ReadLine
                 Select Case Choice
                     Case 1
-                        Register(BrandRef, VehicleCategory.all)
+                        Register(BrandRef, ChoiceCategory)
                     Case 2
                         Exit Sub
                     Case Else
-                        Continue While
+                        Continue Do
                 End Select
             Else
                 For i = 0 To Val.Model.Count - 1
-                    Console.WriteLine(i + 1 & ") " & Val.Model(i).Name & " | BrandName:" & VehiclesController.Brand.Exist(New Vehicles.Vehicle.Brand.Contracts.Contracts With {.PrimaryKey = Val.Model(i).BrandId}).Model.Name & " | Category:" & Val.Model(i).CategoryName)
+                    Console.WriteLine(i + 1 & ") " & Val.Model(i).Name)
                 Next
                 Console.WriteLine("----------- Menu -------------")
                 If ChoiceModel = False Then
@@ -343,14 +155,14 @@
                             Exit Sub
                         End If
                     Case Val.Model.Count
-                        Register(BrandRef, VehicleCategory.all)
+                        Register(BrandRef, Choice)
                     Case Val.Model.Count + 1
-                        Exit While
+                        Exit Do
                     Case Else
-                        Continue While
+                        Continue Do
                 End Select
             End If
-        End While
+        Loop
     End Sub
     Sub Register(BrandRef As Vehicles.Vehicle.Base.IReference, Optional ChoiceCategory As VehicleCategory = VehicleCategory.None)
         Dim Register As Vehicles.Vehicle.Model.Contracts.IRegisterDTO = New Vehicles.Vehicle.Model.Contracts.Contracts
@@ -360,7 +172,6 @@
         Register.BrandId = BrandRef.PrimaryKey
         Console.Clear()
         Console.WriteLine("-------------- Register Model ------------")
-        Console.WriteLine("Δώσε Όνομα Model: ")
         If ChoiceCategory = VehicleCategory.None Or ChoiceCategory = VehicleCategory.all Then
             ListOfCategory(BrandRef, True, ChoiceCategory)
         End If

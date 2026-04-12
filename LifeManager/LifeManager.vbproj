@@ -125,6 +125,7 @@
     <Compile Include="EconomyModules\TransferModule.vb" />
     <Compile Include="Vehicles\BrandsModule.vb" />
     <Compile Include="Vehicles\Models.vb" />
+    <Compile Include="Vehicles\VehiclesModule.vb" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="My Project\Resources.resx">
