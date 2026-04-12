@@ -123,6 +123,8 @@
     <Compile Include="ProfileModule.vb" />
     <Compile Include="RelationShipModule.vb" />
     <Compile Include="EconomyModules\TransferModule.vb" />
+    <Compile Include="Vehicles\BrandsModule.vb" />
+    <Compile Include="Vehicles\Models.vb" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="My Project\Resources.resx">
@@ -200,6 +202,10 @@
     <ProjectReference Include="..\RelationShipComponent\RelationShipComponent.vbproj">
       <Project>{d8bfab64-d74d-44dd-a5d5-0e5241bd2784}</Project>
       <Name>RelationShipComponent</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Vehicles\Vehicles.vbproj">
+      <Project>{20dc9677-97b6-4dc9-aae8-a7f00cb4ea6f}</Project>
+      <Name>Vehicles</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />

@@ -11,6 +11,8 @@
     Public EconomyController As New Economy.Controller.Controller(Of AccountComponent.Contracts.IReference)
     Public TransferController As New Economy.TransferController(TransferService)
 
+    Public VehiclesController As New Vehicles.Vehicle.Controller.Controller
+
     Public ProfileAndApartments As New BuildAndApartmentCompoent.BuildAndApartment.Cohrabication.Service.Service(Buildings, Apartnment)
     Public BuildAndApartment As New BuildAndApartmentCompoent.Controller(Buildings, Apartnment, ProfileAndApartments)
     Public AccountService As New AccountComponent.AcountService(LoginService, PersonService, Family)
@@ -82,6 +84,7 @@
             Help.AddOption(Opt, Action, "List Of Profiles.", Sub() ProfileModule.ListOfProfiles(Ref))
             Help.AddOption(Opt, Action, "Address.", Sub() AddressRelationShipModule.Menu())
             Help.AddOption(Opt, Action, "Διπλώματα.", Sub() Diplomata.Menu())
+            Help.AddOption(Opt, Action, "Vehicles.", Sub() BrandsModule.ListOfBrands())
             Help.AddOption(Opt, Action, "Διαχήρηση Είσοδου.", Sub() LoginModule.Menu(Model.LoginModel))
             Help.AddOption(Opt, Action, "Διαγραφή Λογαρισμού.", Sub() RemoveAcc(Model))
             Help.AddOption(Opt, Action, "Exit.", Sub() ContinueMenu = False)

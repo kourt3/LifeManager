@@ -27,6 +27,9 @@ End Interface
 Public Interface IHasName
     Property Name As String
 End Interface
+Public Interface IHasIcon
+    Property Icon As String
+End Interface
 Public Interface IHasValue(Of T)
     Property Value As T
 End Interface

@@ -13,4 +13,5 @@
   <Project Path="ProfileComponent/ProfileComponent.vbproj" Id="dd62db9e-1f06-40eb-b3e9-4c6aa1f0e761" />
   <Project Path="RelationShipComponent/RelationShipComponent.vbproj" Id="d8bfab64-d74d-44dd-a5d5-0e5241bd2784" />
   <Project Path="testing/testing.vbproj" Id="a5db107b-7b05-48d6-b220-1dc1103f5a85" />
+  <Project Path="Vehicles/Vehicles.vbproj" Id="20dc9677-97b6-4dc9-aae8-a7f00cb4ea6f" />
 </Solution>
