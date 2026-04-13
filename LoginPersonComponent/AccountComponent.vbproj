@@ -105,10 +105,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\FamilyProject\FamilyProject.vbproj">
-      <Project>{9d148d1b-473c-44e6-b21a-be379073ee49}</Project>
-      <Name>FamilyProject</Name>
-    </ProjectReference>
     <ProjectReference Include="..\LoginProject\LoginProject.vbproj">
       <Project>{93646ac7-dd23-4e28-8529-924140fd7036}</Project>
       <Name>LoginProject</Name>
@@ -117,9 +113,9 @@
       <Project>{966b3a01-e481-4d41-8797-9a4338c10767}</Project>
       <Name>MyBook</Name>
     </ProjectReference>
-    <ProjectReference Include="..\PersonProject\PersonProject.vbproj">
-      <Project>{f442e2ac-4818-40b5-8d6d-f03ad0cca734}</Project>
-      <Name>PersonProject</Name>
+    <ProjectReference Include="..\ProfileComponent\ProfileComponent.vbproj">
+      <Project>{dd62db9e-1f06-40eb-b3e9-4c6aa1f0e761}</Project>
+      <Name>ProfileComponent</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />

@@ -1,10 +1,11 @@
-﻿Public Class AcountService
+﻿Imports ProfileComponent
+Public Class AcountService
     Inherits MyBook.Services.Service(Of Integer, Contracts.Contracts, My.Entity.Entity, AccountDatabaseRepository)
 
     Private LoginService As LoginProject.Service.LoginService
     Private PersonService As PersonProject.Service.PersonService
-    Private FamilyService As FamilyProject.Service.Service
-    Sub New(LoginServiceLink As LoginProject.Service.LoginService, PersonServiceLink As PersonProject.Service.PersonService, FamilyServiceLink As FamilyProject.Service.Service)
+    Private FamilyService As FamilyProject.Family.Service.Service
+    Sub New(LoginServiceLink As LoginProject.Service.LoginService, PersonServiceLink As PersonProject.Service.PersonService, FamilyServiceLink As FamilyProject.Family.Service.Service)
         MyBase.New(New AccountDatabaseRepository)
         LoginService = LoginServiceLink
         PersonService = PersonServiceLink
@@ -14,7 +15,7 @@
         MyBase.New(New AcountRepository)
         LoginService = New LoginProject.Service.LoginService
         PersonService = New PersonProject.Service.PersonService
-        FamilyService = New FamilyProject.Service.Service(PersonService)
+        FamilyService = New FamilyProject.Family.Service.Service(PersonService)
     End Sub
     Public Overrides Function Change(Of DTO)(Ref As Contracts.Contracts, ChangeDTO As DTO) As MyBook.ValMsg
         Dim Result As New MyBook.ValMsg
@@ -65,7 +66,7 @@
             Return Result
         End If
         AcountRegisterDTO.PersonRef = PersonVal.Model
-        Dim FamilyregisterDTO As FamilyProject.Contracts.IRegisterDTO = New FamilyProject.Contracts.Contracts
+        Dim FamilyregisterDTO As FamilyProject.Family.Contracts.IRegisterDTO = New FamilyProject.Family.Contracts.Contracts
         With FamilyregisterDTO
             .Mother = 0
             .Father = 0
@@ -88,7 +89,7 @@
             Return Result
         End If
         AcountRegisterDTO.PersonRef = PersonVal.Model
-        Dim FamilyregisterDTO As FamilyProject.Contracts.IRegisterDTO = New FamilyProject.Contracts.Contracts
+        Dim FamilyregisterDTO As FamilyProject.Family.Contracts.IRegisterDTO = New FamilyProject.Family.Contracts.Contracts
         With FamilyregisterDTO
             .Mother = 0
             .Father = 0
@@ -118,7 +119,7 @@
         Dim Model As Contracts.IModel = New Contracts.Contracts
         Model.LoginModel = LoginService.Exist(New LoginProject.Contracts.Contracts With {.PrimaryKey = Entity.LoginID}).Model
         Model.PersonModel = PersonService.Exist(New PersonProject.Contracts.Contracts With {.PrimaryKey = Entity.PersonID}).Model
-        Model.FamilyModel = FamilyService.Exist(New FamilyProject.Contracts.Contracts With {.PrimaryKey = Entity.FamilyID}).Model
+        Model.FamilyModel = FamilyService.Exist(New FamilyProject.Family.Contracts.Contracts With {.PrimaryKey = Entity.FamilyID}).Model
         Model.PrimaryKey = Entity.PrimaryKey
         Return Model
     End Function

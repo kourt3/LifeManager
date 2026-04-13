@@ -1,6 +1,6 @@
-﻿Imports PersonProject
+﻿Imports ProfileComponent.PersonProject
 Friend Module PersonModule
-    Friend Sub Info(Model As Contracts.IModel)
+    Friend Sub Info(Model As ProfileComponent.PersonProject.Contracts.IModel)
         Console.WriteLine("ID: " & Model.PrimaryKey)
         Console.WriteLine("Firstname: " & Model.FristName)
         Console.WriteLine("Secondname: " & Model.SecondName)
@@ -9,7 +9,7 @@ Friend Module PersonModule
         Console.WriteLine("Age: " & Model.Age)
 
     End Sub
-    Friend Sub Menu(Ref As PersonProject.My.Enity.IReference)
+    Friend Sub Menu(Ref As Enity.IReference)
         Do
             Dim ValModel As MyBook.ValMsg(Of Contracts.Contracts) = PersonService.Exist(Ref)
             If ValModel.Success = False Then
@@ -49,7 +49,7 @@ Friend Module PersonModule
 
         Loop
     End Sub
-    Friend Sub Register(ByRef RegisterDTO As PersonProject.Contracts.IRegisterDTO)
+    Friend Sub Register(ByRef RegisterDTO As Contracts.IRegisterDTO)
         Do
             Console.Clear()
             Console.WriteLine("------ Register Person ------")
@@ -68,7 +68,7 @@ Friend Module PersonModule
             Exit Do
         Loop
     End Sub
-    Friend Sub ChangeFirstName(Ref As PersonProject.My.Enity.IReference)
+    Friend Sub ChangeFirstName(Ref As Enity.IReference)
         Dim Model As Contracts.IModel = PersonService.Exist(Ref).Model
         Console.Clear()
         Console.WriteLine("------- Person ------")
@@ -86,7 +86,7 @@ Friend Module PersonModule
         End If
 
     End Sub
-    Friend Sub ChangeSecondName(Ref As PersonProject.My.Enity.IReference)
+    Friend Sub ChangeSecondName(Ref As Enity.IReference)
         Dim Model As Contracts.IModel = PersonService.Exist(Ref).Model
 
         Console.Clear()
@@ -103,7 +103,7 @@ Friend Module PersonModule
             Console.ReadLine()
         End If
     End Sub
-    Friend Sub ChangeFirstnameAndSecondname(Ref As PersonProject.My.Enity.IReference)
+    Friend Sub ChangeFirstnameAndSecondname(Ref As Enity.IReference)
         Dim Model As Contracts.IModel = PersonService.Exist(Ref).Model
 
         Console.Clear()
@@ -124,7 +124,7 @@ Friend Module PersonModule
         End If
 
     End Sub
-    Friend Sub ChangeBirthday(Ref As PersonProject.My.Enity.IReference)
+    Friend Sub ChangeBirthday(Ref As Enity.IReference)
         Dim Model As Contracts.IModel = PersonService.Exist(Ref).Model
 
         Console.Clear()
@@ -144,7 +144,7 @@ Friend Module PersonModule
 
 
     End Sub
-    Friend Sub Remove(Ref As PersonProject.My.Enity.IReference)
+    Friend Sub Remove(Ref As Enity.IReference)
         Dim Model As Contracts.IModel = PersonService.Exist(Ref).Model
 
         Console.Clear()

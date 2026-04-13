@@ -1,6 +1,6 @@
 ﻿Imports LoginProject.My.Ables
 Imports MyBook
-Imports PersonProject.My.Ables
+Imports ProfileComponent
 
 Namespace Contracts
     Public Interface ICreteria
@@ -14,7 +14,7 @@ Namespace Contracts
         Inherits IReference
         Property LoginModel As LoginProject.Contracts.IModel
         Property PersonModel As PersonProject.Contracts.IModel
-        Property FamilyModel As FamilyProject.Contracts.IModel
+        Property FamilyModel As FamilyProject.Family.Contracts.IModel
     End Interface
     Public Interface ILoginAndPersonRegisterDTO
         Property LoginDTO As LoginProject.Contracts.IRegisterDTO
@@ -22,8 +22,8 @@ Namespace Contracts
     End Interface
     Public Interface IAcountRegisterDTO
         Property LoginRef As LoginProject.My.Entity.IReference
-        Property PersonRef As PersonProject.My.Enity.IReference
-        Property FamilyRef As FamilyProject.Contracts.IReference
+        Property PersonRef As PersonProject.Enity.IReference
+        Property FamilyRef As FamilyProject.Family.Contracts.IReference
     End Interface
 
     Public Class Contracts
@@ -36,9 +36,9 @@ Namespace Contracts
         Public Property LoginDTO As LoginProject.Contracts.IRegisterDTO Implements ILoginAndPersonRegisterDTO.LoginDTO
         Public Property PersonDTO As PersonProject.Contracts.IRegisterDTO Implements ILoginAndPersonRegisterDTO.PersonDTO
         Public Property LoginRef As LoginProject.My.Entity.IReference Implements IAcountRegisterDTO.LoginRef
-        Public Property PersonRef As PersonProject.My.Enity.IReference Implements IAcountRegisterDTO.PersonRef
-        Public Property FamilyModel As FamilyProject.Contracts.IModel Implements IModel.FamilyModel
-        Public Property FamilyRef As FamilyProject.Contracts.IReference Implements IAcountRegisterDTO.FamilyRef
+        Public Property PersonRef As PersonProject.Enity.IReference Implements IAcountRegisterDTO.PersonRef
+        Public Property FamilyModel As FamilyProject.Family.Contracts.IModel Implements IModel.FamilyModel
+        Public Property FamilyRef As FamilyProject.Family.Contracts.IReference Implements IAcountRegisterDTO.FamilyRef
 
 
         Sub New()
@@ -50,8 +50,8 @@ Namespace Contracts
             PersonModel = New PersonProject.Contracts.Contracts
             PersonDTO = New PersonProject.Contracts.Contracts
 
-            FamilyModel = New FamilyProject.Contracts.Contracts
-            FamilyRef = New FamilyProject.Contracts.Contracts
+            FamilyModel = New FamilyProject.Family.Contracts.Contracts
+            FamilyRef = New FamilyProject.Family.Contracts.Contracts
         End Sub
     End Class
 End Namespace

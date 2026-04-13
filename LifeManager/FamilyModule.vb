@@ -1,6 +1,6 @@
-﻿Imports FamilyProject
+﻿Imports ProfileComponent
 Module FamilyModule
-    Friend Sub info(Model As FamilyProject.Contracts.IModel)
+    Friend Sub info(Model As FamilyProject.Family.Contracts.IModel)
         Console.WriteLine("------ Mother --------")
         If Model.MotherModel IsNot Nothing Then
             Console.WriteLine("FullName: " & Model.MotherModel.FullName)
@@ -35,12 +35,12 @@ Module FamilyModule
     ''' <param name="FamilyRef"></param>
     ''' <param name="ChoiceRef">Μόνο Αν Θέλεις επιλογη</param>
     ''' <param name="AutoComplite">Μπορει να περναει αυτοματα της σχέσεις μεταξυ τους(Bydefault =  false)</param> ' Προτημότερο ειναι το false!
-    Friend Sub Menu(Myref As AccountComponent.Contracts.IReference, FamilyRef As FamilyProject.Contracts.IReference, Optional ByRef ChoiceRef As AccountComponent.Contracts.IReference = Nothing, Optional AutoComplite As Boolean = False)
+    Friend Sub Menu(Myref As AccountComponent.Contracts.IReference, FamilyRef As FamilyProject.Family.Contracts.IReference, Optional ByRef ChoiceRef As AccountComponent.Contracts.IReference = Nothing, Optional AutoComplite As Boolean = False)
         Dim ContinueMenu As Boolean = True
         Do
 
             Dim ChoicerRef As AccountComponent.Contracts.IReference = New AccountComponent.Contracts.Contracts
-            Dim Val As MyBook.ValMsg(Of Contracts.Contracts) = Family.Exist(FamilyRef)
+            Dim Val As MyBook.ValMsg(Of ProfileComponent.FamilyProject.Family.Contracts.Contracts) = ProfileController.Family.Exist(FamilyRef)
             Dim Opt As New List(Of String)
             Dim Action As New List(Of Action)
             If Val.Success = False Then
@@ -126,11 +126,11 @@ Module FamilyModule
     End Sub
 
 
-    Friend Sub Open(Myref As AccountComponent.Contracts.IReference, FamilyRef As FamilyProject.Contracts.IReference, ChoiceFamily As ChoiceFamily, Optional ByRef ChoiceRef As AccountComponent.Contracts.IReference = Nothing, Optional AutoComplite As Boolean = False)
+    Friend Sub Open(Myref As AccountComponent.Contracts.IReference, FamilyRef As FamilyProject.Family.Contracts.IReference, ChoiceFamily As ChoiceFamily, Optional ByRef ChoiceRef As AccountComponent.Contracts.IReference = Nothing, Optional AutoComplite As Boolean = False)
 
         While ChoiceFamily = ChoiceFamily.Mother OrElse ChoiceFamily = ChoiceFamily.Father OrElse ChoiceFamily = ChoiceFamily.Husband
             Console.Clear()
-            Dim Val As MyBook.ValMsg(Of Contracts.Contracts) = Family.Exist(FamilyRef)
+            Dim Val As MyBook.ValMsg(Of ProfileComponent.FamilyProject.Family.Contracts.Contracts) = ProfileController.Family.Exist(FamilyRef)
             If Val.Success = False Then
                 Console.WriteLine(Val.Msg)
                 Console.ReadLine()
@@ -178,9 +178,9 @@ Module FamilyModule
 
         While ChoiceFamily = ChoiceFamily.Childrens
             Console.Clear()
-            Dim Creteria As Children.Conctracts.ICreteria = New Children.Conctracts.Contracts
+            Dim Creteria As FamilyProject.Children.Conctracts.ICreteria = New FamilyProject.Children.Conctracts.Contracts
             Creteria.FamilyID = FamilyRef.PrimaryKey
-            Dim Val As MyBook.ValMsg(Of List(Of Children.Conctracts.IModel)) = Family.Childrens.Search(Creteria)
+            Dim Val As MyBook.ValMsg(Of List(Of ProfileComponent.FamilyProject.Children.Conctracts.IModel)) = ProfileController.Family.Childrens.Search(Creteria)
             If Val.Success = False Then
                 Console.WriteLine(Val.Msg)
                 Exit Sub
@@ -220,10 +220,10 @@ Module FamilyModule
             End Select
         End While
     End Sub
-    Friend Sub OpenChildren(Myref As AccountComponent.Contracts.IReference, Ref As Children.Conctracts.IReference, Optional AutoComplite As Boolean = False)
+    Friend Sub OpenChildren(Myref As AccountComponent.Contracts.IReference, Ref As FamilyProject.Children.Conctracts.IReference, Optional AutoComplite As Boolean = False)
         Do
             Console.Clear()
-            Dim Val As MyBook.ValMsg(Of Children.Conctracts.Contracts) = Family.Childrens.Exist(Ref)
+            Dim Val As MyBook.ValMsg(Of ProfileComponent.FamilyProject.Children.Conctracts.Contracts) = ProfileController.Family.Childrens.Exist(Ref)
             If Val.Success = False Then
                 Console.WriteLine(Val.Msg)
                 Exit Sub
@@ -253,19 +253,19 @@ Module FamilyModule
         Loop
     End Sub
 
-    Friend Sub RemoveChildren(Myref As AccountComponent.Contracts.IReference, ChildRef As Children.Conctracts.IReference, Optional AutoComplite As Boolean = False)
-        Dim PersonModel As PersonProject.Contracts.IModel = Family.Childrens.Exist(ChildRef).Model.PersonModel
+    Friend Sub RemoveChildren(Myref As AccountComponent.Contracts.IReference, ChildRef As FamilyProject.Children.Conctracts.IReference, Optional AutoComplite As Boolean = False)
+        Dim PersonModel As PersonProject.Contracts.IModel = ProfileController.Family.Childrens.Exist(ChildRef).Model.PersonModel
         Console.Clear()
         Console.WriteLine("--------- Remove Children -------")
         PersonModule.Info(PersonModel)
         Console.WriteLine("---------- Menu ---------")
         If Help.AccessChoice("Θέλεις να συνεχησεις με την διαγραφή??") Then
-            Dim ChildVal As MyBook.ValMsg(Of Children.Conctracts.Contracts) = Family.Childrens.Exist(ChildRef)
+            Dim ChildVal As MyBook.ValMsg(Of ProfileComponent.FamilyProject.Children.Conctracts.Contracts) = ProfileController.Family.Childrens.Exist(ChildRef)
 
             If AutoComplite = True Then
-                Dim FamilyCreteria As FamilyProject.Contracts.ICreteria = New Contracts.Contracts
+                Dim FamilyCreteria As FamilyProject.Family.Contracts.ICreteria = New FamilyProject.Family.Contracts.Contracts
                 FamilyCreteria.MePersonID = ChildVal.Model.PersonModel.PrimaryKey
-                Dim FamilyVal As MyBook.ValMsg(Of FamilyProject.Contracts.IModel) = Family.Search(FamilyCreteria)
+                Dim FamilyVal As MyBook.ValMsg(Of ProfileComponent.FamilyProject.Family.Contracts.IModel) = ProfileController.Family.Search(FamilyCreteria)
                 Console.WriteLine("Τι Γωνιος ειστε?")
                 Console.WriteLine("1) Η μητέρα του?")
                 Console.WriteLine("2) Ο Πατέρας του?")
@@ -275,28 +275,28 @@ Module FamilyModule
                 Dim Choice As String = Console.ReadLine
                 Select Case Choice
                     Case 1
-                        Dim FamilyRemove As FamilyProject.Contracts.IRemoveMotherDTO = New Contracts.Contracts
+                        Dim FamilyRemove As FamilyProject.Family.Contracts.IRemoveMotherDTO = New FamilyProject.Family.Contracts.Contracts
                         FamilyRemove.Mother = Nothing
-                        Family.Change(FamilyVal.Model, FamilyRemove)
+                        ProfileController.Family.Change(FamilyVal.Model, FamilyRemove)
                     Case 2
-                        Dim FamilyRemove As FamilyProject.Contracts.IRegisterFatherDTO = New Contracts.Contracts
+                        Dim FamilyRemove As FamilyProject.Family.Contracts.IRegisterFatherDTO = New FamilyProject.Family.Contracts.Contracts
                         FamilyRemove.Father = Nothing
-                        Family.Change(FamilyVal.Model, FamilyRemove)
+                        ProfileController.Family.Change(FamilyVal.Model, FamilyRemove)
                     Case 3
                         Exit Sub
                 End Select
             End If
 
-            Family.Childrens.Remove(ChildRef)
+            ProfileController.Family.Childrens.Remove(ChildRef)
             Console.ReadLine()
         End If
     End Sub
 
-    Friend Sub Register(MyRef As AccountComponent.Contracts.IReference, FamilyRef As FamilyProject.Contracts.IReference, ChoiceFamily As ChoiceFamily, Optional AutoComplite As Boolean = False)
+    Friend Sub Register(MyRef As AccountComponent.Contracts.IReference, FamilyRef As FamilyProject.Family.Contracts.IReference, ChoiceFamily As ChoiceFamily, Optional AutoComplite As Boolean = False)
 
         While ChoiceFamily = ChoiceFamily.Mother OrElse ChoiceFamily = ChoiceFamily.Father OrElse ChoiceFamily = ChoiceFamily.Husband AndAlso AutoComplite = False
             Dim Ref As AccountComponent.Contracts.IReference = New AccountComponent.Contracts.Contracts
-            Dim Val As MyBook.ValMsg(Of Contracts.Contracts) = Family.Exist(FamilyRef)
+            Dim Val As MyBook.ValMsg(Of ProfileComponent.FamilyProject.Family.Contracts.Contracts) = ProfileController.Family.Exist(FamilyRef)
             Console.Clear()
             If ChoiceFamily = ChoiceFamily.Mother Then
                 Console.WriteLine("---------- Register Family Mother --------")
@@ -325,18 +325,18 @@ Module FamilyModule
             Dim registerVal As New MyBook.ValMsg
             If ChoiceFamily = ChoiceFamily.Mother Then
                 'Πρωτη εγραφή την βαζω μητερα 
-                Dim RegisterDTO As FamilyProject.Contracts.IRegisterMotherDTO = New Contracts.Contracts
+                Dim RegisterDTO As FamilyProject.Family.Contracts.IRegisterMotherDTO = New FamilyProject.Family.Contracts.Contracts
                 RegisterDTO.Mother = AccountService.Exist(Ref).Model.PersonModel.PrimaryKey
-                registerVal = Family.Change(FamilyRef, RegisterDTO)
+                registerVal = ProfileController.Family.Change(FamilyRef, RegisterDTO)
             ElseIf ChoiceFamily = ChoiceFamily.Father Then
-                Dim RegisterDTO As FamilyProject.Contracts.IRegisterFatherDTO = New Contracts.Contracts
+                Dim RegisterDTO As FamilyProject.Family.Contracts.IRegisterFatherDTO = New FamilyProject.Family.Contracts.Contracts
                 RegisterDTO.Father = Ref.PrimaryKey
-                registerVal = Family.Change(FamilyRef, RegisterDTO)
+                registerVal = ProfileController.Family.Change(FamilyRef, RegisterDTO)
 
             ElseIf ChoiceFamily = ChoiceFamily.Husband Then
-                Dim RegisterDTO As FamilyProject.Contracts.IRegisterHusbandDTO = New Contracts.Contracts
+                Dim RegisterDTO As FamilyProject.Family.Contracts.IRegisterHusbandDTO = New FamilyProject.Family.Contracts.Contracts
                 RegisterDTO.Husband = Ref.PrimaryKey
-                registerVal = Family.Change(FamilyRef, RegisterDTO)
+                registerVal = ProfileController.Family.Change(FamilyRef, RegisterDTO)
             End If
             Console.WriteLine()
             Console.WriteLine(registerVal.Msg)
@@ -349,7 +349,7 @@ Module FamilyModule
 
         While ChoiceFamily = ChoiceFamily.Mother OrElse ChoiceFamily = ChoiceFamily.Father OrElse ChoiceFamily = ChoiceFamily.Husband AndAlso AutoComplite = True
             Dim Ref As AccountComponent.Contracts.IReference = New AccountComponent.Contracts.Contracts
-            Dim Val As MyBook.ValMsg(Of Contracts.Contracts) = Family.Exist(FamilyRef)
+            Dim Val As MyBook.ValMsg(Of ProfileComponent.FamilyProject.Family.Contracts.Contracts) = ProfileController.Family.Exist(FamilyRef)
             Console.Clear()
             If ChoiceFamily = ChoiceFamily.Mother Then
                 Console.WriteLine("---------- Register Family Mother --------")
@@ -378,49 +378,49 @@ Module FamilyModule
             Dim registerVal As New MyBook.ValMsg
             If ChoiceFamily = ChoiceFamily.Mother Then
                 'Πρωτη εγραφή την βαζω μητερα 
-                Dim RegisterDTO As FamilyProject.Contracts.IRegisterMotherDTO = New Contracts.Contracts
+                Dim RegisterDTO As FamilyProject.Family.Contracts.IRegisterMotherDTO = New FamilyProject.Family.Contracts.Contracts
                 RegisterDTO.Mother = AccountService.Exist(Ref).Model.PersonModel.PrimaryKey
-                registerVal = Family.Change(FamilyRef, RegisterDTO)
+                registerVal = ProfileController.Family.Change(FamilyRef, RegisterDTO)
                 '----------------------
 
-                Dim ChildRegDTO As FamilyProject.Contracts.IRegisterChildrendDTO = New Contracts.Contracts
-                Dim Creteria As FamilyProject.Contracts.ICreteria = New Contracts.Contracts
+                Dim ChildRegDTO As FamilyProject.Family.Contracts.IRegisterChildrendDTO = New FamilyProject.Family.Contracts.Contracts
+                Dim Creteria As FamilyProject.Family.Contracts.ICreteria = New FamilyProject.Family.Contracts.Contracts
 
                 'Εφωσον γνωριζω το PersonId -> Mother ψάχνω για το Family της   
                 Creteria.MePersonID = RegisterDTO.Mother
-                ChildRegDTO.FamilyID = Family.Search(Creteria).Model.PrimaryKey
+                ChildRegDTO.FamilyID = ProfileController.Family.Search(Creteria).Model.PrimaryKey
                 ChildRegDTO.PersonID = AccountService.Exist(MyRef).Model.PersonModel.PrimaryKey 'Προσθέτω τον ευτο μου για child
 
                 '-----------------------------------------
-                Dim MotherFamilyRef As FamilyProject.Contracts.IReference = New FamilyProject.Contracts.Contracts
+                Dim MotherFamilyRef As FamilyProject.Family.Contracts.IReference = New FamilyProject.Family.Contracts.Contracts
                 MotherFamilyRef.PrimaryKey = ChildRegDTO.FamilyID
 
                 'Βάζω της Μητερας το Family για να με προσθέσω σαν Child
-                Family.Register(MotherFamilyRef, ChildRegDTO)
+                ProfileController.Family.Register(MotherFamilyRef, ChildRegDTO)
 
             ElseIf ChoiceFamily = ChoiceFamily.Father Then
-                Dim RegisterDTO As FamilyProject.Contracts.IRegisterFatherDTO = New Contracts.Contracts
+                Dim RegisterDTO As FamilyProject.Family.Contracts.IRegisterFatherDTO = New FamilyProject.Family.Contracts.Contracts
                 RegisterDTO.Father = Ref.PrimaryKey
-                registerVal = Family.Change(FamilyRef, RegisterDTO)
+                registerVal = ProfileController.Family.Change(FamilyRef, RegisterDTO)
 
 
-                Dim RegisterDTO1 As FamilyProject.Contracts.IRegisterChildrendDTO = New Contracts.Contracts
-                Dim Creteria As FamilyProject.Contracts.ICreteria = New Contracts.Contracts
+                Dim RegisterDTO1 As FamilyProject.Family.Contracts.IRegisterChildrendDTO = New FamilyProject.Family.Contracts.Contracts
+                Dim Creteria As FamilyProject.Family.Contracts.ICreteria = New FamilyProject.Family.Contracts.Contracts
                 Creteria.MePersonID = RegisterDTO.Father
-                RegisterDTO1.FamilyID = Family.Search(Creteria).Model.PrimaryKey
+                RegisterDTO1.FamilyID = ProfileController.Family.Search(Creteria).Model.PrimaryKey
                 RegisterDTO1.PersonID = AccountService.Exist(MyRef).Model.PersonModel.PrimaryKey
-                Dim MotherFamilyRef As FamilyProject.Contracts.IReference = New FamilyProject.Contracts.Contracts
+                Dim MotherFamilyRef As FamilyProject.Family.Contracts.IReference = New FamilyProject.Family.Contracts.Contracts
                 MotherFamilyRef.PrimaryKey = RegisterDTO1.FamilyID
-                Family.Register(MotherFamilyRef, RegisterDTO1)
+                ProfileController.Family.Register(MotherFamilyRef, RegisterDTO1)
 
             ElseIf ChoiceFamily = ChoiceFamily.Husband Then
-                Dim RegisterDTO As FamilyProject.Contracts.IRegisterHusbandDTO = New Contracts.Contracts
+                Dim RegisterDTO As FamilyProject.Family.Contracts.IRegisterHusbandDTO = New FamilyProject.Family.Contracts.Contracts
                 RegisterDTO.Husband = Ref.PrimaryKey
-                registerVal = Family.Change(FamilyRef, RegisterDTO)
+                registerVal = ProfileController.Family.Change(FamilyRef, RegisterDTO)
 
-                Dim RegisterDTO1 As FamilyProject.Contracts.IRegisterHusbandDTO = New Contracts.Contracts
+                Dim RegisterDTO1 As FamilyProject.Family.Contracts.IRegisterHusbandDTO = New FamilyProject.Family.Contracts.Contracts
                 RegisterDTO1.Husband = AccountService.Exist(MyRef).Model.PersonModel.PrimaryKey
-                registerVal = Family.Change(AccountService.Exist(Ref).Model.FamilyModel, RegisterDTO1)
+                registerVal = ProfileController.Family.Change(AccountService.Exist(Ref).Model.FamilyModel, RegisterDTO1)
             End If
             Console.WriteLine()
             Console.WriteLine(registerVal.Msg & "Register Malakiaw")
@@ -460,25 +460,25 @@ Module FamilyModule
                 Dim Choice1 As String = Console.ReadLine
                 Select Case Choice1
                     Case 1
-                        Dim ChildRefFamily As FamilyProject.Contracts.IReference = AccountService.Exist(Ref).Model.FamilyModel
-                        Dim RegisterMother As FamilyProject.Contracts.IRegisterMotherDTO = New Contracts.Contracts
+                        Dim ChildRefFamily As FamilyProject.Children.Conctracts.IReference = AccountService.Exist(Ref).Model.FamilyModel
+                        Dim RegisterMother As FamilyProject.Family.Contracts.IRegisterMotherDTO = New FamilyProject.Family.Contracts.Contracts
 
-                        RegisterMother.Mother = Family.Exist(FamilyRef).Model.MePersonModel.PrimaryKey
-                        Family.Change(ChildRefFamily, RegisterMother)
+                        RegisterMother.Mother = ProfileController.Family.Exist(FamilyRef).Model.MePersonModel.PrimaryKey
+                        ProfileController.Family.Change(ChildRefFamily, RegisterMother)
                     Case 2
-                        Dim ChildRefFamily As FamilyProject.Contracts.IReference = AccountService.Exist(Ref).Model.FamilyModel
-                        Dim RegisterFather As FamilyProject.Contracts.IRegisterFatherDTO = New Contracts.Contracts
+                        Dim ChildRefFamily As FamilyProject.Children.Conctracts.IReference = AccountService.Exist(Ref).Model.FamilyModel
+                        Dim RegisterFather As FamilyProject.Family.Contracts.IRegisterFatherDTO = New FamilyProject.Family.Contracts.Contracts
 
-                        RegisterFather.Father = Family.Exist(FamilyRef).Model.MePersonID
-                        Console.WriteLine(Family.Change(ChildRefFamily, RegisterFather).Msg)
+                        RegisterFather.Father = ProfileController.Family.Exist(FamilyRef).Model.MePersonID
+                        Console.WriteLine(ProfileController.Family.Change(ChildRefFamily, RegisterFather).Msg)
                     Case 3
                         Exit Sub
                 End Select
             End If
-            Dim RegisterDTO As Children.Conctracts.IRegister = New Children.Conctracts.Contracts
+            Dim RegisterDTO As FamilyProject.Children.Conctracts.IRegister = New FamilyProject.Children.Conctracts.Contracts
             RegisterDTO.FamilyID = FamilyRef.PrimaryKey
             RegisterDTO.PersonID = Ref.PrimaryKey
-            Dim Val As MyBook.ValMsg(Of Children.Conctracts.Contracts) = Family.Childrens.Register(RegisterDTO)
+            Dim Val As MyBook.ValMsg(Of ProfileComponent.FamilyProject.Children.Conctracts.Contracts) = ProfileController.Family.Childrens.Register(RegisterDTO)
 
             Console.WriteLine()
             Console.WriteLine(Val.Msg)
@@ -489,9 +489,9 @@ Module FamilyModule
         End While
     End Sub
 
-    Friend Sub Remove(FamilyRef As FamilyProject.Contracts.IReference, ChoiceFamily As ChoiceFamily, Optional AutoComplite As Boolean = False)
+    Friend Sub Remove(FamilyRef As FamilyProject.Family.Contracts.IReference, ChoiceFamily As ChoiceFamily, Optional AutoComplite As Boolean = False)
         Console.Clear()
-        Dim Val As MyBook.ValMsg(Of FamilyProject.Contracts.Contracts) = Family.Exist(FamilyRef)
+        Dim Val As MyBook.ValMsg(Of ProfileComponent.FamilyProject.Family.Contracts.Contracts) = ProfileController.Family.Exist(FamilyRef)
         If ChoiceFamily = ChoiceFamily.Mother Then
             Console.WriteLine("---------- Remove Family Mother --------")
             PersonModule.Info(Val.Model.MotherModel)
@@ -511,59 +511,59 @@ Module FamilyModule
         If ChoiceFamily = ChoiceFamily.Mother Then
 
             If AutoComplite = True Then
-                Dim Creteria As Contracts.ICreteria = New Contracts.Contracts
+                Dim Creteria As FamilyProject.Family.Contracts.ICreteria = New FamilyProject.Family.Contracts.Contracts
                 Creteria.MePersonID = Val.Model.MotherModel.PrimaryKey
-                Dim FamilyVal As MyBook.ValMsg(Of Contracts.IModel) = Family.Search(Creteria)
+                Dim FamilyVal As MyBook.ValMsg(Of ProfileComponent.FamilyProject.Family.Contracts.IModel) = ProfileController.Family.Search(Creteria)
 
-                Dim ChildCreteria As Children.Conctracts.ICreteria = New Children.Conctracts.Contracts
+                Dim ChildCreteria As FamilyProject.Children.Conctracts.ICreteria = New FamilyProject.Children.Conctracts.Contracts
                 With ChildCreteria
                     .FamilyID = FamilyVal.Model.PrimaryKey
-                    .PersonID = Family.Exist(FamilyRef).Model.MePersonID
+                    .PersonID = ProfileController.Family.Exist(FamilyRef).Model.MePersonID
                 End With
 
-                Dim ChildVal As MyBook.ValMsg(Of List(Of FamilyProject.Children.Conctracts.IModel)) = Family.Childrens.Search(ChildCreteria)
-                Family.Childrens.Remove(ChildVal.Model(0))
+                Dim ChildVal As MyBook.ValMsg(Of List(Of ProfileComponent.FamilyProject.Children.Conctracts.IModel)) = ProfileController.Family.Childrens.Search(ChildCreteria)
+                ProfileController.Family.Childrens.Remove(ChildVal.Model(0))
             End If
 
-            Dim RegisterDTO As FamilyProject.Contracts.IRemoveMotherDTO = New Contracts.Contracts
+            Dim RegisterDTO As FamilyProject.Family.Contracts.IRemoveMotherDTO = New FamilyProject.Family.Contracts.Contracts
             RegisterDTO.Mother = Nothing
-            registerVal = Family.Change(FamilyRef, RegisterDTO)
+            registerVal = ProfileController.Family.Change(FamilyRef, RegisterDTO)
 
         ElseIf ChoiceFamily = ChoiceFamily.Father Then
             If AutoComplite = True Then
-                Dim Creteria As Contracts.ICreteria = New Contracts.Contracts
+                Dim Creteria As FamilyProject.Family.Contracts.ICreteria = New FamilyProject.Family.Contracts.Contracts
                 Creteria.MePersonID = Val.Model.FatherModel.PrimaryKey
-                Dim FamilyVal As MyBook.ValMsg(Of Contracts.IModel) = Family.Search(Creteria)
+                Dim FamilyVal As MyBook.ValMsg(Of ProfileComponent.FamilyProject.Family.Contracts.IModel) = ProfileController.Family.Search(Creteria)
 
-                Dim ChildCreteria As Children.Conctracts.ICreteria = New Children.Conctracts.Contracts
+                Dim ChildCreteria As FamilyProject.Children.Conctracts.ICreteria = New FamilyProject.Children.Conctracts.Contracts
                 With ChildCreteria
                     .FamilyID = FamilyVal.Model.PrimaryKey
-                    .PersonID = Family.Exist(FamilyRef).Model.MePersonID
+                    .PersonID = ProfileController.Family.Exist(FamilyRef).Model.MePersonID
                 End With
 
-                Dim ChildVal As MyBook.ValMsg(Of List(Of FamilyProject.Children.Conctracts.IModel)) = Family.Childrens.Search(ChildCreteria)
-                Family.Childrens.Remove(ChildVal.Model(0))
+                Dim ChildVal As MyBook.ValMsg(Of List(Of ProfileComponent.FamilyProject.Children.Conctracts.IModel)) = ProfileController.Family.Childrens.Search(ChildCreteria)
+                ProfileController.Family.Childrens.Remove(ChildVal.Model(0))
             End If
 
-            Dim RegisterDTO As FamilyProject.Contracts.IRemoveFatherDTO = New Contracts.Contracts
+            Dim RegisterDTO As FamilyProject.Family.Contracts.IRemoveFatherDTO = New FamilyProject.Family.Contracts.Contracts
             RegisterDTO.Father = Nothing
-            registerVal = Family.Change(FamilyRef, RegisterDTO)
+            registerVal = ProfileController.Family.Change(FamilyRef, RegisterDTO)
         ElseIf ChoiceFamily = ChoiceFamily.Husband Then
-            Dim RegisterDTO As FamilyProject.Contracts.IRemoveHusbandDTO = New Contracts.Contracts
+            Dim RegisterDTO As FamilyProject.Family.Contracts.IRemoveHusbandDTO = New FamilyProject.Family.Contracts.Contracts
 
             If AutoComplite = True Then
-                Dim Creteria As Contracts.ICreteria = New Contracts.Contracts
+                Dim Creteria As FamilyProject.Family.Contracts.ICreteria = New FamilyProject.Family.Contracts.Contracts
                 Creteria.MePersonID = Val.Model.HusbandModel.PrimaryKey
-                Dim FamilyVal As MyBook.ValMsg(Of Contracts.IModel) = Family.Search(Creteria)
+                Dim FamilyVal As MyBook.ValMsg(Of ProfileComponent.FamilyProject.Family.Contracts.IModel) = ProfileController.Family.Search(Creteria)
                 RegisterDTO.Husband = Nothing
-                registerVal = Family.Change(FamilyVal.Model, RegisterDTO)
+                registerVal = ProfileController.Family.Change(FamilyVal.Model, RegisterDTO)
             End If
 
             RegisterDTO.Husband = Nothing
-            registerVal = Family.Change(FamilyRef, RegisterDTO)
+            registerVal = ProfileController.Family.Change(FamilyRef, RegisterDTO)
 
         End If
-            Console.WriteLine()
+        Console.WriteLine()
         Console.WriteLine(registerVal.Msg)
         Console.ReadLine()
 

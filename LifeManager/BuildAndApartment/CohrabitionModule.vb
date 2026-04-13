@@ -33,7 +33,7 @@ Module CohrabitionModule
                 Dim Index As Integer = 0
                 For Each Model In Val.Model
                     Index += 1
-                    Dim Person As PersonProject.Contracts.IModel = AccountService.Exist(New AccountComponent.Contracts.Contracts With {.PrimaryKey = Model.ExternalID}).Model.PersonModel
+                    Dim Person As ProfileComponent.PersonProject.Contracts.IModel = AccountService.Exist(New AccountComponent.Contracts.Contracts With {.PrimaryKey = Model.ExternalID}).Model.PersonModel
                     Console.WriteLine(Index & ") " & Person.FullName)
                 Next
                 Console.WriteLine("------------ Menu --------------")
