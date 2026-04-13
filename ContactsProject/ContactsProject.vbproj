@@ -108,10 +108,6 @@
       <Project>{966b3a01-e481-4d41-8797-9a4338c10767}</Project>
       <Name>MyBook</Name>
     </ProjectReference>
-    <ProjectReference Include="..\PersonProject\PersonProject.vbproj">
-      <Project>{f442e2ac-4818-40b5-8d6d-f03ad0cca734}</Project>
-      <Name>PersonProject</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>
