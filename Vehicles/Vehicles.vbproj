@@ -89,6 +89,11 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="PlateNumber\Contracts.vb" />
+    <Compile Include="PlateNumber\Entity.vb" />
+    <Compile Include="PlateNumber\Repository.vb" />
+    <Compile Include="PlateNumber\Service.vb" />
+    <Compile Include="Specs\Entity.vb" />
     <Compile Include="Vehicle\Contracrs.vb" />
     <Compile Include="Vehicle\Entity.vb" />
     <Compile Include="Vehicle\Repository.vb" />
@@ -119,5 +124,6 @@
       <Name>MyBook</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>

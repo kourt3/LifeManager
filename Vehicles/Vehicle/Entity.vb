@@ -2,6 +2,9 @@
 Imports Vehicles.Vehicle.Model.Contracts
 
 Namespace Vehicle.Vehicles.Entity
+    Public Interface IModelId
+        Property ModelId As Integer
+    End Interface
     Public Interface ICreatedAt
         Property CretatedAt As Date
     End Interface
@@ -12,7 +15,7 @@ Namespace Vehicle.Vehicles.Entity
         Dim CratedAt As Date
     End Structure
     Public Interface IEntity
-        Inherits Base.IReference, Vehicle.Model.Contracts.IModelId, ICreatedAt
+        Inherits Base.IReference, IModelId, ICreatedAt
     End Interface
 
 

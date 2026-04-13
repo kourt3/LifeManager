@@ -2,6 +2,9 @@
 Imports Vehicles.Vehicle.Brand.Contracts
 
 Namespace Vehicle.Model.Entity
+    Public Interface IBrandId
+        Property BrandId As Integer
+    End Interface
     Public Interface ICategoryName
         Property CategoryName As String
     End Interface
@@ -13,7 +16,7 @@ Namespace Vehicle.Model.Entity
     End Structure
 
     Public Interface IEntity
-        Inherits Vehicle.Base.IReference, MyBook.IHasName, Vehicle.Brand.Contracts.IBrandId, ICategoryName
+        Inherits Vehicle.Base.IReference, MyBook.IHasName, IBrandId, ICategoryName
 
     End Interface
 

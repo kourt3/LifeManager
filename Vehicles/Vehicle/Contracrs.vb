@@ -3,14 +3,14 @@ Imports Vehicles.Vehicle.Vehicles.Entity
 
 Namespace Vehicle.Vehicles.Contracts
     Public Interface IModel
-        Inherits Vehicle.Vehicles.Entity.ICreatedAt, Base.IReference, Vehicle.Model.Contracts.IModelId
+        Inherits Vehicle.Vehicles.Entity.ICreatedAt, Base.IReference, Vehicle.Vehicles.Entity.IModelId
     End Interface
 
     Public Interface ICreteria
-        Inherits Vehicle.Model.Contracts.IModelId
+        Inherits Vehicle.Vehicles.Entity.IModelId
     End Interface
     Public Interface IRegisterDTO
-        Inherits Vehicle.Vehicles.Entity.ICreatedAt, Vehicle.Model.Contracts.IModelId
+        Inherits Vehicle.Vehicles.Entity.ICreatedAt, Vehicle.Vehicles.Entity.IModelId
     End Interface
     Public Interface IChangeCreatedDTO
         Inherits Vehicles.Entity.ICreatedAt
@@ -21,7 +21,7 @@ Namespace Vehicle.Vehicles.Contracts
 
         Public Property CretatedAt As Date Implements ICreatedAt.CretatedAt
         Public Property PrimaryKey As Integer Implements IHasPrimaryKey(Of Integer).PrimaryKey
-        Public Property ModelId As Integer Implements Model.Contracts.IModelId.ModelId
+        Public Property ModelId As Integer Implements IModelId.ModelId
 
     End Class
 

@@ -18,10 +18,11 @@ Module ProfileModule
             Console.WriteLine("1) Economy.")
             Console.WriteLine("2) Διαχήρηση Προφιλ.")
             Console.WriteLine("3) Διαμερίσματα.")
-            Console.WriteLine("4) Friends/Relationships")
-            Console.WriteLine("5) Contacts")
-            Console.WriteLine("6) Family.")
-            Console.WriteLine("7) Exit.")
+            Console.WriteLine("4) Δήλωσεις οχημάτον.")
+            Console.WriteLine("5) Friends/Relationships")
+            Console.WriteLine("6) Contacts")
+            Console.WriteLine("7) Family.")
+            Console.WriteLine("8) Exit.")
             Console.WriteLine("------------------")
             Console.WriteLine()
             Console.WriteLine("Επέλεξε ενα απο τα Menu:")
@@ -35,12 +36,14 @@ Module ProfileModule
                 Case 3
                     CohrabitionModule.ListOfApartment(Model)
                 Case 4
-                    RelationShipModule.ListOfFriend(Ref)
+                    PlateModule.ListOfPlates(Ref)
                 Case 5
-                    ContactModule.Menu(Ref)
+                    RelationShipModule.ListOfFriend(Ref)
                 Case 6
-                    FamilyModule.Menu(Ref, Model.FamilyModel)
+                    ContactModule.Menu(Ref)
                 Case 7
+                    FamilyModule.Menu(Ref, Model.FamilyModel)
+                Case 8
                     Exit While
                 Case Else
                     Continue While
@@ -64,10 +67,11 @@ Module ProfileModule
                 Console.WriteLine("1) Economy.")
                 Console.WriteLine("2) Διαχήρηση Προφιλ.")
                 Console.WriteLine("3) Διαμερίσματα.")
-                Console.WriteLine("4) Friends/Relationships")
-                Console.WriteLine("5) Family.")
-                Console.WriteLine("6) Add Friend.")
-                Console.WriteLine("7) Exit.")
+                Console.WriteLine("4) Δήλωσεις οχημάτον.")
+                Console.WriteLine("5) Friends/Relationships")
+                Console.WriteLine("6) Family.")
+                Console.WriteLine("7) Add Friend.")
+                Console.WriteLine("8) Exit.")
                 Console.WriteLine("------------------")
                 Console.WriteLine()
                 Console.WriteLine("Επέλεξε ενα απο τα Menu:")
@@ -81,13 +85,15 @@ Module ProfileModule
                     Case 3
                         CohrabitionModule.ListOfApartment(Model)
                     Case 4
-                        RelationShipModule.ListOfFriend(ThirdRef)
+                        PlateModule.ListOfPlates(ThirdRef)
                     Case 5
-                        FamilyModule.Menu(Ref, Model.FamilyModel)
+                        RelationShipModule.ListOfFriend(ThirdRef)
                     Case 6
+                        FamilyModule.Menu(Ref, Model.FamilyModel)
+                    Case 7
                         RelationShipModule.Register(Ref, ThirdRef)
                         Continue Do
-                    Case 7
+                    Case 8
                         Exit Do
                     Case Else
                         Continue While

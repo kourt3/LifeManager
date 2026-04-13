@@ -1,9 +1,6 @@
 ﻿Imports MyBook
 
 Namespace Vehicle.Brand.Contracts
-    Public Interface IBrandId
-        Property BrandId As Integer
-    End Interface
     Public Interface IModel
         Inherits Vehicle.Base.IReference, MyBook.IHasName, MyBook.IHasIcon
     End Interface
