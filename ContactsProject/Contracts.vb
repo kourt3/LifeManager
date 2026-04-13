@@ -1,6 +1,4 @@
 ﻿Imports ContactsProject.My.Entity
-Imports PersonProject.My.Ables
-
 Namespace Contracts
     Public Interface IReference
         Inherits MyBook.IHasPrimaryKey(Of Integer)

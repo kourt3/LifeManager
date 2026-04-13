@@ -11,7 +11,7 @@ Friend Module PersonModule
     End Sub
     Friend Sub Menu(Ref As Enity.IReference)
         Do
-            Dim ValModel As MyBook.ValMsg(Of Contracts.Contracts) = PersonService.Exist(Ref)
+            Dim ValModel As MyBook.ValMsg(Of Contracts.Contracts) = ProfileController.Person.Exist(Ref)
             If ValModel.Success = False Then
                 Console.WriteLine(ValModel.Msg)
                 Console.ReadLine()
@@ -69,7 +69,7 @@ Friend Module PersonModule
         Loop
     End Sub
     Friend Sub ChangeFirstName(Ref As Enity.IReference)
-        Dim Model As Contracts.IModel = PersonService.Exist(Ref).Model
+        Dim Model As Contracts.IModel = ProfileController.Person.Exist(Ref).Model
         Console.Clear()
         Console.WriteLine("------- Person ------")
         Info(Model)
@@ -79,7 +79,7 @@ Friend Module PersonModule
             Console.WriteLine("Δώσε καινουργιο όνομα:")
             Dim Change As Contracts.IChangeFirstNameDTO = New Contracts.Contracts
             Change.FristName = Console.ReadLine
-            Dim Val As MyBook.ValMsg = PersonService.Change(Ref, Change)
+            Dim Val As MyBook.ValMsg = ProfileController.Person.Change(Ref, Change)
             Console.Clear()
             Console.WriteLine(Val.Msg)
             Console.ReadLine()
@@ -87,7 +87,7 @@ Friend Module PersonModule
 
     End Sub
     Friend Sub ChangeSecondName(Ref As Enity.IReference)
-        Dim Model As Contracts.IModel = PersonService.Exist(Ref).Model
+        Dim Model As Contracts.IModel = ProfileController.Person.Exist(Ref).Model
 
         Console.Clear()
         Console.WriteLine("------- Person ------")
@@ -99,12 +99,12 @@ Friend Module PersonModule
             Dim Change As Contracts.IChangeSecondNameDTO = New Contracts.Contracts
             Change.SecondName = Console.ReadLine
             Console.Clear()
-            Console.WriteLine(PersonService.Change(Ref, Change).Msg)
+            Console.WriteLine(ProfileController.Person.Change(Ref, Change).Msg)
             Console.ReadLine()
         End If
     End Sub
     Friend Sub ChangeFirstnameAndSecondname(Ref As Enity.IReference)
-        Dim Model As Contracts.IModel = PersonService.Exist(Ref).Model
+        Dim Model As Contracts.IModel = ProfileController.Person.Exist(Ref).Model
 
         Console.Clear()
         Console.WriteLine("------- Person ------")
@@ -117,7 +117,7 @@ Friend Module PersonModule
             Change.FristName = Console.ReadLine
             Console.WriteLine("Δώσε καινουργιο Επίθετο:")
             Change.SecondName = Console.ReadLine
-            Dim Val As MyBook.ValMsg = PersonService.Change(Ref, Change)
+            Dim Val As MyBook.ValMsg = ProfileController.Person.Change(Ref, Change)
             Console.Clear()
             Console.WriteLine(Val.Msg)
             Console.ReadLine()
@@ -125,7 +125,7 @@ Friend Module PersonModule
 
     End Sub
     Friend Sub ChangeBirthday(Ref As Enity.IReference)
-        Dim Model As Contracts.IModel = PersonService.Exist(Ref).Model
+        Dim Model As Contracts.IModel = ProfileController.Person.Exist(Ref).Model
 
         Console.Clear()
         Console.WriteLine("------- Person ------")
@@ -136,7 +136,7 @@ Friend Module PersonModule
             Console.WriteLine("Δώσε καινουργια Ημμερομηνία:")
             Dim Change As Contracts.IBirthDay = New Contracts.Contracts
             Change.Birthday = Console.ReadLine
-            Dim Val As MyBook.ValMsg = PersonService.Change(Ref, Change)
+            Dim Val As MyBook.ValMsg = ProfileController.Person.Change(Ref, Change)
             Console.Clear()
             Console.WriteLine(Val.Msg)
             Console.ReadLine()
@@ -145,7 +145,7 @@ Friend Module PersonModule
 
     End Sub
     Friend Sub Remove(Ref As Enity.IReference)
-        Dim Model As Contracts.IModel = PersonService.Exist(Ref).Model
+        Dim Model As Contracts.IModel = ProfileController.Person.Exist(Ref).Model
 
         Console.Clear()
         Console.WriteLine("------- Person ------")
@@ -153,7 +153,7 @@ Friend Module PersonModule
         Console.WriteLine()
         Console.WriteLine("----------------")
         If Help.AccessChoice("Θέλετε να Διαγράψετε το Προφίλ?") Then
-            Dim Val As MyBook.ValMsg = PersonService.Remove(Ref)
+            Dim Val As MyBook.ValMsg = ProfileController.Person.Remove(Ref)
             Console.Clear()
             Console.WriteLine(Val.Msg)
             Console.ReadLine()

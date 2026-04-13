@@ -2,7 +2,7 @@
     Public Class Service
         Inherits MyBook.Services.Service(Of Integer, Contracts.Contracts, FamilyProject.Family.Entity.Entity, Repository.Repository)
 
-        ' Public FamilyTreeService As New RelationShipComponent.Service ????
+        Public FamilyTreeService As New ContactsProject.Service.Service
 
         Public Childrens As Children.Service.ChildrenService
         Private PersonService As PersonProject.Service.PersonService

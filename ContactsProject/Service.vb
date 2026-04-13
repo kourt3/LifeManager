@@ -10,7 +10,7 @@
             Telephone
         End Enum
 
-        Private Person As New PersonProject.Service.PersonService
+        Private Person As New ProfileComponent.PersonProject.Service.PersonService
         Private Email As New Repository.ContactRepository
         Private FaceBook As New Repository.ContactRepository
         Private Instagram As New Repository.ContactRepository

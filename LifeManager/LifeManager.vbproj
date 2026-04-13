@@ -97,7 +97,7 @@
     <Compile Include="BuildAndApartment\BuildingsModule.vb" />
     <Compile Include="ContactModule.vb" />
     <Compile Include="EconomyModules\EconomyModule.vb" />
-    <Compile Include="FamilyModule.vb" />
+    <Compile Include="Profile\FamilyModule.vb" />
     <Compile Include="EconomyModules\GiftsCardsModule.vb" />
     <Compile Include="Help.vb" />
     <Compile Include="LoginModule.vb" />
@@ -117,11 +117,11 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="PersonModule.vb" />
+    <Compile Include="Profile\PersonModule.vb" />
     <Compile Include="EconomyModules\PortofolioModule.vb" />
     <Compile Include="BuildAndApartment\CohrabitionModule.vb" />
-    <Compile Include="ProfileModule.vb" />
-    <Compile Include="RelationShipModule.vb" />
+    <Compile Include="Profile\ProfileModule.vb" />
+    <Compile Include="Profile\RelationShipModule.vb" />
     <Compile Include="EconomyModules\TransferModule.vb" />
     <Compile Include="Vehicles\BrandsModule.vb" />
     <Compile Include="Vehicles\Models.vb" />
