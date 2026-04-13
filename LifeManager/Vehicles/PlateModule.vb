@@ -146,7 +146,7 @@ Module PlateModule
         Console.WriteLine("------------------")
         Dim Country As AdressesProject.My.Ables.IReference = New AdressesProject.My.Entity.Entity
         AddressesModule.ListOf(AddressType.County, True, Country)
-        ChangeDTO.Country = Country.PrimaryKey
+        ChangeDTO.Country = AddressController.Country.Exist(Country).Model.Value
         If Help.AccessChoice("Θέλεις να συνεχήσεις με την αλλαγή?") Then
             Console.WriteLine(VehiclesController.Plate.Change(PlateRef, ChangeDTO).Msg)
             Console.ReadLine()

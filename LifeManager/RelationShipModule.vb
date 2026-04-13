@@ -1,16 +1,16 @@
 ﻿Imports System.Reflection
-Imports RelationShipComponent
+Imports ProfileComponent.ContactsProject
 Module RelationShipModule
 
-    Friend Sub Info(Model As RelationShipComponent.Contracts.IModel)
+    Friend Sub Info(Model As Contracts.IModel)
         Dim AccountModel As AccountComponent.Contracts.IModel = AccountService.Exist(New AccountComponent.Contracts.Contracts With {.PrimaryKey = Model.ToExternalID}).Model
         PersonModule.Info(AccountService.Exist(AccountModel).Model.PersonModel)
         Console.WriteLine("Description: " & Model.Description)
     End Sub
-    Friend Sub Menu(MyRef As AccountComponent.Contracts.IReference, Ref As RelationShipComponent.Contracts.IReference)
+    Friend Sub Menu(MyRef As AccountComponent.Contracts.IReference, Ref As Contracts.IReference)
         Do
             Console.Clear()
-            Dim val As MyBook.ValMsg(Of Contracts.Contracts) = RelationShip.Exist(Ref)
+            Dim val As MyBook.ValMsg(Of Contracts.Contracts) = ProfileController.Contact.Exist(Ref)
             If val.Success = False Then
                 Console.WriteLine(val.Msg)
                 Console.ReadLine()
@@ -40,8 +40,8 @@ Module RelationShipModule
             End Select
         Loop
     End Sub
-    Friend Sub ChangeDescription(Ref As RelationShipComponent.Contracts.IReference)
-        Dim Val As MyBook.ValMsg(Of RelationShipComponent.Contracts.Contracts) = RelationShip.Exist(Ref)
+    Friend Sub ChangeDescription(Ref As Contracts.IReference)
+        Dim Val As MyBook.ValMsg(Of Contracts.Contracts) = ProfileController.Contact.Exist(Ref)
         Dim AccountModel As AccountComponent.Contracts.IModel = AccountService.Exist(New AccountComponent.Contracts.Contracts With {.PrimaryKey = Val.Model.ToExternalID}).Model
         Console.Clear()
         Console.WriteLine("-------- Change description ----------")
@@ -51,24 +51,24 @@ Module RelationShipModule
             Dim Change As Contracts.IChangeDescriptionDTO = New Contracts.Contracts
             Console.WriteLine("Δώσε καινουργια Περιγραφή:")
             Change.Description = Console.ReadLine()
-            Console.WriteLine(RelationShip.Change(Ref, Change).Msg)
+            Console.WriteLine(ProfileController.Contact.Change(Ref, Change).Msg)
             Console.ReadLine()
         End If
     End Sub
-    Friend Sub Remove(Ref As RelationShipComponent.Contracts.IReference)
+    Friend Sub Remove(Ref As Contracts.IReference)
         Console.Clear()
-        Dim Val As MyBook.ValMsg(Of RelationShipComponent.Contracts.Contracts) = RelationShip.Exist(Ref)
+        Dim Val As MyBook.ValMsg(Of Contracts.Contracts) = ProfileController.Contact.Exist(Ref)
         Console.WriteLine("-------- Remove Relationship ---------")
         Info(Val.Model)
         Console.WriteLine("-------------------------------")
         If Help.AccessChoice("Θέλεις να διαγραψεις το Relationship?") Then
-            Console.WriteLine(RelationShip.RemoveBothRelationship(Ref).Msg)
+            Console.WriteLine(ProfileController.Contact.RemoveBothRelationship(Ref).Msg)
             Console.ReadLine()
         End If
     End Sub
     Sub ListOfFriend(Ref As AccountComponent.Contracts.IReference, Optional SelecectChoice As Boolean = False, Optional ByRef ChoiceRef As AccountComponent.Contracts.IReference = Nothing)
         Do
-            Dim Val As MyBook.ValMsg(Of List(Of Contracts.IModel)) = RelationShip.Search(New Contracts.Contracts With {.ExternalID = Ref.PrimaryKey})
+            Dim Val As MyBook.ValMsg(Of List(Of Contracts.IModel)) = ProfileController.Contact.Search(New Contracts.Contracts With {.ExternalID = Ref.PrimaryKey})
             Console.Clear()
             Console.WriteLine("---------- List Of Relationship -------------")
             While Val.Success = False
@@ -133,7 +133,7 @@ Module RelationShipModule
         Do
             Console.Clear()
             Dim AccountVal As MyBook.ValMsg(Of List(Of AccountComponent.Contracts.Contracts)) = AccountService.Get_All
-            Dim SearchVal As MyBook.ValMsg(Of List(Of RelationShipComponent.Contracts.IModel)) = RelationShip.Search(New Contracts.Contracts With {.ExternalID = Ref.PrimaryKey})
+            Dim SearchVal As MyBook.ValMsg(Of List(Of Contracts.IModel)) = ProfileController.Contact.Search(New Contracts.Contracts With {.ExternalID = Ref.PrimaryKey})
             Dim ListOfModelFromAccount As New List(Of AccountComponent.Contracts.IModel)
             For Each Model In AccountVal.Model
                 Dim Exist As Boolean = False
@@ -206,7 +206,7 @@ Module RelationShipModule
 
             Help.IfNotInputOrMsg("Δώσε μια Περιγραφή:", RegisterDTO.Description)
             If Help.AccessChoice("Θέλεις να συνεχήσεις με την Εγραφή ?") Then
-                Console.WriteLine(RelationShip.RegisterBothRelationship(RegisterDTO).Msg)
+                Console.WriteLine(ProfileController.Contact.RegisterBothRelationship(RegisterDTO).Msg)
                 Console.ReadLine()
             End If
             Exit Do
@@ -222,7 +222,7 @@ Module RelationShipModule
             Console.WriteLine("----------------------------------------")
             Help.IfNotInputOrMsg("Δώσε Description: ", RegisterDTO.Description)
             If Help.AccessChoice("Θέλεις να συνεχίσεις με την εγραφή: ") Then
-                Console.WriteLine(RelationShip.RegisterBothRelationship(RegisterDTO).Msg)
+                Console.WriteLine(ProfileController.Contact.RegisterBothRelationship(RegisterDTO).Msg)
                 Console.ReadLine()
             End If
             Exit Do

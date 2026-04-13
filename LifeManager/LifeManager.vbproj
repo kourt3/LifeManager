@@ -201,9 +201,9 @@
       <Project>{f442e2ac-4818-40b5-8d6d-f03ad0cca734}</Project>
       <Name>PersonProject</Name>
     </ProjectReference>
-    <ProjectReference Include="..\RelationShipComponent\RelationShipComponent.vbproj">
-      <Project>{d8bfab64-d74d-44dd-a5d5-0e5241bd2784}</Project>
-      <Name>RelationShipComponent</Name>
+    <ProjectReference Include="..\ProfileComponent\ProfileComponent.vbproj">
+      <Project>{dd62db9e-1f06-40eb-b3e9-4c6aa1f0e761}</Project>
+      <Name>ProfileComponent</Name>
     </ProjectReference>
     <ProjectReference Include="..\Vehicles\Vehicles.vbproj">
       <Project>{20dc9677-97b6-4dc9-aae8-a7f00cb4ea6f}</Project>

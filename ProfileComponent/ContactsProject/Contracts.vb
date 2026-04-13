@@ -1,6 +1,6 @@
 ﻿Imports MyBook
 
-Namespace Contracts
+Namespace ContactsProject.Contracts
     Public Interface IReference
         Inherits MyBook.IHasPrimaryKey(Of Integer)
     End Interface

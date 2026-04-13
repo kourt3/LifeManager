@@ -4,13 +4,15 @@
     Public TransferService As New Economy.TransferProject.Service.TransferService
     Public Apartnment As New BuildAndApartmentCompoent.BuildAndApartment.Apartment.Service.Service
     Public Buildings As New BuildAndApartmentCompoent.BuildAndApartment.Build.Service.Service
-    Public RelationShip As New RelationShipComponent.Service
+
+    'Public RelationShip As New RelationShipComponent.Service
     Public Family As New FamilyProject.Service.Service(PersonService)
     Public Contact As New ContactsProject.Service.Service
     Public AddressController As New AdressesProject.AddressesController
     Public EconomyController As New Economy.Controller.Controller(Of AccountComponent.Contracts.IReference)
     Public TransferController As New Economy.TransferController(TransferService)
 
+    Public ProfileController As New ProfileComponent.Controller
     Public VehiclesController As New Vehicles.Vehicle.Controller.Controller
 
     Public ProfileAndApartments As New BuildAndApartmentCompoent.BuildAndApartment.Cohrabication.Service.Service(Buildings, Apartnment)

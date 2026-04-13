@@ -1,4 +1,4 @@
-﻿Namespace My.Entity
+﻿Namespace ContactsProject.Entity
     Structure Data
         Dim Id As Integer
         Dim ExternalID As Integer

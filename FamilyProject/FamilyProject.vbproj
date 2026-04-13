@@ -116,10 +116,6 @@
       <Project>{f442e2ac-4818-40b5-8d6d-f03ad0cca734}</Project>
       <Name>PersonProject</Name>
     </ProjectReference>
-    <ProjectReference Include="..\RelationShipComponent\RelationShipComponent.vbproj">
-      <Project>{d8bfab64-d74d-44dd-a5d5-0e5241bd2784}</Project>
-      <Name>RelationShipComponent</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />

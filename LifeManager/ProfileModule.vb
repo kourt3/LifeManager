@@ -51,7 +51,7 @@ Module ProfileModule
         End While
 
         Do While ThirdRef IsNot Nothing
-            While RelationShip.Search(New RelationShipComponent.Contracts.Contracts With {.ExternalID = Ref.PrimaryKey, .ToExternalID = ThirdRef.PrimaryKey}).Success = False
+            While ProfileController.Contact.Search(New ProfileComponent.ContactsProject.Contracts.Contracts With {.ExternalID = Ref.PrimaryKey, .ToExternalID = ThirdRef.PrimaryKey}).Success = False
                 Console.Clear()
                 Dim ValModel As MyBook.ValMsg(Of Contracts.Contracts) = AccountService.Exist(ThirdRef)
                 If ValModel.Success = False Then
@@ -100,7 +100,7 @@ Module ProfileModule
                 End Select
             End While
 
-            While RelationShip.Search(New RelationShipComponent.Contracts.Contracts With {.ExternalID = Ref.PrimaryKey, .ToExternalID = ThirdRef.PrimaryKey}).Success = True
+            While ProfileController.Contact.Search(New ProfileComponent.ContactsProject.Contracts.Contracts With {.ExternalID = Ref.PrimaryKey, .ToExternalID = ThirdRef.PrimaryKey}).Success = True
                 Console.Clear()
                 Dim ValModel As MyBook.ValMsg(Of Contracts.Contracts) = AccountService.Exist(ThirdRef)
                 If ValModel.Success = False Then
@@ -138,12 +138,12 @@ Module ProfileModule
                     Case 5
                         FamilyModule.Menu(Ref, Model.FamilyModel)
                     Case 6
-                        Dim Creteria As RelationShipComponent.Contracts.ICreteria = New RelationShipComponent.Contracts.Contracts
+                        Dim Creteria As ProfileComponent.ContactsProject.Contracts.ICreteria = New ProfileComponent.ContactsProject.Contracts.Contracts
                         With Creteria
                             .ExternalID = Ref.PrimaryKey
                             .ToExternalID = ThirdRef.PrimaryKey
                         End With
-                        Dim Resultsearch As MyBook.ValMsg(Of List(Of RelationShipComponent.Contracts.IModel)) = RelationShip.Search(Creteria)
+                        Dim Resultsearch As MyBook.ValMsg(Of List(Of ProfileComponent.ContactsProject.Contracts.IModel)) = ProfileController.Contact.Search(Creteria)
                         RelationShipModule.Remove(Resultsearch.Model(0))
                         Continue Do
                     Case 7

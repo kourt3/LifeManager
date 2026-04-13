@@ -64,7 +64,19 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.vb" />
+    <Compile Include="Controller.vb" />
+    <Compile Include="ContactsProject\Contracts.vb" />
+    <Compile Include="ContactsProject\Entity.vb" />
+    <Compile Include="ContactsProject\Repository.vb" />
+    <Compile Include="ContactsProject\Service.vb" />
+    <Compile Include="FamilyProject\Childrens\Contracts.vb" />
+    <Compile Include="FamilyProject\Childrens\Entity.vb" />
+    <Compile Include="FamilyProject\Childrens\Repository.vb" />
+    <Compile Include="FamilyProject\Childrens\Service.vb" />
+    <Compile Include="FamilyProject\Family\Contracts.vb" />
+    <Compile Include="FamilyProject\Family\Entity.vb" />
+    <Compile Include="FamilyProject\Family\Repository.vb" />
+    <Compile Include="FamilyProject\Family\Service.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>
@@ -80,6 +92,11 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="PersonProject\Ables.vb" />
+    <Compile Include="PersonProject\Contracts.vb" />
+    <Compile Include="PersonProject\Entity.vb" />
+    <Compile Include="PersonProject\Repository.vb" />
+    <Compile Include="PersonProject\Service.vb" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="My Project\Resources.resx">
@@ -100,6 +117,13 @@
       <CustomToolNamespace>My</CustomToolNamespace>
       <LastGenOutput>Settings.Designer.vb</LastGenOutput>
     </None>
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\MyBook\MyBook.vbproj">
+      <Project>{966b3a01-e481-4d41-8797-9a4338c10767}</Project>
+      <Name>MyBook</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>

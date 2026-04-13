@@ -1,6 +1,8 @@
-﻿Namespace Service
+﻿Namespace FamilyProject.Family.Service
     Public Class Service
-        Inherits MyBook.Services.Service(Of Integer, Contracts.Contracts, My.Entity.Entity, Repository.Repository)
+        Inherits MyBook.Services.Service(Of Integer, Contracts.Contracts, FamilyProject.Family.Entity.Entity, Repository.Repository)
+
+        ' Public FamilyTreeService As New RelationShipComponent.Service ????
 
         Public Childrens As Children.Service.ChildrenService
         Private PersonService As PersonProject.Service.PersonService
@@ -10,16 +12,16 @@
             Childrens = New Children.Service.ChildrenService(PersonServiceLink)
         End Sub
 
-        Public Overrides Function ToModel(Entity As My.Entity.Entity) As Contracts.Contracts
+        Public Overrides Function ToModel(Entity As FamilyProject.Family.Entity.Entity) As Contracts.Contracts
             Dim Model As Contracts.IModel = New Contracts.Contracts
-            Model.Childrens = New List(Of Children.Conctracts.IModel)
+            Model.Childrens = New List(Of FamilyProject.Children.Conctracts.IModel)
             With Model
                 .PrimaryKey = Entity.PrimaryKey
                 .MotherModel = PersonService.Exist(New PersonProject.Contracts.Contracts With {.PrimaryKey = Entity.Mother}).Model
                 .FatherModel = PersonService.Exist(New PersonProject.Contracts.Contracts With {.PrimaryKey = Entity.Father}).Model
                 .HusbandModel = PersonService.Exist(New PersonProject.Contracts.Contracts With {.PrimaryKey = Entity.Husband}).Model
                 .MePersonModel = PersonService.Exist(New PersonProject.Contracts.Contracts With {.PrimaryKey = Entity.MePersonID}).Model
-                For Each RelationModel In Childrens.Search(New Children.Conctracts.Contracts With {.FamilyID = Entity.PrimaryKey}).Model
+                For Each RelationModel In Childrens.Search(New FamilyProject.Children.Conctracts.Contracts With {.FamilyID = Entity.PrimaryKey}).Model
                     .Childrens.Add(RelationModel)
                     Console.WriteLine(RelationModel)
                 Next
@@ -30,11 +32,11 @@
             Dim Val As New MyBook.ValMsg(Of Contracts.IModel)
             Val.Success = False
             Val.Msg = "Δεν βρεθηκε εγραφή!"
-            For Each Entity In Repository.Read_All
-                If Entity.MePersonID = Creteria.MePersonID Then
+            For Each EntityL In Repository.Read_All
+                If EntityL.MePersonID = Creteria.MePersonID Then
                     Val.Success = True
                     Val.Msg = "Βρέθηκε εγραφή!"
-                    Val.Model = ToModel(Entity)
+                    Val.Model = ToModel(EntityL)
                 End If
             Next
             Return Val
@@ -42,8 +44,8 @@
         Public Overrides Function Register(Of DTO)(RegisterDTO As DTO) As MyBook.ValMsg(Of Contracts.Contracts)
             Return MyBase.Register(RegisterDTO)
         End Function
-        Public Overloads Function Register(Ref As Contracts.IReference, RegisterDTO As Contracts.IRegisterChildrendDTO) As MyBook.ValMsg(Of Children.Conctracts.Contracts)
-            Dim Result As New MyBook.ValMsg(Of Children.Conctracts.Contracts)
+        Public Overloads Function Register(Ref As Contracts.IReference, RegisterDTO As Contracts.IRegisterChildrendDTO) As MyBook.ValMsg(Of FamilyProject.Children.Conctracts.Contracts)
+            Dim Result As New MyBook.ValMsg(Of FamilyProject.Children.Conctracts.Contracts)
             Result.Success = True
             Dim Model As Contracts.IModel = Exist(Ref).Model
             Dim MotherModel As PersonProject.Contracts.IModel = Model.MotherModel
@@ -52,9 +54,9 @@
 
             Dim ListChildrens As New List(Of PersonProject.Contracts.IModel)
 
-            Dim Creteria As Children.Conctracts.ICreteria = New Children.Conctracts.Contracts
+            Dim Creteria As FamilyProject.Children.Conctracts.ICreteria = New FamilyProject.Children.Conctracts.Contracts
             Creteria.FamilyID = Ref.PrimaryKey
-            Dim ChildVal As MyBook.ValMsg(Of List(Of Children.Conctracts.IModel)) = Childrens.Search(Creteria)
+            Dim ChildVal As MyBook.ValMsg(Of List(Of FamilyProject.Children.Conctracts.IModel)) = Childrens.Search(Creteria)
 
             For Each ChildModel In ChildVal.Model
                 ListChildrens.Add(ChildModel.PersonModel)
@@ -88,7 +90,7 @@
             End If
 
             If Result.Success = True Then
-                Dim Childreg As Children.Conctracts.IRegister = RegisterDTO
+                Dim Childreg As FamilyProject.Children.Conctracts.IRegister = RegisterDTO
 
                 Return Childrens.Register(Childreg)
             End If
@@ -115,9 +117,9 @@
             Dim FatherModel As PersonProject.Contracts.IModel = Model.FatherModel
             Dim HusbandModel As PersonProject.Contracts.IModel = Model.HusbandModel
             Dim ListChildrens As New List(Of PersonProject.Contracts.IModel)
-            Dim Creteria As Children.Conctracts.ICreteria = New Children.Conctracts.Contracts
+            Dim Creteria As FamilyProject.Children.Conctracts.ICreteria = New FamilyProject.Children.Conctracts.Contracts
             Creteria.FamilyID = Ref.PrimaryKey
-            Dim ChildVal As MyBook.ValMsg(Of List(Of Children.Conctracts.IModel)) = Childrens.Search(Creteria)
+            Dim ChildVal As MyBook.ValMsg(Of List(Of FamilyProject.Children.Conctracts.IModel)) = Childrens.Search(Creteria)
             For Each ChildModel In ChildVal.Model
                 ListChildrens.Add(ChildModel.PersonModel)
             Next
@@ -202,8 +204,8 @@
             Return MyBase.Change(Ref, ChangeDTO)
         End Function
 
-        Public Overrides Function ToEntity(Of DTO)(DTOLink As DTO) As My.Entity.Entity
-            Dim Entity As New My.Entity.Entity
+        Public Overrides Function ToEntity(Of DTO)(DTOLink As DTO) As FamilyProject.Family.Entity.Entity
+            Dim Entity As New FamilyProject.Family.Entity.Entity
             If GetType(DTO) = GetType(Contracts.IRegisterDTO) Then
                 Dim RegisterDTO As Contracts.IRegisterDTO = DTOLink
                 With Entity
@@ -231,7 +233,7 @@
             Return Entity
         End Function
 
-        Public Overrides Function ToEntity(Of DTO)(DTOLink As DTO, Entity As My.Entity.Entity) As My.Entity.Entity
+        Public Overrides Function ToEntity(Of DTO)(DTOLink As DTO, Entity As FamilyProject.Family.Entity.Entity) As FamilyProject.Family.Entity.Entity
             If GetType(DTO) = GetType(Contracts.IRegisterDTO) Then
                 Dim RegisterDTO As Contracts.IRegisterDTO = DTOLink
                 With Entity

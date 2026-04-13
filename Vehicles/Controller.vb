@@ -56,6 +56,7 @@
         End Function
         Function ExistPlate(PlateRef As Vehicle.Base.IReference) As MyBook.ValMsg(Of ModelController)
             Dim ReturnModel As New MyBook.ValMsg(Of ModelController)
+
             ReturnModel.Model = New ModelController
             Dim PlateVal As MyBook.ValMsg(Of Vehicle.Plate.Contracts.Contracts) = Plate.Exist(PlateRef)
             Dim VihecleVal As MyBook.ValMsg(Of Vehicle.Vehicles.Contracts.Contracrs) = Vehicle.Exist(New Vehicles.Contracts.Contracrs With {.PrimaryKey = PlateVal.Model.VehicleId})
