@@ -13,7 +13,7 @@ Module ApartmentModule
     Friend Sub Menu(Ref As Apartment.Contracts.IReference, MyRef As AccountComponent.Contracts.IReference, Optional ThirdRef As AccountComponent.Contracts.IReference = Nothing)
         While True
             Console.Clear()
-            Dim Val As MyBook.ValMsg(Of Apartment.Contracts.Contracts) = Apartnment.Exist(Ref)
+            Dim Val As MyBook.ValMsg(Of Apartment.Contracts.Contracts) = BuildAndApartment.ApartmentService.Exist(Ref)
             If Val.Success = False Then
                 Console.WriteLine(Val.Msg)
                 Console.ReadLine()
@@ -61,7 +61,7 @@ Module ApartmentModule
 
     Friend Sub ListOfApartment(Ref As Build.Contracts.IReference, Myref As AccountComponent.Contracts.IReference, Optional ThirdRef As AccountComponent.Contracts.IReference = Nothing, Optional Choice As Boolean = False, Optional ByRef ApartmentRef As Apartment.Contracts.IReference = Nothing)
         Do
-            Dim Val As MyBook.ValMsg(Of List(Of Apartment.Contracts.IModel)) = Apartnment.SearchByExternalID(Ref.PrimaryKey)
+            Dim Val As MyBook.ValMsg(Of List(Of Apartment.Contracts.IModel)) = BuildAndApartment.ApartmentService.SearchByExternalID(Ref.PrimaryKey)
             Console.Clear()
             Console.WriteLine("--------- List Of Apartment -----------")
 
@@ -150,7 +150,7 @@ Module ApartmentModule
             RegisterDTO.BuildID = Ref.PrimaryKey
 
             If Help.AccessChoice("Θέλετε να συνεχίσετε?") Then
-                Console.WriteLine(Apartnment.Register(RegisterDTO).Msg)
+                Console.WriteLine(BuildAndApartment.ApartmentService.Register(RegisterDTO).Msg)
                 Console.ReadLine()
                 Exit Do
             End If
@@ -158,7 +158,7 @@ Module ApartmentModule
         Loop
     End Sub
     Friend Sub ChangeOrofos(Ref As Apartment.Contracts.IReference)
-        Dim Val As MyBook.ValMsg(Of Apartment.Contracts.Contracts) = Apartnment.Exist(Ref)
+        Dim Val As MyBook.ValMsg(Of Apartment.Contracts.Contracts) = BuildAndApartment.ApartmentService.Exist(Ref)
         Console.Clear()
         Console.WriteLine("------------- Change Floor ---------------")
         Info(Val.Model)
@@ -167,12 +167,12 @@ Module ApartmentModule
             Dim DTO As Apartment.Contracts.IChangeOrofos = New Apartment.Contracts.Contracts
             Console.WriteLine("Δώσε τον καινουργιο οροφο: ")
             DTO.Orofos = Console.ReadLine
-            Console.WriteLine(Apartnment.Change(Ref, DTO).Msg)
+            Console.WriteLine(BuildAndApartment.ApartmentService.Change(Ref, DTO).Msg)
             Console.ReadLine()
         End If
     End Sub
     Friend Sub ChangeTM(Ref As Apartment.Contracts.IReference)
-        Dim Val As MyBook.ValMsg(Of Apartment.Contracts.Contracts) = Apartnment.Exist(Ref)
+        Dim Val As MyBook.ValMsg(Of Apartment.Contracts.Contracts) = BuildAndApartment.ApartmentService.Exist(Ref)
         Console.Clear()
         Console.WriteLine("------------- Change Τμ ---------------")
         Info(Val.Model)
@@ -183,12 +183,12 @@ Module ApartmentModule
             DTO.Lenght = Console.ReadLine
             Console.WriteLine("Δώσε τον καινουργιο Πλάτος: ")
             DTO.Width = Console.ReadLine
-            Console.WriteLine(Apartnment.Change(Ref, DTO).Msg)
+            Console.WriteLine(BuildAndApartment.ApartmentService.Change(Ref, DTO).Msg)
             Console.ReadLine()
         End If
     End Sub
     Friend Sub ChangeKoudouni(Ref As Apartment.Contracts.IReference)
-        Dim Val As MyBook.ValMsg(Of Apartment.Contracts.Contracts) = Apartnment.Exist(Ref)
+        Dim Val As MyBook.ValMsg(Of Apartment.Contracts.Contracts) = BuildAndApartment.ApartmentService.Exist(Ref)
         Console.Clear()
         Console.WriteLine("------------- Change κουδούνι ---------------")
         Info(Val.Model)
@@ -197,12 +197,12 @@ Module ApartmentModule
             Dim DTO As Apartment.Contracts.IChangeKoudouni = New Apartment.Contracts.Contracts
             Console.WriteLine("Δώσε το καινουργιο Κουδουνι: ")
             DTO.Koudouni = Console.ReadLine
-            Console.WriteLine(Apartnment.Change(Ref, DTO).Msg)
+            Console.WriteLine(BuildAndApartment.ApartmentService.Change(Ref, DTO).Msg)
             Console.ReadLine()
         End If
     End Sub
     Friend Sub ChangeDiamerisma(Ref As Apartment.Contracts.IReference)
-        Dim Val As MyBook.ValMsg(Of Apartment.Contracts.Contracts) = Apartnment.Exist(Ref)
+        Dim Val As MyBook.ValMsg(Of Apartment.Contracts.Contracts) = BuildAndApartment.ApartmentService.Exist(Ref)
         Console.Clear()
         Console.WriteLine("------------- Change Διαμερισμα ---------------")
         Info(Val.Model)
@@ -211,12 +211,12 @@ Module ApartmentModule
             Dim DTO As Apartment.Contracts.IChangeDiamerisma = New Apartment.Contracts.Contracts
             Console.WriteLine("Δώσε τον καινουργιο Διαμερισμα: ")
             DTO.Diamenrisma = Console.ReadLine
-            Console.WriteLine(Apartnment.Change(Ref, DTO).Msg)
+            Console.WriteLine(BuildAndApartment.ApartmentService.Change(Ref, DTO).Msg)
             Console.ReadLine()
         End If
     End Sub
     Friend Sub ChangeDescription(Ref As Apartment.Contracts.IReference)
-        Dim Val As MyBook.ValMsg(Of Apartment.Contracts.Contracts) = Apartnment.Exist(Ref)
+        Dim Val As MyBook.ValMsg(Of Apartment.Contracts.Contracts) = BuildAndApartment.ApartmentService.Exist(Ref)
         Console.Clear()
         Console.WriteLine("------------- Change Περιγραφή ---------------")
         Info(Val.Model)
@@ -225,13 +225,13 @@ Module ApartmentModule
             Dim DTO As Apartment.Contracts.IChangeDescription = New Apartment.Contracts.Contracts
             Console.WriteLine("Δώσε καινουργια περιγραφή: ")
             DTO.Description = Console.ReadLine
-            Console.WriteLine(Apartnment.Change(Ref, DTO).Msg)
+            Console.WriteLine(BuildAndApartment.ApartmentService.Change(Ref, DTO).Msg)
             Console.ReadLine()
         End If
     End Sub
     Friend Sub Remove(Ref As Apartment.Contracts.IReference)
         Console.Clear()
-        Dim Val As MyBook.ValMsg(Of Apartment.Contracts.Contracts) = Apartnment.Exist(Ref)
+        Dim Val As MyBook.ValMsg(Of Apartment.Contracts.Contracts) = BuildAndApartment.ApartmentService.Exist(Ref)
         If Val.Success = False Then
             Console.WriteLine(Val.Msg)
             Console.ReadLine()
@@ -241,7 +241,7 @@ Module ApartmentModule
         Info(Val.Model)
         Console.WriteLine("----------------------------------")
         If Help.AccessChoice("Θέλει να διαγράψεις; ") Then
-            Console.WriteLine(Apartnment.Remove(Ref).Msg)
+            Console.WriteLine(BuildAndApartment.ApartmentService.Remove(Ref).Msg)
             Console.ReadLine()
         End If
     End Sub

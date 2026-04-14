@@ -6,7 +6,7 @@ Module CohrabitionModule
         Do
             Console.Clear()
             Console.WriteLine("-------------- List Of Cograbition --------------------")
-            Dim Val As MyBook.ValMsg(Of List(Of Contracts.IModel)) = ProfileAndApartments.Search(New Contracts.Contracts With {.ApartmentID = ApartmentRef.PrimaryKey})
+            Dim Val As MyBook.ValMsg(Of List(Of Contracts.IModel)) = BuildAndApartment.Cohrabication.Search(New Contracts.Contracts With {.ApartmentID = ApartmentRef.PrimaryKey})
 
             While Val.Success = False
                 Console.WriteLine(Val.Msg)
@@ -80,7 +80,7 @@ Module CohrabitionModule
         Dim Opt As New List(Of String)
         Dim Action As New List(Of Action)
         Dim Choicer As New Choice
-        Dim Val As MyBook.ValMsg(Of List(Of BuildAndApartmentCompoent.BuildAndApartment.Cohrabication.Contracts.IModel)) = ProfileAndApartments.Search(New Contracts.Contracts With {.ApartmentID = ApartmentRef.PrimaryKey})
+        Dim Val As MyBook.ValMsg(Of List(Of BuildAndApartmentCompoent.BuildAndApartment.Cohrabication.Contracts.IModel)) = BuildAndApartment.Cohrabication.Search(New Contracts.Contracts With {.ApartmentID = ApartmentRef.PrimaryKey})
         Console.WriteLine("---------- Add Cohrabition -----------")
         If MyRef IsNot Nothing Then
 
@@ -130,9 +130,9 @@ Module CohrabitionModule
             Case Choice.AddMe
                 DTO.ApartmentID = ApartmentRef.PrimaryKey
                 DTO.ExternalID = MyRef.PrimaryKey
-                DTO.BuildID = Apartnment.Exist(ApartmentRef).Model.BuildID
+                DTO.BuildID = BuildAndApartment.ApartmentService.Exist(ApartmentRef).Model.BuildID
                 Console.Clear()
-                Console.WriteLine(ProfileAndApartments.Register(DTO).Msg)
+                Console.WriteLine(BuildAndApartment.Cohrabication.Register(DTO).Msg)
                 Console.ReadLine()
             Case Choice.AddMyFriend
                 Dim Ref As AccountComponent.Contracts.IReference = New AccountComponent.Contracts.Contracts
@@ -140,18 +140,18 @@ Module CohrabitionModule
                 If Not Ref.PrimaryKey = Nothing Then
                     DTO.ExternalID = Ref.PrimaryKey
                     DTO.ApartmentID = ApartmentRef.PrimaryKey
-                    DTO.BuildID = Apartnment.Exist(ApartmentRef).Model.BuildID
+                    DTO.BuildID = BuildAndApartment.ApartmentService.Exist(ApartmentRef).Model.BuildID
                     Console.Clear()
-                    Console.WriteLine(ProfileAndApartments.Register(DTO).Msg)
+                    Console.WriteLine(BuildAndApartment.Cohrabication.Register(DTO).Msg)
                     Console.ReadLine()
                 End If
 
             Case Choice.AddThird
                 DTO.ApartmentID = ApartmentRef.PrimaryKey
                 DTO.ExternalID = ThirdRef.PrimaryKey
-                DTO.BuildID = Apartnment.Exist(ApartmentRef).Model.BuildID
+                DTO.BuildID = BuildAndApartment.ApartmentService.Exist(ApartmentRef).Model.BuildID
                 Console.Clear()
-                Console.WriteLine(ProfileAndApartments.Register(DTO).Msg)
+                Console.WriteLine(BuildAndApartment.Cohrabication.Register(DTO).Msg)
                 Console.ReadLine()
             Case Choice.AddThirdFriend
                 Dim Ref As AccountComponent.Contracts.IReference = New AccountComponent.Contracts.Contracts
@@ -159,9 +159,9 @@ Module CohrabitionModule
                 If Not Ref.PrimaryKey = Nothing Then
                     DTO.ExternalID = Ref.PrimaryKey
                     DTO.ApartmentID = ApartmentRef.PrimaryKey
-                    DTO.BuildID = Apartnment.Exist(ApartmentRef).Model.BuildID
+                    DTO.BuildID = BuildAndApartment.ApartmentService.Exist(ApartmentRef).Model.BuildID
                     Console.Clear()
-                    Console.WriteLine(ProfileAndApartments.Register(DTO).Msg)
+                    Console.WriteLine(BuildAndApartment.Cohrabication.Register(DTO).Msg)
                     Console.ReadLine()
                 End If
             Case Choice.Search
@@ -170,9 +170,9 @@ Module CohrabitionModule
                 If Not Ref.PrimaryKey = Nothing Then
                     DTO.ApartmentID = ApartmentRef.PrimaryKey
                     DTO.ExternalID = Ref.PrimaryKey
-                    DTO.BuildID = Apartnment.Exist(ApartmentRef).Model.BuildID
+                    DTO.BuildID = BuildAndApartment.ApartmentService.Exist(ApartmentRef).Model.BuildID
                     Console.Clear()
-                    Console.WriteLine(ProfileAndApartments.Register(DTO).Msg)
+                    Console.WriteLine(BuildAndApartment.Cohrabication.Register(DTO).Msg)
                     Console.ReadLine()
                 End If
             Case Choice.None
@@ -186,7 +186,7 @@ Module CohrabitionModule
         Do
             Console.Clear()
             Console.WriteLine("---------- List Of Apartment -------------")
-            Dim Val As MyBook.ValMsg(Of List(Of Contracts.IModel)) = ProfileAndApartments.Search(New Contracts.Contracts With {.ExternalID = Ref.PrimaryKey})
+            Dim Val As MyBook.ValMsg(Of List(Of Contracts.IModel)) = BuildAndApartment.Cohrabication.Search(New Contracts.Contracts With {.ExternalID = Ref.PrimaryKey})
 
             While Val.Success = False
                 Console.WriteLine(Val.Msg)
@@ -253,7 +253,7 @@ Module CohrabitionModule
             DTO.ApartmentID = ApartMentRef.PrimaryKey
             DTO.ExternalID = Ref.PrimaryKey
             Console.Clear()
-            Console.WriteLine(ProfileAndApartments.Register(DTO).Msg)
+            Console.WriteLine(BuildAndApartment.Cohrabication.Register(DTO).Msg)
             Console.ReadLine()
         End If
     End Sub
@@ -264,7 +264,7 @@ Module CohrabitionModule
 
             Dim Creteria As Contracts.ICreteria = New Contracts.Contracts
             Creteria.ApartmentID = ApartmentRef.PrimaryKey
-            Dim Val As MyBook.ValMsg(Of List(Of Contracts.IModel)) = ProfileAndApartments.Search(Creteria)
+            Dim Val As MyBook.ValMsg(Of List(Of Contracts.IModel)) = BuildAndApartment.Cohrabication.Search(Creteria)
             Dim Index As Integer = 0
 
             Console.Clear()
@@ -286,7 +286,7 @@ Module CohrabitionModule
             End If
             Select Case Choice
                 Case 1 To Index
-                    Console.WriteLine(ProfileAndApartments.Remove(Val.Model(Choice - 1)).Msg)
+                    Console.WriteLine(BuildAndApartment.Cohrabication.Remove(Val.Model(Choice - 1)).Msg)
                     Exit Do
                 Case Index + 1
                     Exit Do

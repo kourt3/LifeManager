@@ -12,7 +12,7 @@ Friend Module BuildingsModule
     Friend Sub Menu(Ref As Contracts.IReference, MyRef As AccountComponent.Contracts.IReference, Optional ThirdRef As AccountComponent.Contracts.IReference = Nothing)
         Do
             Console.Clear()
-            Dim Val As MyBook.ValMsg(Of Contracts.Contracts) = Buildings.Exist(Ref)
+            Dim Val As MyBook.ValMsg(Of Contracts.Contracts) = BuildAndApartment.BuildService.Exist(Ref)
             If Val.Success = False Then
                 Console.WriteLine(Val.Msg)
                 Console.ReadLine()
@@ -60,7 +60,7 @@ Friend Module BuildingsModule
 
 
             If Help.AccessChoice("Θέλεις να Συνεχίσεις?") Then
-                Console.WriteLine(Buildings.Register(DTO).Msg)
+                Console.WriteLine(BuildAndApartment.BuildService.Register(DTO).Msg)
                 Console.ReadLine()
                 Exit Do
             End If
@@ -69,7 +69,7 @@ Friend Module BuildingsModule
     End Sub
     Friend Sub ChangeAdressess(Ref As Contracts.IReference)
         Console.Clear()
-        Dim Val As MyBook.ValMsg(Of Contracts.Contracts) = Buildings.Exist(Ref)
+        Dim Val As MyBook.ValMsg(Of Contracts.Contracts) = BuildAndApartment.BuildService.Exist(Ref)
         Console.WriteLine("----------- Change Addresess --------")
         Info(Val.Model)
         Console.WriteLine("--------------------------------------")
@@ -81,7 +81,7 @@ Friend Module BuildingsModule
             FullAddressModule.ListOf(True, AddressRef)
             DTO.AddresessId = AddressRef.PrimaryKey
             Console.Clear()
-            Console.WriteLine(Buildings.Change(Ref, DTO).Msg)
+            Console.WriteLine(BuildAndApartment.BuildService.Change(Ref, DTO).Msg)
             Console.ReadLine()
         End If
 
@@ -89,7 +89,7 @@ Friend Module BuildingsModule
     End Sub
     Friend Sub ChangeDescription(Ref As Contracts.IReference)
         Console.Clear()
-        Dim Val As MyBook.ValMsg(Of Contracts.Contracts) = Buildings.Exist(Ref)
+        Dim Val As MyBook.ValMsg(Of Contracts.Contracts) = BuildAndApartment.BuildService.Exist(Ref)
         Console.WriteLine("----------- Change Description --------")
         Info(Val.Model)
         Console.WriteLine("--------------------------------------")
@@ -100,13 +100,13 @@ Friend Module BuildingsModule
             Console.WriteLine("Δώσε Description: ")
             DTO.Description = Console.ReadLine
             Console.Clear()
-            Console.WriteLine(Buildings.Change(Ref, DTO).Msg)
+            Console.WriteLine(BuildAndApartment.BuildService.Change(Ref, DTO).Msg)
             Console.ReadLine()
         End If
     End Sub
     Friend Sub ChangeSquardMeter(Ref As Contracts.IReference)
         Console.Clear()
-        Dim Val As MyBook.ValMsg(Of Contracts.Contracts) = Buildings.Exist(Ref)
+        Dim Val As MyBook.ValMsg(Of Contracts.Contracts) = BuildAndApartment.BuildService.Exist(Ref)
         Console.WriteLine("----------- Change Meter --------")
         Info(Val.Model)
         Console.WriteLine("--------------------------------------")
@@ -119,13 +119,13 @@ Friend Module BuildingsModule
             Console.WriteLine("Δώσε Width: ")
             DTO.Width = Console.ReadLine
             Console.Clear()
-            Console.WriteLine(Buildings.Change(Ref, DTO).Msg)
+            Console.WriteLine(BuildAndApartment.BuildService.Change(Ref, DTO).Msg)
             Console.ReadLine()
         End If
     End Sub
     Friend Sub Remove(Ref As Contracts.IReference)
         Console.Clear()
-        Dim Val As MyBook.ValMsg(Of Contracts.Contracts) = Buildings.Exist(Ref)
+        Dim Val As MyBook.ValMsg(Of Contracts.Contracts) = BuildAndApartment.BuildService.Exist(Ref)
         If Val.Success = False Then
             Console.WriteLine(Val.Msg)
             Console.ReadLine()
@@ -134,14 +134,14 @@ Friend Module BuildingsModule
         Console.WriteLine("-------- Remove Build ---------")
         Info(Val.Model)
         If Help.AccessChoice("Θέλεις να Διαγράψεις το Build?") Then
-            Console.WriteLine(Buildings.Remove(Ref).Msg)
+            Console.WriteLine(BuildAndApartment.BuildService.Remove(Ref).Msg)
             Console.ReadLine()
         End If
     End Sub
     Friend Sub ListOfBuild(Myref As AccountComponent.Contracts.IReference, Optional Thirdref As AccountComponent.Contracts.IReference = Nothing, Optional Choice As Boolean = False, Optional ByRef Ref As Contracts.IReference = Nothing)
         Do
 
-            Dim Val As MyBook.ValMsg(Of List(Of Contracts.Contracts)) = Buildings.Get_All
+            Dim Val As MyBook.ValMsg(Of List(Of Contracts.Contracts)) = BuildAndApartment.BuildService.Get_All
             Console.Clear()
             Console.WriteLine("------------- List of Buildings -------------")
             While Val.Success = False

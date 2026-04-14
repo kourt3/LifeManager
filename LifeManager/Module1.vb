@@ -1,21 +1,13 @@
 ﻿Module Module1
     Public LoginService As New LoginProject.Service.LoginService
-
     Public ProfileController As New ProfileComponent.Controller
-
     Public TransferService As New Economy.TransferProject.Service.TransferService
-    Public Apartnment As New BuildAndApartmentCompoent.BuildAndApartment.Apartment.Service.Service
-    Public Buildings As New BuildAndApartmentCompoent.BuildAndApartment.Build.Service.Service
-
     Public Contact As New ContactsProject.Service.Service
     Public AddressController As New AdressesProject.AddressesController
     Public EconomyController As New Economy.Controller.Controller(Of AccountComponent.Contracts.IReference)
     Public TransferController As New Economy.TransferController(TransferService)
-
     Public VehiclesController As New Vehicles.Vehicle.Controller.Controller
-
-    Public ProfileAndApartments As New BuildAndApartmentCompoent.BuildAndApartment.Cohrabication.Service.Service(Buildings, Apartnment)
-    Public BuildAndApartment As New BuildAndApartmentCompoent.Controller(Buildings, Apartnment, ProfileAndApartments)
+    Public BuildAndApartment As New BuildAndApartmentCompoent.Controller
     Public AccountService As New AccountComponent.AcountService(LoginService, ProfileController.Person, ProfileController.Family)
 
     Sub Main()
