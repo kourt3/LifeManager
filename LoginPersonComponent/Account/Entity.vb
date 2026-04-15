@@ -4,16 +4,14 @@ Namespace My.Entity
     Public Structure Data
         Public Id As Integer
         Public LoginId As Integer
-        Public PersonId As Integer
-        Public FamilyID As Integer
+        Public ToExternalId As Integer
     End Structure
 
 
     Public Interface IEntity
         Inherits MyBook.IHasPrimaryKey(Of Integer)
         Property LoginID As Integer
-        Property PersonID As Integer
-        Property FamilyID As Integer
+        Property ToExternalID As Integer
     End Interface
 
     Public Class Entity
@@ -30,12 +28,12 @@ Namespace My.Entity
             End Set
         End Property
 
-        Public Property PersonID As Integer Implements IEntity.PersonID
+        Public Property ToExternalID As Integer Implements IEntity.ToExternalID
             Get
-                Return Data.PersonId
+                Return Data.ToExternalId
             End Get
             Set(value As Integer)
-                Data.PersonId = value
+                Data.ToExternalId = value
             End Set
         End Property
 
@@ -45,15 +43,6 @@ Namespace My.Entity
             End Get
             Set(value As Integer)
                 Data.Id = value
-            End Set
-        End Property
-
-        Public Property FamilyID As Integer Implements IEntity.FamilyID
-            Get
-                Return Data.FamilyID
-            End Get
-            Set(value As Integer)
-                Data.FamilyID = value
             End Set
         End Property
     End Class

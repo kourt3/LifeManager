@@ -64,10 +64,15 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AcountRepository.vb" />
-    <Compile Include="AcountService.vb" />
-    <Compile Include="Contracts.vb" />
-    <Compile Include="Entity.vb" />
+    <Compile Include="Account\AcountRepository.vb" />
+    <Compile Include="Account\AcountService.vb" />
+    <Compile Include="Account\Contracts.vb" />
+    <Compile Include="Account\Entity.vb" />
+    <Compile Include="LoginProject\Ables.vb" />
+    <Compile Include="LoginProject\Contracts.vb" />
+    <Compile Include="LoginProject\Entity.vb" />
+    <Compile Include="LoginProject\LoginRepository.vb" />
+    <Compile Include="LoginProject\LoginService.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>
@@ -105,10 +110,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\LoginProject\LoginProject.vbproj">
-      <Project>{93646ac7-dd23-4e28-8529-924140fd7036}</Project>
-      <Name>LoginProject</Name>
-    </ProjectReference>
     <ProjectReference Include="..\MyBook\MyBook.vbproj">
       <Project>{966b3a01-e481-4d41-8797-9a4338c10767}</Project>
       <Name>MyBook</Name>

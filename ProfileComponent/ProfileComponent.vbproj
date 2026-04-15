@@ -97,6 +97,10 @@
     <Compile Include="PersonProject\Entity.vb" />
     <Compile Include="PersonProject\Repository.vb" />
     <Compile Include="PersonProject\Service.vb" />
+    <Compile Include="Profile\Contracts.vb" />
+    <Compile Include="Profile\Entity.vb" />
+    <Compile Include="Profile\Repository.vb" />
+    <Compile Include="Profile\Service.vb" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="My Project\Resources.resx">

@@ -120,10 +120,6 @@
       <Project>{1c044c67-2813-4ab7-a469-3458920ebfc3}</Project>
       <Name>Economy</Name>
     </ProjectReference>
-    <ProjectReference Include="..\LoginProject\LoginProject.vbproj">
-      <Project>{93646ac7-dd23-4e28-8529-924140fd7036}</Project>
-      <Name>LoginProject</Name>
-    </ProjectReference>
     <ProjectReference Include="..\MyBook\MyBook.vbproj">
       <Project>{966b3a01-e481-4d41-8797-9a4338c10767}</Project>
       <Name>MyBook</Name>

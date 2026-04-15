@@ -4,18 +4,15 @@ Public Class AcountService
 
     Private LoginService As LoginProject.Service.LoginService
     Private PersonService As PersonProject.Service.PersonService
-    Private FamilyService As FamilyProject.Family.Service.Service
     Sub New(LoginServiceLink As LoginProject.Service.LoginService, PersonServiceLink As PersonProject.Service.PersonService, FamilyServiceLink As FamilyProject.Family.Service.Service)
         MyBase.New(New AccountDatabaseRepository)
         LoginService = LoginServiceLink
         PersonService = PersonServiceLink
-        FamilyService = FamilyServiceLink
     End Sub
     Sub New()
         MyBase.New(New AcountRepository)
         LoginService = New LoginProject.Service.LoginService
         PersonService = New PersonProject.Service.PersonService
-        FamilyService = New FamilyProject.Family.Service.Service(PersonService)
     End Sub
     Public Overrides Function Change(Of DTO)(Ref As Contracts.Contracts, ChangeDTO As DTO) As MyBook.ValMsg
         Dim Result As New MyBook.ValMsg
@@ -66,16 +63,7 @@ Public Class AcountService
             Return Result
         End If
         AcountRegisterDTO.PersonRef = PersonVal.Model
-        Dim FamilyregisterDTO As FamilyProject.Family.Contracts.IRegisterDTO = New FamilyProject.Family.Contracts.Contracts
-        With FamilyregisterDTO
-            .Mother = 0
-            .Father = 0
-            .Husband = 0
-            .MePersonID = PersonVal.Model.PrimaryKey
-        End With
-        AcountRegisterDTO.FamilyRef = FamilyService.Register(FamilyregisterDTO).Model
         Return MyBase.Register(AcountRegisterDTO)
-
     End Function
 
     Public Function RegisterWithoutLogin(Of DTO)(RegisterDTO As DTO) As MyBook.ValMsg(Of Contracts.Contracts)
@@ -89,14 +77,6 @@ Public Class AcountService
             Return Result
         End If
         AcountRegisterDTO.PersonRef = PersonVal.Model
-        Dim FamilyregisterDTO As FamilyProject.Family.Contracts.IRegisterDTO = New FamilyProject.Family.Contracts.Contracts
-        With FamilyregisterDTO
-            .Mother = 0
-            .Father = 0
-            .Husband = 0
-            .MePersonID = PersonVal.Model.PrimaryKey
-        End With
-        AcountRegisterDTO.FamilyRef = FamilyService.Register(FamilyregisterDTO).Model
 
         Return MyBase.Register(AcountRegisterDTO)
     End Function
@@ -107,7 +87,7 @@ Public Class AcountService
         Result.Msg = "Δεν Βρεθηκε Εγραφή!"
 
         For Each Entity In Repository.Read_All
-            If Entity.LoginID = Creteria.LoginRef.PrimaryKey Or Creteria.PersonRef.PrimaryKey = Entity.PersonID Or Entity.FamilyID = Creteria.FamilyRef.PrimaryKey Then
+            If Entity.LoginID = Creteria.LoginRef.PrimaryKey Or Creteria.PersonRef.PrimaryKey = Entity.ToExternalID Then
                 Result.Success = True
                 Result.Msg = "Βρέθηκε ο Χρήστης"
                 Result.Model = ToModel(Entity)
@@ -118,8 +98,7 @@ Public Class AcountService
     Public Overrides Function ToModel(Entity As My.Entity.Entity) As Contracts.Contracts
         Dim Model As Contracts.IModel = New Contracts.Contracts
         Model.LoginModel = LoginService.Exist(New LoginProject.Contracts.Contracts With {.PrimaryKey = Entity.LoginID}).Model
-        Model.PersonModel = PersonService.Exist(New PersonProject.Contracts.Contracts With {.PrimaryKey = Entity.PersonID}).Model
-        Model.FamilyModel = FamilyService.Exist(New FamilyProject.Family.Contracts.Contracts With {.PrimaryKey = Entity.FamilyID}).Model
+        Model.PersonModel = PersonService.Exist(New PersonProject.Contracts.Contracts With {.PrimaryKey = Entity.ToExternalID}).Model
         Model.PrimaryKey = Entity.PrimaryKey
         Return Model
     End Function
@@ -130,8 +109,7 @@ Public Class AcountService
             Dim AcountRegisterDTO As Contracts.IAcountRegisterDTO = DTOLink
             With Entity
                 .LoginID = AcountRegisterDTO.LoginRef.PrimaryKey
-                .PersonID = AcountRegisterDTO.PersonRef.PrimaryKey
-                .FamilyID = AcountRegisterDTO.FamilyRef.PrimaryKey
+                .ToExternalID = AcountRegisterDTO.PersonRef.PrimaryKey
             End With
         End If
         Return Entity
@@ -142,8 +120,7 @@ Public Class AcountService
             Dim AcountRegisterDTO As Contracts.IAcountRegisterDTO = DTOLink
             With Entity
                 .LoginID = AcountRegisterDTO.LoginRef.PrimaryKey
-                .PersonID = AcountRegisterDTO.PersonRef.PrimaryKey
-                .FamilyID = AcountRegisterDTO.FamilyRef.PrimaryKey
+                .ToExternalID = AcountRegisterDTO.PersonRef.PrimaryKey
             End With
         End If
         Return Entity
