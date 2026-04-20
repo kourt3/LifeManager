@@ -46,7 +46,7 @@ Module EconomyModule
         Console.WriteLine("Σύνολο: " & Sum)
         Console.WriteLine("------------------")
     End Sub
-    Friend Sub Menu(Ref As AccountComponent.Contracts.IReference, Optional Choice As Boolean = False, Optional ByRef Category As String = Nothing, Optional ByRef ExternalId As Integer = Nothing)
+    Friend Sub Menu(Ref As ProfileComponent.Profile.Able.IReference, Optional Choice As Boolean = False, Optional ByRef Category As String = Nothing, Optional ByRef ExternalId As Integer = Nothing)
 
         While Choice = False
             Console.Clear()
@@ -128,7 +128,7 @@ Module EconomyModule
 
     End Sub
 
-    Friend Sub ListOfPortofolio(Ref As AccountComponent.Contracts.IReference, Optional Choice As Boolean = False, Optional ByRef ChoiceRef As Portofolio.Entity.IReference = Nothing)
+    Friend Sub ListOfPortofolio(Ref As ProfileComponent.Profile.Able.IReference, Optional Choice As Boolean = False, Optional ByRef ChoiceRef As Portofolio.Entity.IReference = Nothing)
         Do
 
             Dim Val As MyBook.ValMsg(Of Controller.IModel) = EconomyController.Model(Ref.PrimaryKey)
@@ -204,7 +204,7 @@ Module EconomyModule
 
     End Sub
 
-    Friend Sub ListOfBanksCards(Ref As AccountComponent.Contracts.IReference, Optional Choice As Boolean = False, Optional ByRef ChoiceRef As BankCardsProject.My.Entity.IReference = Nothing)
+    Friend Sub ListOfBanksCards(Ref As ProfileComponent.Profile.Able.IReference, Optional Choice As Boolean = False, Optional ByRef ChoiceRef As BankCardsProject.My.Entity.IReference = Nothing)
         Do
 
             Dim Val As MyBook.ValMsg(Of Controller.IModel) = EconomyController.Model(Ref.PrimaryKey)
@@ -280,7 +280,7 @@ Module EconomyModule
         Loop
     End Sub
 
-    Friend Sub ListOfGiftsCards(Ref As AccountComponent.Contracts.IReference, Optional Choice As Boolean = False, Optional ByRef ChoiceRef As GiftsCard.Entity.IReference = Nothing)
+    Friend Sub ListOfGiftsCards(Ref As ProfileComponent.Profile.Able.IReference, Optional Choice As Boolean = False, Optional ByRef ChoiceRef As GiftsCard.Entity.IReference = Nothing)
         Do
 
             Dim Val As MyBook.ValMsg(Of Controller.IModel) = EconomyController.Model(Ref.PrimaryKey)

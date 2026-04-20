@@ -29,7 +29,7 @@ Namespace PersonProject.Contracts
     End Interface
 
     Public Class Contracts
-        Implements IRegisterDTO, IChangeFirstNameDTO, IChangeSecondNameDTO, IChangeFirstNameAndSecondNameDTO, IBirthDay, IModel
+        Implements IRegisterDTO, IChangeFirstNameDTO, IChangeSecondNameDTO, IChangeFirstNameAndSecondNameDTO, IBirthDay, IModel, Enity.IReference
 
 
 

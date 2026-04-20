@@ -44,6 +44,10 @@
     <OptionInfer>On</OptionInfer>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="database, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\database\database\bin\Release\database.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
@@ -68,6 +72,7 @@
     <Compile Include="Account\AcountService.vb" />
     <Compile Include="Account\Contracts.vb" />
     <Compile Include="Account\Entity.vb" />
+    <Compile Include="Controller.vb" />
     <Compile Include="LoginProject\Ables.vb" />
     <Compile Include="LoginProject\Contracts.vb" />
     <Compile Include="LoginProject\Entity.vb" />

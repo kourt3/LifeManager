@@ -3,11 +3,11 @@ Imports ProfileComponent.ContactsProject
 Module RelationShipModule
 
     Friend Sub Info(Model As Contracts.IModel)
-        Dim AccountModel As AccountComponent.Contracts.IModel = AccountService.Exist(New AccountComponent.Contracts.Contracts With {.PrimaryKey = Model.ToExternalID}).Model
-        PersonModule.Info(AccountService.Exist(AccountModel).Model.PersonModel)
+        Dim AccountModel As ProfileComponent.ContactsProject.Contracts.IModel = ProfileController.Contact.Exist(New ProfileComponent.ContactsProject.Contracts.Contracts With {.PrimaryKey = Model.ToExternalID}).Model
+        PersonModule.Info(ProfileController.Person.Exist(New ProfileComponent.PersonProject.Contracts.Contracts With {.PrimaryKey = AccountModel.ExternalID}).Model)
         Console.WriteLine("Description: " & Model.Description)
     End Sub
-    Friend Sub Menu(MyRef As AccountComponent.Contracts.IReference, Ref As Contracts.IReference)
+    Friend Sub Menu(MyRef As ProfileComponent.Profile.Able.IReference, Ref As Contracts.IReference)
         Do
             Console.Clear()
             Dim val As MyBook.ValMsg(Of Contracts.Contracts) = ProfileController.Contact.Exist(Ref)
@@ -17,7 +17,7 @@ Module RelationShipModule
                 Exit Do
             End If
 
-            Dim AccountModel As AccountComponent.Contracts.IModel = AccountService.Exist(New AccountComponent.Contracts.Contracts With {.PrimaryKey = val.Model.ToExternalID}).Model
+            Dim AccountModel As ProfileComponent.ContactsProject.Contracts.IModel = ProfileController.Contact.Exist(New ProfileComponent.ContactsProject.Contracts.Contracts With {.PrimaryKey = val.Model.ToExternalID}).Model
             Console.WriteLine("--------- Menu Relationship ---------")
             Info(val.Model)
             Console.WriteLine("--------- Menu ---------")
@@ -42,7 +42,7 @@ Module RelationShipModule
     End Sub
     Friend Sub ChangeDescription(Ref As Contracts.IReference)
         Dim Val As MyBook.ValMsg(Of Contracts.Contracts) = ProfileController.Contact.Exist(Ref)
-        Dim AccountModel As AccountComponent.Contracts.IModel = AccountService.Exist(New AccountComponent.Contracts.Contracts With {.PrimaryKey = Val.Model.ToExternalID}).Model
+        Dim AccountModel As ProfileComponent.ContactsProject.Contracts.IModel = ProfileController.Contact.Exist(New ProfileComponent.ContactsProject.Contracts.Contracts With {.PrimaryKey = Val.Model.ToExternalID}).Model
         Console.Clear()
         Console.WriteLine("-------- Change description ----------")
         Info(Val.Model)
@@ -66,7 +66,7 @@ Module RelationShipModule
             Console.ReadLine()
         End If
     End Sub
-    Sub ListOfFriend(Ref As AccountComponent.Contracts.IReference, Optional SelecectChoice As Boolean = False, Optional ByRef ChoiceRef As AccountComponent.Contracts.IReference = Nothing)
+    Sub ListOfFriend(Ref As ProfileComponent.Profile.Able.IReference, Optional SelecectChoice As Boolean = False, Optional ByRef ChoiceRef As ProfileComponent.Profile.Able.IReference = Nothing)
         Do
             Dim Val As MyBook.ValMsg(Of List(Of Contracts.IModel)) = ProfileController.Contact.Search(New Contracts.Contracts With {.ExternalID = Ref.PrimaryKey})
             Console.Clear()
@@ -94,8 +94,8 @@ Module RelationShipModule
                 Dim Index As Integer = 0
                 For Each Model In Val.Model
                     Index += 1
-                    Dim Account As AccountComponent.Contracts.Contracts = AccountService.Exist(New AccountComponent.Contracts.Contracts With {.PrimaryKey = Model.ToExternalID}).Model
-                    Console.WriteLine(Index & ") " & Account.PersonModel.FullName & " | " & Model.Description)
+                    Dim Account As ProfileComponent.Profile.Contracts.IModel = ProfileController.Contact.Exist(New ProfileComponent.ContactsProject.Contracts.Contracts With {.PrimaryKey = Model.ToExternalID}).Model
+                    Console.WriteLine(Index & ") " & ProfileController.Person.Exist(New ProfileComponent.PersonProject.Contracts.Contracts With {.PrimaryKey = Account.PersonID}).Model.FullName & " | " & Model.Description)
                 Next
                 Console.WriteLine("-------- Menu ----------")
 
@@ -112,7 +112,7 @@ Module RelationShipModule
                 Select Case Choice
                     Case 1 To Index
                         If SelecectChoice = True Then
-                            ChoiceRef = New AccountComponent.Contracts.Contracts With {.PrimaryKey = Val.Model(Choice - 1).ToExternalID}
+                            ChoiceRef = New ProfileComponent.Profile.Contracts.Contracts With {.PrimaryKey = Val.Model(Choice - 1).ToExternalID}
                             Exit Do
                         End If
                         Menu(Ref, Val.Model(Choice - 1))
@@ -129,12 +129,12 @@ Module RelationShipModule
             End While
         Loop
     End Sub
-    Friend Function ChoiceRelationShipByAccount(Ref As AccountComponent.Contracts.IReference, ByRef ChoiceRef As AccountComponent.Contracts.IReference) As Boolean
+    Friend Function ChoiceRelationShipByAccount(Ref As ProfileComponent.Profile.Able.IReference, ByRef ChoiceRef As ProfileComponent.Profile.Able.IReference) As Boolean
         Do
             Console.Clear()
-            Dim AccountVal As MyBook.ValMsg(Of List(Of AccountComponent.Contracts.Contracts)) = AccountService.Get_All
+            Dim AccountVal As MyBook.ValMsg(Of List(Of ProfileComponent.ContactsProject.Contracts.Contracts)) = ProfileController.Contact.Get_All
             Dim SearchVal As MyBook.ValMsg(Of List(Of Contracts.IModel)) = ProfileController.Contact.Search(New Contracts.Contracts With {.ExternalID = Ref.PrimaryKey})
-            Dim ListOfModelFromAccount As New List(Of AccountComponent.Contracts.IModel)
+            Dim ListOfModelFromAccount As New List(Of ProfileComponent.ContactsProject.Contracts.Contracts)
             For Each Model In AccountVal.Model
                 Dim Exist As Boolean = False
                 If Model.PrimaryKey = Ref.PrimaryKey Then
@@ -171,7 +171,7 @@ Module RelationShipModule
                 Dim index As Integer = 0
                 For Each ModelAfterResize In ListOfModelFromAccount
                     index += 1
-                    Console.WriteLine(index & ") " & ModelAfterResize.PersonModel.FullName)
+                    Console.WriteLine(index & ") " & ProfileController.Person.Exist(New ProfileComponent.PersonProject.Contracts.Contracts With {.PrimaryKey = ModelAfterResize.ToExternalID}).Model.FullName)
                 Next
                 Console.WriteLine("----------- Menu ----------")
                 Console.WriteLine(1 & " - " & index & ") Choice Profile.")
@@ -191,10 +191,10 @@ Module RelationShipModule
             End While
         Loop
     End Function
-    Public Sub Register(Ref As AccountComponent.Contracts.IReference, Optional ThirdRef As AccountComponent.Contracts.IReference = Nothing)
+    Public Sub Register(Ref As ProfileComponent.Profile.Able.IReference, Optional ThirdRef As ProfileComponent.Profile.Able.IReference = Nothing)
         Do While ThirdRef Is Nothing
             Dim RegisterDTO As Contracts.IRegisterDTO = New Contracts.Contracts
-            Dim NewRef As AccountComponent.Contracts.IReference = New AccountComponent.Contracts.Contracts
+            Dim NewRef As ProfileComponent.Profile.Able.IReference = New ProfileComponent.Profile.Contracts.Contracts
             Console.Clear()
             Console.WriteLine("------------ Register Relationship -----------")
             If ChoiceRelationShipByAccount(Ref, NewRef) Then
@@ -218,7 +218,7 @@ Module RelationShipModule
             RegisterDTO.ToExternalID = ThirdRef.PrimaryKey
             Console.Clear()
             Console.WriteLine("------------ Add Relationship ----------")
-            PersonModule.Info(AccountService.Exist(ThirdRef).Model.PersonModel)
+            PersonModule.Info(ProfileController.Profile.Exist(ThirdRef).Model)
             Console.WriteLine("----------------------------------------")
             Help.IfNotInputOrMsg("Δώσε Description: ", RegisterDTO.Description)
             If Help.AccessChoice("Θέλεις να συνεχίσεις με την εγραφή: ") Then

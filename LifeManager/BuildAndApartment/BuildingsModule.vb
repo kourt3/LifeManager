@@ -9,7 +9,7 @@ Friend Module BuildingsModule
         Console.WriteLine("Width: " & Model.Width)
         Console.WriteLine("Description: " & Model.Description)
     End Sub
-    Friend Sub Menu(Ref As Contracts.IReference, MyRef As AccountComponent.Contracts.IReference, Optional ThirdRef As AccountComponent.Contracts.IReference = Nothing)
+    Friend Sub Menu(Ref As Contracts.IReference, MyRef As ProfileComponent.ContactsProject.Contracts.IReference, Optional ThirdRef As ProfileComponent.ContactsProject.Contracts.IReference = Nothing)
         Do
             Console.Clear()
             Dim Val As MyBook.ValMsg(Of Contracts.Contracts) = BuildAndApartment.BuildService.Exist(Ref)
@@ -138,7 +138,7 @@ Friend Module BuildingsModule
             Console.ReadLine()
         End If
     End Sub
-    Friend Sub ListOfBuild(Myref As AccountComponent.Contracts.IReference, Optional Thirdref As AccountComponent.Contracts.IReference = Nothing, Optional Choice As Boolean = False, Optional ByRef Ref As Contracts.IReference = Nothing)
+    Friend Sub ListOfBuild(Myref As ProfileComponent.ContactsProject.Contracts.IReference, Optional Thirdref As ProfileComponent.ContactsProject.Contracts.IReference = Nothing, Optional Choice As Boolean = False, Optional ByRef Ref As Contracts.IReference = Nothing)
         Do
 
             Dim Val As MyBook.ValMsg(Of List(Of Contracts.Contracts)) = BuildAndApartment.BuildService.Get_All

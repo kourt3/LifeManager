@@ -1,7 +1,5 @@
 ﻿Imports MyBook
-Imports LoginProject
-
-Namespace My.DataStructure
+Namespace LoginProject.DataStructure
 
     Friend Structure Data
         Dim Id As Integer
@@ -10,25 +8,22 @@ Namespace My.DataStructure
         Dim CreateAt As Date
     End Structure
 End Namespace
-Namespace My.Entity
-    Public Interface IReference
-        Inherits MyBook.IHasPrimaryKey(Of Integer)
-    End Interface
+Namespace LoginProject.Entity
     Public Interface ICreteria
         Inherits Ables.IUserName
         Inherits Ables.IPassword
     End Interface
     Public Interface IEntity
-        Inherits IReference
+        Inherits MyBook.IHasPrimaryKey(Of Integer)
         Inherits Ables.IUserName
         Inherits Ables.IPassword
         Inherits Ables.CreateAt
     End Interface
 
     Public Class Entity
-        Implements IEntity, IReference, ICreteria
+        Implements IEntity, ICreteria
 
-        Private Data As My.DataStructure.Data
+        Private Data As LoginProject.DataStructure.Data
 
         Public Property PrimaryKey As Integer Implements IHasPrimaryKey(Of Integer).PrimaryKey
             Get

@@ -1,21 +1,20 @@
 ﻿Module Module1
-    Public LoginService As New LoginProject.Service.LoginService
     Public ProfileController As New ProfileComponent.Controller
     Public TransferService As New Economy.TransferProject.Service.TransferService
     Public Contact As New ContactsProject.Service.Service
     Public AddressController As New AdressesProject.AddressesController
-    Public EconomyController As New Economy.Controller.Controller(Of AccountComponent.Contracts.IReference)
+    Public EconomyController As New Economy.Controller.Controller(Of ProfileComponent.Profile.Able.IReference)
     Public TransferController As New Economy.TransferController(TransferService)
     Public VehiclesController As New Vehicles.Vehicle.Controller.Controller
     Public BuildAndApartment As New BuildAndApartmentCompoent.Controller
-    Public AccountService As New AccountComponent.AcountService(LoginService, ProfileController.Person, ProfileController.Family)
+    Public AccountController As New AccountComponent.Controller
 
     Sub Main()
 
         Console.Clear()
         Console.OutputEncoding = System.Text.Encoding.UTF8
         Do
-            Dim MyAccountRef As AccountComponent.Contracts.IReference
+            Dim MyAccountRef As MyBook.IHasPrimaryKey(Of Integer)
             Console.Clear()
             Console.WriteLine("------ My Life Manager ------")
             Console.WriteLine("1) Είσοδος.")
@@ -31,18 +30,20 @@
 
             Select Case Choice
                 Case 1
-                    Dim LoginVal As MyBook.ValMsg(Of LoginProject.Contracts.IModel) = LoginModule.Login()
+                    Dim LoginVal As MyBook.ValMsg(Of AccountComponent.LoginProject.Contracts.IModel) = LoginModule.Login()
                     If LoginVal.Success = True Then
-                        Dim Creteria As AccountComponent.Contracts.ICreteria = New AccountComponent.Contracts.Contracts
-                        Creteria.LoginRef = LoginVal.Model
-                        MyAccountRef = AccountService.Search(Creteria).Model
+                        Dim Creteria As AccountComponent.Account.Contracts.ICreteria = New AccountComponent.Account.Contracts.Contracts
+                        Creteria.LoginID = LoginVal.Model.PrimaryKey
+                        MyAccountRef = AccountController.AccountService.Search(Creteria).Model
                         Menu(MyAccountRef)
                     End If
                 Case 2
-                    Dim AccounRegister As AccountComponent.Contracts.ILoginAndPersonRegisterDTO = New AccountComponent.Contracts.Contracts
-                    LoginModule.Register(AccounRegister.LoginDTO)
-                    PersonModule.Register(AccounRegister.PersonDTO)
-                    Dim ValRegister As MyBook.ValMsg(Of AccountComponent.Contracts.Contracts) = AccountService.Register(AccounRegister)
+                    Dim LoginRegisterDTO As AccountComponent.LoginProject.Contracts.IRegisterDTO = New AccountComponent.LoginProject.Contracts.Contracts
+                    Dim PersonRegisterDTO As ProfileComponent.PersonProject.Contracts.IRegisterDTO = New ProfileComponent.PersonProject.Contracts.Contracts
+                    LoginModule.Register(LoginRegisterDTO)
+                    PersonModule.Register(PersonRegisterDTO)
+                    Dim ProfileModel As ProfileComponent.Model = ProfileController.AddProfile(PersonRegisterDTO).Model
+                    Dim ValRegister As MyBook.ValMsg(Of AccountComponent.Account.Contracts.Contracts) = AccountController.AddAccount(LoginRegisterDTO, ProfileModel.Profile.PrimaryKey)
                     Console.Clear()
                     Console.WriteLine(ValRegister.Msg)
                     Console.ReadLine()
@@ -55,7 +56,7 @@
     End Sub
 
 
-    Sub Menu(Ref As AccountComponent.Contracts.IReference)
+    Sub Menu(Ref As MyBook.IHasPrimaryKey(Of Integer))
         Dim ContinueMenu As Boolean = True
         Do
 
@@ -63,22 +64,23 @@
             Dim Action As New List(Of Action)
             Dim iamAdmin As Boolean = True
 
-            Dim Model As AccountComponent.Contracts.IModel = AccountService.Exist(Ref).Model
+            Dim Model As AccountComponent.Account.Contracts.IModel = AccountController.AccountService.Exist(Ref).Model
             If Model Is Nothing Then
                 Exit Sub
             End If
+
             Console.Clear()
             Console.WriteLine("------ Είσοδος System ------")
             Console.WriteLine("ID: " & Model.PrimaryKey)
             Console.WriteLine()
 
-        Help.AddOption(Opt, Action, "Προφιλ.", Sub() ProfileModule.Menu(Model))
+            Help.AddOption(Opt, Action, "Προφιλ.", Sub() ProfileModule.Menu(Model))
             Help.AddOption(Opt, Action, "Build.", Sub() BuildingsModule.ListOfBuild(Ref))
             Help.AddOption(Opt, Action, "List Of Profiles.", Sub() ProfileModule.ListOfProfiles(Ref))
             Help.AddOption(Opt, Action, "Address.", Sub() AddressRelationShipModule.Menu())
             Help.AddOption(Opt, Action, "Διπλώματα.", Sub() Diplomata.Menu())
             Help.AddOption(Opt, Action, "Vehicles.", Sub() BrandsModule.ListOfBrands())
-            Help.AddOption(Opt, Action, "Διαχήρηση Είσοδου.", Sub() LoginModule.Menu(Model.LoginModel))
+            Help.AddOption(Opt, Action, "Διαχήρηση Είσοδου.", Sub() LoginModule.Menu(New AccountComponent.LoginProject.Contracts.Contracts With {.PrimaryKey = Model.LoginID}))
             Help.AddOption(Opt, Action, "Διαγραφή Λογαρισμού.", Sub() RemoveAcc(Model))
             Help.AddOption(Opt, Action, "Exit.", Sub() ContinueMenu = False)
             Help.PrintMenu(Opt)
@@ -98,7 +100,7 @@
         Loop While ContinueMenu = True
 
     End Sub
-    Friend Sub RemoveAcc(Ref As AccountComponent.Contracts.IReference)
+    Friend Sub RemoveAcc(Ref As MyBook.IHasPrimaryKey(Of Integer))
 
     End Sub
 End Module

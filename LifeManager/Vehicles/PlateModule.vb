@@ -11,7 +11,7 @@ Module PlateModule
         Console.WriteLine("Χώρα Πινακίδας: " & PlateModel.Country)
         Console.WriteLine("Icon: " & PlateModel.Icon)
     End Sub
-    Sub Menu(AccountRef As AccountComponent.Contracts.IReference, PlateRef As Vehicles.Vehicle.Base.IReference)
+    Sub Menu(AccountRef As ProfileComponent.Profile.Able.IReference, PlateRef As Vehicles.Vehicle.Base.IReference)
         Do
             Dim Val As MyBook.ValMsg(Of Contracts.Contracts) = VehiclesController.Plate.Exist(PlateRef)
             If Val.Success = False Then
@@ -42,7 +42,7 @@ Module PlateModule
             End Select
         Loop
     End Sub
-    Sub ListOfPlates(AccountRef As AccountComponent.Contracts.IReference)
+    Sub ListOfPlates(AccountRef As ProfileComponent.Profile.Able.IReference)
         Do
 
             Dim Val As MyBook.ValMsg(Of List(Of Vehicles.Vehicle.Controller.ModelController)) = VehiclesController.ListOfPlate(AccountRef.PrimaryKey)
@@ -86,7 +86,7 @@ Module PlateModule
             End If
         Loop
     End Sub
-    Sub Register(AccountRef As AccountComponent.Contracts.IReference)
+    Sub Register(AccountRef As ProfileComponent.Profile.Able.IReference)
         Dim RegisterDTO As Contracts.IRegisterDTO = New Contracts.Contracts
         RegisterDTO.ExternalID = AccountRef.PrimaryKey
         Console.Clear()

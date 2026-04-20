@@ -66,7 +66,7 @@ Module ContactModule
 
 
     End Sub
-    Friend Sub Menu(Myref As AccountComponent.Contracts.IReference)
+    Friend Sub Menu(Myref As ProfileComponent.Profile.Able.IReference)
         Dim Ref As Contracts.IReference = New Contracts.Contracts
         Do
 
@@ -102,7 +102,7 @@ Module ContactModule
             End Select
         Loop
     End Sub
-    Friend Sub ListofContact(Myref As AccountComponent.Contracts.IReference, ChoiceType As Service.Service.ChoiceType)
+    Friend Sub ListofContact(Myref As ProfileComponent.Profile.Able.IReference, ChoiceType As Service.Service.ChoiceType)
         Do
             Dim Val As New MyBook.ValMsg(Of List(Of Contracts.IModel))
             Dim Creteria As Contracts.ICreteria = New Contracts.Contracts
@@ -164,7 +164,7 @@ Module ContactModule
             End Select
         Loop
     End Sub
-    Friend Sub Register(Myref As AccountComponent.Contracts.IReference, ChoiceType As Service.Service.ChoiceType)
+    Friend Sub Register(Myref As ProfileComponent.Profile.Able.IReference, ChoiceType As Service.Service.ChoiceType)
         Dim Val As New MyBook.ValMsg
         Dim DTO As Contracts.IRegisterContact = New Contracts.Contracts
         DTO.ExternalID = Myref.PrimaryKey

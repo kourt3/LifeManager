@@ -1,38 +1,37 @@
-﻿Imports LoginProject.My
-Imports LoginProject.My.Ables
+﻿
 Imports MyBook
 
-Namespace Contracts
+Namespace LoginProject.Contracts
 
     Public Interface IModel
-        Inherits My.Entity.IReference
-        Inherits My.Ables.IUserName, Ables.CreateAt
+        Inherits MyBook.IHasPrimaryKey(Of Integer)
+        Inherits LoginProject.Ables.IUserName, Ables.CreateAt
         Inherits Ables.IPassword
     End Interface
     ''' <summary>
     ''' Criteria
     ''' </summary>
     Public Interface ILoginDTO
-        Inherits My.Entity.ICreteria
+        Inherits LoginProject.Entity.ICreteria
     End Interface
     Public Interface IRegisterDTO
-        Inherits My.Ables.IUserName, My.Ables.IPassword
+        Inherits LoginProject.Ables.IUserName, LoginProject.Ables.IPassword
     End Interface
     Public Interface IChangeUsernameAndPasswordDTO
-        Inherits My.Ables.IUserName, My.Ables.IPassword
+        Inherits LoginProject.Ables.IUserName, LoginProject.Ables.IPassword
     End Interface
     Public Interface IChangeNameDTO
-        Inherits My.Ables.IUserName
+        Inherits LoginProject.Ables.IUserName
     End Interface
     Public Interface IChangePasswordDTO
-        Inherits My.Ables.IPassword
+        Inherits LoginProject.Ables.IPassword
     End Interface
 
     Public Class Contracts
         Implements ILoginDTO, IRegisterDTO, IChangeNameDTO, IChangePasswordDTO, IChangeUsernameAndPasswordDTO, IModel
 
-        Private Data As New My.DataStructure.Data
-        Public Property Username As String Implements My.Ables.IUserName.Username
+        Private Data As New LoginProject.DataStructure.Data
+        Public Property Username As String Implements LoginProject.Ables.IUserName.Username
             Get
                 Return Data.UserName
             End Get
@@ -40,7 +39,7 @@ Namespace Contracts
                 Data.UserName = value
             End Set
         End Property
-        Public Property Password As String Implements My.Ables.IPassword.Password
+        Public Property Password As String Implements LoginProject.Ables.IPassword.Password
             Get
                 Return Data.Password
             End Get

@@ -1,7 +1,7 @@
 ﻿Imports MyBook
-Namespace Service
+Namespace LoginProject.Service
     Public Class LoginService
-        Inherits MyBook.Services.Service(Of Integer, Contracts.Contracts, My.Entity.Entity, LoginProject.Repositories.DatabaseRepository)
+        Inherits MyBook.Services.Service(Of Integer, LoginProject.Contracts.Contracts, LoginProject.Entity.Entity, LoginProject.Repositories.DatabaseRepository)
 
         Sub New()
             MyBase.New(New Repositories.DatabaseRepository)
@@ -23,9 +23,9 @@ Namespace Service
         End Function
         Public Overrides Function Change(Of DTO)(Ref As Contracts.Contracts, ChangeDTO As DTO) As ValMsg
             Dim Val As New MyBook.ValMsg
-            If TypeOf ChangeDTO Is My.Ables.IUserName Then
+            If TypeOf ChangeDTO Is LoginProject.Ables.IUserName Then
                 Console.WriteLine("True")
-                Dim ChangeDTOLink As My.Ables.IUserName = ChangeDTO
+                Dim ChangeDTOLink As LoginProject.Ables.IUserName = ChangeDTO
                 If Repository.ExistByUsername(ChangeDTOLink.Username) Then
                     With Val
                         .Success = False
@@ -51,7 +51,7 @@ Namespace Service
         End Function
 
 
-        Public Overrides Function ToModel(Entity As My.Entity.Entity) As Contracts.Contracts
+        Public Overrides Function ToModel(Entity As LoginProject.Entity.Entity) As LoginProject.Contracts.Contracts
             Dim Model As Contracts.IModel = New Contracts.Contracts
             With Model
                 .PrimaryKey = Entity.PrimaryKey
@@ -62,8 +62,8 @@ Namespace Service
             Return Model
         End Function
 
-        Public Overrides Function ToEntity(Of DTO)(DTOLink As DTO) As My.Entity.Entity
-            Dim Entity As New My.Entity.Entity
+        Public Overrides Function ToEntity(Of DTO)(DTOLink As DTO) As LoginProject.Entity.Entity
+            Dim Entity As New LoginProject.Entity.Entity
 
 
             If GetType(DTO) Is GetType(Contracts.ILoginDTO) Then
@@ -98,7 +98,7 @@ Namespace Service
             Return Entity
         End Function
 
-        Public Overrides Function ToEntity(Of DTO)(DTOLink As DTO, Entity As My.Entity.Entity) As My.Entity.Entity
+        Public Overrides Function ToEntity(Of DTO)(DTOLink As DTO, Entity As LoginProject.Entity.Entity) As LoginProject.Entity.Entity
             If GetType(DTO) Is GetType(Contracts.ILoginDTO) Then
                 Dim Obj As Contracts.ILoginDTO = DTOLink
                 With Entity

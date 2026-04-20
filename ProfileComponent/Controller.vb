@@ -4,6 +4,7 @@
     Property Family As FamilyProject.Family.Contracts.IModel
     Property Contacts As New List(Of ContactsProject.Contracts.IModel)
     Sub New()
+        Profile = New ProfileComponent.Profile.Contracts.Contracts
         PersonModel = New PersonProject.Contracts.Contracts
         Family = New FamilyProject.Family.Contracts.Contracts
         Family.Childrens = New List(Of FamilyProject.Children.Conctracts.IModel)
@@ -27,6 +28,7 @@ Public Class Controller
     Function AddProfile(RegisterDTO As PersonProject.Contracts.IRegisterDTO) As MyBook.ValMsg(Of Model)
 
         Dim Val As New MyBook.ValMsg(Of Model)
+        Val.Model = New Model
         Dim PersonVal As MyBook.ValMsg(Of PersonProject.Contracts.Contracts) = Person.Register(RegisterDTO)
         If PersonVal.Success = False Then
             Val.Msg = PersonVal.Msg
@@ -88,6 +90,7 @@ Public Class Controller
 
     Function ExistProfile(ProfileRef As Profile.Able.IReference) As MyBook.ValMsg(Of Model)
         Dim Val As New MyBook.ValMsg(Of Model)
+        Val.Model = New Model
         Dim ProfileVal As Profile.Contracts.Contracts = Profile.Exist(ProfileRef).Model
         Dim PersonVal As PersonProject.Contracts.Contracts = Person.Exist(New PersonProject.Contracts.Contracts With {.PrimaryKey = ProfileVal.PersonID}).Model
         Dim FamilyVal As FamilyProject.Family.Contracts.Contracts = Family.Exist(New FamilyProject.Family.Contracts.Contracts With {.PrimaryKey = ProfileVal.FamilyID}).Model

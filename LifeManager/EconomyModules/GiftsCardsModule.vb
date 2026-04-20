@@ -10,7 +10,7 @@ Module GiftsCardsModule
         Console.WriteLine("Description: " & Model.Description)
     End Sub
 
-    Friend Sub Menu(Ref As AccountComponent.Contracts.IReference, RefGifts As Economy.GiftsCard.Entity.IReference)
+    Friend Sub Menu(Ref As ProfileComponent.Profile.Able.IReference, RefGifts As Economy.GiftsCard.Entity.IReference)
         Do
             Console.Clear()
             Dim ValMsg As MyBook.ValMsg(Of Contracs.Contracs) = EconomyController.GiftsService.Exist(RefGifts)
@@ -38,7 +38,7 @@ Module GiftsCardsModule
                 Case 1
                     TransferModule.SearchMenu(Ref, "Gifts", RefGifts.PrimaryKey)
                 Case 2
-                    TransferModule.Register(Ref,"Gifts", RefGifts.PrimaryKey)
+                    TransferModule.Register(Ref, "Gifts", RefGifts.PrimaryKey)
                 Case 3
                     ChangeName(RefGifts)
                 Case 4
@@ -153,7 +153,7 @@ Module GiftsCardsModule
             Exit Sub
         End If
     End Sub
-    Friend Sub Remove(Ref As AccountComponent.Contracts.IReference, RefBankCard As Economy.GiftsCard.Entity.IReference)
+    Friend Sub Remove(Ref As ProfileComponent.Profile.Able.IReference, RefBankCard As Economy.GiftsCard.Entity.IReference)
         Dim Val As MyBook.ValMsg(Of Contracs.Contracs) = EconomyController.GiftsService.Exist(RefBankCard)
         If Val.Success = False Then
             Console.Clear()

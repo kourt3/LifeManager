@@ -1,6 +1,8 @@
 ﻿
-Namespace My.Entity
-
+Namespace Account.Entity
+    Public Interface ILoginID
+        Property LoginID As Integer
+    End Interface
     Public Structure Data
         Public Id As Integer
         Public LoginId As Integer
@@ -10,7 +12,7 @@ Namespace My.Entity
 
     Public Interface IEntity
         Inherits MyBook.IHasPrimaryKey(Of Integer)
-        Property LoginID As Integer
+        Inherits ILoginID
         Property ToExternalID As Integer
     End Interface
 

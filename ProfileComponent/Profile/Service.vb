@@ -3,17 +3,17 @@
 Namespace Profile.Service
     Public Class Service
 
-        Inherits MyBook.Services.Service(Of Integer, Contracts.Contracts, Entity.Entity, Repository.Repository)
+        Inherits MyBook.Services.Service(Of Integer, Contracts.Contracts, Entity.Entity, Repository.DataBaseRepository)
         Sub New()
-            MyBase.New(New Repository.Repository)
+            MyBase.New(New Repository.DataBaseRepository)
         End Sub
 
         Public Function Search(Creteria As Contracts.ICreteria) As MyBook.ValMsg(Of Contracts.Contracts)
-            Dim Val As MyBook.ValMsg(Of Contracts.Contracts)
+            Dim Val As New MyBook.ValMsg(Of Contracts.Contracts)
             Val.Success = False
             Val.Msg = "Δεν βρέθηκε εγραφή !"
             If Repository.Exist(Creteria) = True Then
-                Val.Model.Add(ToModel(Repository.Find(Creteria)))
+                Val.Model = (ToModel(Repository.Find(Creteria)))
                 Val.Success = True
                 Val.Msg = "Βρέθηκε εγραφή!"
             End If
@@ -21,7 +21,7 @@ Namespace Profile.Service
         End Function
 
 
-        Private Overrides Function Change(Of DTO)(Ref As Contracts.Contracts, ChangeDTO As DTO) As ValMsg
+        Public Overrides Function Change(Of DTO)(Ref As Contracts.Contracts, ChangeDTO As DTO) As ValMsg
             Throw New Exception("Δεν Μπορει να γίνει αλλαγή!")
         End Function
         Public Overrides Function ToModel(Entity As Entity.Entity) As Contracts.Contracts

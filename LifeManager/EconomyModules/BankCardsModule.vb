@@ -8,7 +8,7 @@ Module BankCardsModule
         Console.WriteLine("Description: " & Model.Description)
     End Sub
 
-    Friend Sub Menu(Ref As AccountComponent.Contracts.IReference, RefBankCard As Economy.BankCardsProject.My.Entity.IReference)
+    Friend Sub Menu(Ref As ProfileComponent.Profile.Able.IReference, RefBankCard As Economy.BankCardsProject.My.Entity.IReference)
         Do
             Console.Clear()
             Dim ValMsg As MyBook.ValMsg(Of Contracts.Contracts) = EconomyController.BankCardsService.Exist(RefBankCard)
@@ -149,7 +149,7 @@ Module BankCardsModule
             Exit Sub
         End If
     End Sub
-    Friend Sub Remove(Ref As AccountComponent.Contracts.IReference, RefBankCard As Economy.BankCardsProject.My.Entity.IReference)
+    Friend Sub Remove(Ref As ProfileComponent.Profile.Able.IReference, RefBankCard As Economy.BankCardsProject.My.Entity.IReference)
         Dim Val As MyBook.ValMsg(Of Contracts.Contracts) = EconomyController.BankCardsService.Exist(RefBankCard)
         If Val.Success = False Then
             Console.Clear()

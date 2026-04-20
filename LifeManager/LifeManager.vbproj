@@ -127,6 +127,7 @@
     <Compile Include="Vehicles\Models.vb" />
     <Compile Include="Vehicles\PlateModule.vb" />
     <Compile Include="Vehicles\VehiclesModule.vb" />
+    <Compile Include="ViewModel.vb" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="My Project\Resources.resx">

@@ -14,7 +14,7 @@ Module PortofolioModule
         End If
     End Sub
 
-    Friend Sub Menu(Ref As AccountComponent.Contracts.IReference, RefPortofolio As Economy.Portofolio.Entity.IReference)
+    Friend Sub Menu(Ref As ProfileComponent.Profile.Able.IReference, RefPortofolio As Economy.Portofolio.Entity.IReference)
         Do
             Console.Clear()
             Dim ValMsg As MyBook.ValMsg(Of Contracts.Contract) = EconomyController.PortofolioService.Exist(RefPortofolio)
@@ -127,7 +127,7 @@ Module PortofolioModule
             Exit Sub
         End If
     End Sub
-    Friend Sub Remove(Ref As AccountComponent.Contracts.IReference, RefPortofolio As Entity.IReference)
+    Friend Sub Remove(Ref As ProfileComponent.Profile.Able.IReference, RefPortofolio As Entity.IReference)
         Dim Val As MyBook.ValMsg(Of Contracts.Contract) = EconomyController.PortofolioService.Exist(RefPortofolio)
         If Val.Success = False Then
             Console.Clear()

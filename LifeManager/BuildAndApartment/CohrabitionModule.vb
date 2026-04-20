@@ -2,7 +2,7 @@
 Imports BuildAndApartmentCompoent.BuildAndApartment.Cohrabication
 Module CohrabitionModule
 
-    Friend Sub ListOfCohrabition(ApartmentRef As BuildAndApartmentCompoent.BuildAndApartment.Apartment.Contracts.IReference, MyRef As AccountComponent.Contracts.IReference, Optional ThridRef As Contracts.IReference = Nothing, Optional Choice As Boolean = False, Optional ByRef ChoiceRefPerson As AccountComponent.Contracts.IReference = Nothing)
+    Friend Sub ListOfCohrabition(ApartmentRef As BuildAndApartmentCompoent.BuildAndApartment.Apartment.Contracts.IReference, MyRef As ProfileComponent.Profile.Able.IReference, Optional ThridRef As Contracts.IReference = Nothing, Optional Choice As Boolean = False, Optional ByRef ChoiceRefPerson As ProfileComponent.Profile.Able.IReference = Nothing)
         Do
             Console.Clear()
             Console.WriteLine("-------------- List Of Cograbition --------------------")
@@ -33,7 +33,7 @@ Module CohrabitionModule
                 Dim Index As Integer = 0
                 For Each Model In Val.Model
                     Index += 1
-                    Dim Person As ProfileComponent.PersonProject.Contracts.IModel = AccountService.Exist(New AccountComponent.Contracts.Contracts With {.PrimaryKey = Model.ExternalID}).Model.PersonModel
+                    Dim Person As ProfileComponent.PersonProject.Contracts.IModel = ProfileController.Profile.Exist(New ProfileComponent.Profile.Contracts.Contracts With {.PrimaryKey = Model.ExternalID}).Model
                     Console.WriteLine(Index & ") " & Person.FullName)
                 Next
                 Console.WriteLine("------------ Menu --------------")
@@ -47,10 +47,10 @@ Module CohrabitionModule
                 Select Case Str
                     Case 0 To Index - 1
                         If Choice = True Then
-                            ChoiceRefPerson = AccountService.Exist(New AccountComponent.Contracts.Contracts With {.PrimaryKey = Val.Model(Int(Str)).ExternalID}).Model
+                            ChoiceRefPerson = ProfileController.Profile.Exist(New ProfileComponent.Profile.Contracts.Contracts With {.PrimaryKey = Val.Model(Int(Str)).ExternalID}).Model
                             Exit Do
                         End If
-                        ProfileModule.Menu(AccountService.Exist(New AccountComponent.Contracts.Contracts With {.PrimaryKey = Val.Model(Int(Str)).ExternalID}).Model)
+                        ProfileModule.Menu(ProfileController.Profile.Exist(New ProfileComponent.Profile.Contracts.Contracts With {.PrimaryKey = Val.Model(Int(Str)).ExternalID}).Model)
                         Continue Do
                     Case Index
                         RegisterCohrabition(ApartmentRef, MyRef, ThridRef)
@@ -75,7 +75,7 @@ Module CohrabitionModule
         AddThirdFriend
         Search
     End Enum
-    Friend Sub RegisterCohrabition(ApartmentRef As BuildAndApartmentCompoent.BuildAndApartment.Apartment.Contracts.IReference, Optional MyRef As AccountComponent.Contracts.IReference = Nothing, Optional ThirdRef As AccountComponent.Contracts.IReference = Nothing)
+    Friend Sub RegisterCohrabition(ApartmentRef As BuildAndApartmentCompoent.BuildAndApartment.Apartment.Contracts.IReference, Optional MyRef As ProfileComponent.Profile.Able.IReference = Nothing, Optional ThirdRef As ProfileComponent.Profile.Able.IReference = Nothing)
         Console.Clear()
         Dim Opt As New List(Of String)
         Dim Action As New List(Of Action)
@@ -135,7 +135,7 @@ Module CohrabitionModule
                 Console.WriteLine(BuildAndApartment.Cohrabication.Register(DTO).Msg)
                 Console.ReadLine()
             Case Choice.AddMyFriend
-                Dim Ref As AccountComponent.Contracts.IReference = New AccountComponent.Contracts.Contracts
+                Dim Ref As ProfileComponent.Profile.Able.IReference = New ProfileComponent.Profile.Contracts.Contracts
                 RelationShipModule.ListOfFriend(MyRef, True, Ref)
                 If Not Ref.PrimaryKey = Nothing Then
                     DTO.ExternalID = Ref.PrimaryKey
@@ -154,7 +154,7 @@ Module CohrabitionModule
                 Console.WriteLine(BuildAndApartment.Cohrabication.Register(DTO).Msg)
                 Console.ReadLine()
             Case Choice.AddThirdFriend
-                Dim Ref As AccountComponent.Contracts.IReference = New AccountComponent.Contracts.Contracts
+                Dim Ref As ProfileComponent.Profile.Able.IReference = New ProfileComponent.Profile.Contracts.Contracts
                 RelationShipModule.ListOfFriend(ThirdRef, True, Ref)
                 If Not Ref.PrimaryKey = Nothing Then
                     DTO.ExternalID = Ref.PrimaryKey
@@ -165,7 +165,7 @@ Module CohrabitionModule
                     Console.ReadLine()
                 End If
             Case Choice.Search
-                Dim Ref As AccountComponent.Contracts.IReference = New AccountComponent.Contracts.Contracts
+                Dim Ref As ProfileComponent.Profile.Able.IReference = New ProfileComponent.Profile.Contracts.Contracts
                 ProfileModule.ListOfProfiles(MyRef, True, Ref)
                 If Not Ref.PrimaryKey = Nothing Then
                     DTO.ApartmentID = ApartmentRef.PrimaryKey
@@ -182,7 +182,7 @@ Module CohrabitionModule
         End Select
 
     End Sub
-    Friend Sub ListOfApartment(Ref As AccountComponent.Contracts.IReference, Optional Choice As Boolean = Nothing, Optional ByRef ChoiceApartmentRef As BuildAndApartmentCompoent.BuildAndApartment.Apartment.Contracts.IReference = Nothing)
+    Friend Sub ListOfApartment(Ref As ProfileComponent.Profile.Able.IReference, Optional Choice As Boolean = Nothing, Optional ByRef ChoiceApartmentRef As BuildAndApartmentCompoent.BuildAndApartment.Apartment.Contracts.IReference = Nothing)
         Do
             Console.Clear()
             Console.WriteLine("---------- List Of Apartment -------------")
@@ -241,7 +241,7 @@ Module CohrabitionModule
 
         Loop
     End Sub
-    Friend Sub Register(Ref As AccountComponent.Contracts.IReference)
+    Friend Sub Register(Ref As ProfileComponent.Profile.Able.IReference)
         Console.WriteLine("---------- Add Apartment ---------")
         If Help.AccessChoice("Θέλει να κανεις εγραφή ?") Then
             Dim DTO As Contracts.IRegisterDTO = New Contracts.Contracts
@@ -271,8 +271,8 @@ Module CohrabitionModule
             Console.WriteLine("---------- Remove Cohrabition -----------")
             For Each Model In Val.Model
                 Index += 1
-                Dim Account As AccountComponent.Contracts.IModel = AccountService.Exist(New AccountComponent.Contracts.Contracts With {.PrimaryKey = Model.ExternalID}).Model
-                Console.WriteLine(Index & ") " & Account.PersonModel.FullName)
+                Dim Account As ProfileComponent.Profile.Contracts.IModel = ProfileController.Profile.Exist(New ProfileComponent.Profile.Contracts.Contracts With {.PrimaryKey = Model.ExternalID}).Model
+                Console.WriteLine(Index & ") " & ProfileController.Person.Exist(New ProfileComponent.PersonProject.Contracts.Contracts With {.PrimaryKey = Account.PersonID}).Model.FullName)
             Next
             Console.WriteLine()
             Console.WriteLine("------- Menu -------------")

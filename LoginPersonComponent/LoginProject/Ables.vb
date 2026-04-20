@@ -1,4 +1,4 @@
-﻿Namespace My.Ables
+﻿Namespace LoginProject.Ables
     Public Interface IUserName
         Property Username As String
     End Interface

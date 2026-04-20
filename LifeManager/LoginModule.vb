@@ -1,5 +1,5 @@
 ﻿Imports System.Security.Principal
-Imports LoginProject
+Imports AccountComponent.LoginProject
 Friend Module LoginModule
     Friend Sub Info(Model As Contracts.IModel)
         Console.WriteLine("ID: " & Model.PrimaryKey)
@@ -7,9 +7,9 @@ Friend Module LoginModule
         Console.WriteLine("Password: " & Model.Password)
         Console.WriteLine("ημ. Λογαριασμού: " & Model.CreateAt)
     End Sub
-    Friend Sub Menu(Ref As LoginProject.My.Entity.IReference)
+    Friend Sub Menu(Ref As MyBook.IHasPrimaryKey(Of Integer))
         Do
-            Dim ValModel As MyBook.ValMsg(Of Contracts.Contracts) = LoginService.Exist(Ref)
+            Dim ValModel As MyBook.ValMsg(Of Contracts.Contracts) = AccountController.LoginService.Exist(Ref)
             If ValModel.Success = False Then
                 Exit Sub
             End If
@@ -48,8 +48,8 @@ Friend Module LoginModule
         Loop
     End Sub
 
-    Friend Function Login() As MyBook.ValMsg(Of Contracts.IModel)
-        Dim Result As New MyBook.ValMsg(Of Contracts.IModel)
+    Friend Function Login() As MyBook.ValMsg(Of AccountComponent.LoginProject.Contracts.IModel)
+        Dim Result As New MyBook.ValMsg(Of AccountComponent.LoginProject.Contracts.IModel)
         Do
             'Login ----------------
             Console.Clear()
@@ -77,11 +77,11 @@ Friend Module LoginModule
                 Return Result
             End If
 
-            Dim LoginDTO As LoginProject.Contracts.ILoginDTO = New LoginProject.Contracts.Contracts
+            Dim LoginDTO As Contracts.ILoginDTO = New Contracts.Contracts
             LoginDTO.Username = UserName
             LoginDTO.Password = Password
             '--------------------------------------
-            Result = LoginService.Login(LoginDTO)
+            Result = AccountController.LoginService.Login(LoginDTO)
             Console.Clear()
 
             If Result.Success = True Then
@@ -101,7 +101,7 @@ Friend Module LoginModule
     End Function
 
 
-    Friend Sub Register(ByRef LoginRegisterDTO As LoginProject.Contracts.IRegisterDTO)
+    Friend Sub Register(ByRef LoginRegisterDTO As AccountComponent.LoginProject.Contracts.IRegisterDTO)
 
         Do
 
@@ -150,9 +150,9 @@ Friend Module LoginModule
         Loop
     End Sub
 
-    Friend Function ChangeUserName(Ref As LoginProject.My.Entity.IReference) As Boolean
+    Friend Function ChangeUserName(Ref As MyBook.IHasPrimaryKey(Of Integer)) As Boolean
 
-        Dim Model As LoginProject.Contracts.IModel = LoginService.Exist(Ref).Model
+        Dim Model As Contracts.IModel = AccountController.LoginService.Exist(Ref).Model
 
 
 
@@ -165,18 +165,18 @@ Friend Module LoginModule
 
             Console.Clear()
             Console.WriteLine("Δώσε Username:")
-            Dim DTO As LoginProject.Contracts.ILoginDTO = New Contracts.Contracts
+            Dim DTO As Contracts.ILoginDTO = New Contracts.Contracts
             DTO.Username = Console.ReadLine
             Console.WriteLine("Δώσε Password:")
             DTO.Password = Console.ReadLine
-            Dim LoginVal As MyBook.ValMsg(Of LoginProject.Contracts.IModel) = LoginService.Login(DTO)
+            Dim LoginVal As MyBook.ValMsg(Of Contracts.IModel) = AccountController.LoginService.Login(DTO)
             If LoginVal.Success = True Then
                 Console.WriteLine("Δώσε το New Username:")
                 Dim ChangeDTO As Contracts.IChangeNameDTO = New Contracts.Contracts
                 Dim Str As String = Console.ReadLine
                 If Str <> Nothing Then
                     ChangeDTO.Username = Str
-                    Console.WriteLine(LoginService.Change(Model, ChangeDTO).Msg)
+                    Console.WriteLine(AccountController.LoginService.Change(Model, ChangeDTO).Msg)
                     Console.ReadLine()
                     Return True
                 Else
@@ -192,10 +192,10 @@ Friend Module LoginModule
         Return False
 
     End Function
-    Friend Function ChangePassword(Ref As LoginProject.My.Entity.IReference) As Boolean
+    Friend Function ChangePassword(Ref As MyBook.IHasPrimaryKey(Of Integer)) As Boolean
 
 
-        Dim Model As LoginProject.Contracts.IModel = LoginService.Exist(Ref).Model
+        Dim Model As Contracts.IModel = AccountController.LoginService.Exist(Ref).Model
 
         Console.Clear()
         Console.WriteLine("------ Αλλαγή Password ------")
@@ -207,11 +207,11 @@ Friend Module LoginModule
 
             Console.Clear()
             Console.WriteLine("Δώσε Username:")
-            Dim DTO As LoginProject.Contracts.ILoginDTO = New Contracts.Contracts
+            Dim DTO As Contracts.ILoginDTO = New Contracts.Contracts
             DTO.Username = Console.ReadLine
             Console.WriteLine("Δώσε Password:")
             DTO.Password = Console.ReadLine
-            Dim LoginVal As MyBook.ValMsg(Of LoginProject.Contracts.IModel) = LoginService.Login(DTO)
+            Dim LoginVal As MyBook.ValMsg(Of Contracts.IModel) = AccountController.LoginService.Login(DTO)
             If LoginVal.Success = True Then
                 Dim ChangeDTO As Contracts.IChangePasswordDTO = New Contracts.Contracts
                 Console.WriteLine("Δώσε το New Password:")
@@ -221,7 +221,7 @@ Friend Module LoginModule
                     Dim Str1 As String = Console.ReadLine
                     If Str1 <> Nothing Then
                         If ChangeDTO.Password = Str1 Then
-                            LoginService.Change(Model, ChangeDTO)
+                            AccountController.LoginService.Change(Model, ChangeDTO)
                             Return True
                         Else
                             Console.Clear()
@@ -247,8 +247,8 @@ Friend Module LoginModule
 
     End Function
 
-    Friend Function ChangeUsernameAndPassword(Ref As LoginProject.My.Entity.IReference) As Boolean
-        Dim Model As LoginProject.Contracts.IModel = LoginService.Exist(Ref).Model
+    Friend Function ChangeUsernameAndPassword(Ref As MyBook.IHasPrimaryKey(Of Integer)) As Boolean
+        Dim Model As Contracts.IModel = AccountController.LoginService.Exist(Ref).Model
         Console.Clear()
         Console.WriteLine("------ Αλλαγή Username and Password ------")
         Info(Model)
@@ -257,11 +257,11 @@ Friend Module LoginModule
         If Help.AccessChoice("Θέλεις να αλλάξεις το Username and Password:") Then
             Console.Clear()
             Console.WriteLine("Δώσε Username:")
-            Dim DTO As LoginProject.Contracts.ILoginDTO = New Contracts.Contracts
+            Dim DTO As Contracts.ILoginDTO = New Contracts.Contracts
             DTO.Username = Console.ReadLine
             Console.WriteLine("Δώσε Password:")
             DTO.Password = Console.ReadLine
-            Dim LoginVal As MyBook.ValMsg(Of LoginProject.Contracts.IModel) = LoginService.Login(DTO)
+            Dim LoginVal As MyBook.ValMsg(Of Contracts.IModel) = AccountController.LoginService.Login(DTO)
             If LoginVal.Success = True Then
                 Dim ChangeDTO As Contracts.IChangeUsernameAndPasswordDTO = New Contracts.Contracts
                 Console.WriteLine("Δώσε καινουργιο Username")
@@ -276,7 +276,7 @@ Friend Module LoginModule
                     Dim Str1 As String = Console.ReadLine
                     If Str1 <> Nothing Then
                         If ChangeDTO.Password = Str1 Then
-                            Dim ValChange As MyBook.ValMsg = LoginService.Change(Model, ChangeDTO)
+                            Dim ValChange As MyBook.ValMsg = AccountController.LoginService.Change(Model, ChangeDTO)
                             Console.Clear()
                             Console.WriteLine(ValChange.Msg)
                             Console.ReadKey()
@@ -302,23 +302,23 @@ Friend Module LoginModule
         Return False
     End Function
 
-    Friend Function RemoveAcc(Ref As LoginProject.My.Entity.IReference) As Boolean
+    Friend Function RemoveAcc(Ref As MyBook.IHasPrimaryKey(Of Integer)) As Boolean
 
-        Dim Model As LoginProject.Contracts.IModel = LoginService.Exist(Ref).Model
+        Dim Model As Contracts.IModel = AccountController.LoginService.Exist(Ref).Model
 
         Console.Clear()
         Console.WriteLine("------ Διαγραφή Λογαριασμου --------")
         Info(Model)
         If Help.AccessChoice("Θέλετε να διαγράψετε τον λογαριασμο ?") Then
-            Dim DTO As LoginProject.Contracts.ILoginDTO = New LoginProject.Contracts.Contracts
+            Dim DTO As Contracts.ILoginDTO = New Contracts.Contracts
             Console.WriteLine("Δώσε το Username:")
             DTO.Username = Console.ReadLine
             Console.WriteLine("Δώσε το Password:")
             DTO.Password = Console.ReadLine
-            Dim LoginVal As MyBook.ValMsg(Of LoginProject.Contracts.IModel) = LoginService.Login(DTO)
+            Dim LoginVal As MyBook.ValMsg(Of Contracts.IModel) = AccountController.LoginService.Login(DTO)
             Dim RemoveVal As MyBook.ValMsg
             If LoginVal.Success = True Then
-                RemoveVal = LoginService.Remove(Model)
+                RemoveVal = AccountController.LoginService.Remove(Model)
                 Console.Clear()
                 Console.WriteLine(RemoveVal.Msg)
                 Console.ReadKey()

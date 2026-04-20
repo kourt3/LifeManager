@@ -47,8 +47,8 @@ Module TransferModule
             End Select
         Loop
     End Sub
-    Friend Sub ChoiceListEconomy(Myref As AccountComponent.Contracts.IReference, ByRef ChoiceCategoryEconomy As String, ByRef ChoiceEconomyId As Integer)
-        Dim RefPerson As AccountComponent.Contracts.IReference = New AccountComponent.Contracts.Contracts
+    Friend Sub ChoiceListEconomy(Myref As ProfileComponent.Profile.Able.IReference, ByRef ChoiceCategoryEconomy As String, ByRef ChoiceEconomyId As Integer)
+        Dim RefPerson As ProfileComponent.Profile.Able.IReference = New ProfileComponent.Profile.Contracts.Contracts
         Do
             Console.WriteLine("------------- Choice on the list --------------")
             Console.WriteLine("1) Friends.")
@@ -67,7 +67,7 @@ Module TransferModule
                     CohrabitionModule.ListOfApartment(Myref, True, ApartmentRef)
                     CohrabitionModule.ListOfCohrabition(ApartmentRef, Myref, Nothing, True, RefPerson)
                 Case 3
-                    FamilyModule.Menu(Myref, AccountService.Exist(Myref).Model.FamilyModel, RefPerson)
+                    FamilyModule.Menu(Myref, New ProfileComponent.FamilyProject.Family.Contracts.Contracts With {.PrimaryKey = ProfileController.Profile.Exist(Myref).Model.FamilyID}, RefPerson)
                 Case 4
                     ProfileModule.ListOfProfiles(Myref, True, RefPerson)
                 Case 5
@@ -86,7 +86,7 @@ Module TransferModule
 
     End Sub
 
-    Friend Sub Register(Myref As AccountComponent.Contracts.IReference, CategoryEconomy As String, ExternalId As Integer)
+    Friend Sub Register(Myref As ProfileComponent.Profile.Able.IReference, CategoryEconomy As String, ExternalId As Integer)
         Do
             Dim FromTrans As String = Nothing, ToTrans As String = Nothing
             Dim RegisterDTO As Contracts.IRegisterDTO = New Contracts.Contract
@@ -170,7 +170,7 @@ Module TransferModule
         End If
 
     End Sub
-    Sub SearchMenu(Myref As AccountComponent.Contracts.IReference, CategoryEconomy As String, ExternalId As Integer)
+    Sub SearchMenu(Myref As ProfileComponent.Profile.Able.IReference, CategoryEconomy As String, ExternalId As Integer)
         Do
             Console.Clear()
             Console.WriteLine("---------- Analusis Data Transfer ----------")
@@ -200,7 +200,7 @@ Module TransferModule
             ListOfTransfer(Myref, CategoryEconomy, ExternalId, Creteria)
         Loop
     End Sub
-    Friend Sub ListOfTransfer(Myref As AccountComponent.Contracts.IReference, CategoryEconomy As String, ExternalId As Integer, Creteria As Economy.TransferProject.Contracts.ICreateria)
+    Friend Sub ListOfTransfer(Myref As ProfileComponent.Profile.Able.IReference, CategoryEconomy As String, ExternalId As Integer, Creteria As Economy.TransferProject.Contracts.ICreateria)
         Do
             Console.Clear()
             Dim Val As MyBook.ValMsg(Of List(Of Contracts.IModel)) = TransferService.Search(Creteria)
