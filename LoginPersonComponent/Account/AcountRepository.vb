@@ -14,9 +14,11 @@
 
         Sub New()
             MyBase.New("Microsoft.ACE.OLEDB.16.0", "C:\Users\kourt\Documents\kourt.accdb", "AccountComponent", "[ID],[LoginID],[ExternalID]")
+
         End Sub
 
         Public Overrides Function ConvertRows(Entity As Account.Entity.Entity) As String()
+
             Return {Entity.PrimaryKey, Entity.LoginID, Entity.ToExternalID}
         End Function
 
