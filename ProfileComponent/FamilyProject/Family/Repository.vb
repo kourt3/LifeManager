@@ -8,5 +8,33 @@
             Throw New NotImplementedException()
         End Function
     End Class
+
+    Public Class DatabaseRepository
+        Inherits MyBook.Repositories.DatabaseRepository(Of Integer, Family.Entity.Entity)
+
+        Sub New()
+            MyBase.New("Microsoft.ACE.OLEDB.16.0", "C:\Users\kourt\Documents\kourt.accdb", "Family", "[ID],[ExternaLID],[MotherID],[FatherID],[HusbandID]")
+        End Sub
+
+        Public Overrides Function ConvertRows(Entity As Entity.Entity) As String()
+            Return {Entity.PrimaryKey, Entity.ExternalID, Entity.Mother, Entity.Father, Entity.Spouse}
+        End Function
+
+        Public Overrides Function ConvertEntity(DT As DataRow) As Entity.Entity
+            Dim Entity As New Family.Entity.Entity
+            With Entity
+                .PrimaryKey = DT(0)
+                .ExternalID = DT(1)
+                .Mother = DT(2)
+                .Father = DT(3)
+                .Spouse = DT(4)
+            End With
+            Return Entity
+        End Function
+
+        Public Overrides Function Match(Of TCreteria)(Entity As Entity.Entity, Creteria As TCreteria) As Boolean
+            Throw New NotImplementedException()
+        End Function
+    End Class
 End Namespace
 

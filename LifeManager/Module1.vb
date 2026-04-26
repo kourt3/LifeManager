@@ -70,14 +70,18 @@
                 Exit Sub
             End If
 
+            Dim ProfileRef As ProfileComponent.Profile.Able.IReference = New ProfileComponent.Profile.Contracts.Contracts
+            ProfileRef.PrimaryKey = Model.ToExternalID
+
+
             Console.Clear()
             Console.WriteLine("------ Είσοδος System ------")
             Console.WriteLine("ID: " & Model.PrimaryKey)
             Console.WriteLine()
 
-            Help.AddOption(Opt, Action, "Προφιλ.", Sub() ProfileModule.Menu(New ProfileComponent.Profile.Contracts.Contracts With {.PrimaryKey = Model.ToExternalID}))
-            Help.AddOption(Opt, Action, "Build.", Sub() BuildingsModule.ListOfBuild(Ref))
-            Help.AddOption(Opt, Action, "List Of Profiles.", Sub() ProfileModule.ListOfProfiles(Ref))
+            Help.AddOption(Opt, Action, "Προφιλ.", Sub() ProfileModule.Menu(ProfileRef))
+            Help.AddOption(Opt, Action, "Build.", Sub() BuildingsModule.ListOfBuild(ProfileRef))
+            Help.AddOption(Opt, Action, "List Of Profiles.", Sub() ProfileModule.ListOfProfiles(ProfileRef))
             Help.AddOption(Opt, Action, "Address.", Sub() AddressRelationShipModule.Menu())
             Help.AddOption(Opt, Action, "Διπλώματα.", Sub() Diplomata.Menu())
             Help.AddOption(Opt, Action, "Vehicles.", Sub() BrandsModule.ListOfBrands())

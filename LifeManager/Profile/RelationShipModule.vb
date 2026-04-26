@@ -212,7 +212,7 @@ Module RelationShipModule
             RegisterDTO.ToExternalID = ThirdRef.PrimaryKey
             Console.Clear()
             Console.WriteLine("------------ Add Relationship ----------")
-            PersonModule.Info(ProfileController.Profile.Exist(ThirdRef).Model)
+            PersonModule.Info(ProfileController.ExistProfile(ThirdRef).Model.PersonModel)
             Console.WriteLine("----------------------------------------")
             Help.IfNotInputOrMsg("Δώσε Description: ", RegisterDTO.Description)
             If Help.AccessChoice("Θέλεις να συνεχίσεις με την εγραφή: ") Then

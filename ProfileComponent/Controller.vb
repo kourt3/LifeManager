@@ -1,12 +1,12 @@
 ﻿Public Class Model
     Property Profile As Profile.Able.IReference
     Property PersonModel As PersonProject.Contracts.IModel
-    Property Family As FamilyProject.Family.Contracts.IModel
+    Property Family As FamilyProject.Model
     Property Contacts As New List(Of ContactsProject.Contracts.IModel)
     Sub New()
         Profile = New ProfileComponent.Profile.Contracts.Contracts
         PersonModel = New PersonProject.Contracts.Contracts
-        Family = New FamilyProject.Family.Contracts.Contracts
+        Family = New FamilyProject.Model
         Contacts = New List(Of ContactsProject.Contracts.IModel)
     End Sub
 End Class
@@ -20,8 +20,7 @@ Public Class Controller
 
     Public Profile As New Profile.Service.Service
     Public Person As New PersonProject.Service.PersonService
-    Public Family As New FamilyProject.Family.Service.Service(Person)
-    Public Children As New FamilyProject.Children.Service.ChildrenService(Person)
+    Public Family As New FamilyProject.FamilyController(Person)
     Public Contact As New ContactsProject.Service.Service
 
     Function AddProfile(RegisterDTO As PersonProject.Contracts.IRegisterDTO) As MyBook.ValMsg(Of Model)
@@ -37,11 +36,11 @@ Public Class Controller
         Dim RegisterProfileDTO As Profile.Contracts.IRegisterDTO = New Profile.Contracts.Contracts
         RegisterProfileDTO.PersonID = PersonVal.Model.PrimaryKey
         Dim FamilyRegisterDTO As FamilyProject.Family.Contracts.IRegisterDTO = New FamilyProject.Family.Contracts.Contracts
-        FamilyRegisterDTO.MePersonID = PersonVal.Model.PrimaryKey
+        FamilyRegisterDTO.ExternalID = PersonVal.Model.PrimaryKey
         FamilyRegisterDTO.Mother = 0
         FamilyRegisterDTO.Father = 0
-        FamilyRegisterDTO.Husband = 0
-        Dim FamilyVal As MyBook.ValMsg(Of FamilyProject.Family.Contracts.Contracts) = Family.Register(FamilyRegisterDTO)
+        FamilyRegisterDTO.Spouse = 0
+        Dim FamilyVal As MyBook.ValMsg(Of FamilyProject.Family.Contracts.Contracts) = Family.Family.Register(FamilyRegisterDTO)
         If FamilyVal.Success = False Then
             Val.Msg = FamilyVal.Msg
             Val.Success = False
@@ -61,7 +60,7 @@ Public Class Controller
         Val.Success = True
         Val.Model.Profile = ProfileVal.Model
         Val.Model.PersonModel = PersonVal.Model
-        Val.Model.Family = FamilyVal.Model
+        Val.Model.Family.FamilyModel = FamilyVal.Model
         Val.Model.Contacts = New List(Of ContactsProject.Contracts.IModel)
         Return Val
 
@@ -76,7 +75,7 @@ Public Class Controller
             Return Val
         End If
         Person.Remove(New PersonProject.Contracts.Contracts With {.PrimaryKey = ProfileVal.Model.PersonID})
-        Family.Remove(New FamilyProject.Family.Contracts.Contracts With {.PrimaryKey = ProfileVal.Model.FamilyID})
+        Family.Family.Remove(New FamilyProject.Family.Contracts.Contracts With {.PrimaryKey = ProfileVal.Model.FamilyID})
         Dim Creterias As ContactsProject.Contracts.ICreteria = New ContactsProject.Contracts.Contracts
         Creterias.ExternalID = ProfileRef.PrimaryKey
         For Each EntityL In Contact.Search(Creterias).Model
@@ -92,7 +91,7 @@ Public Class Controller
         Val.Model = New Model
         Dim ProfileVal As Profile.Contracts.Contracts = Profile.Exist(ProfileRef).Model
         Dim PersonVal As PersonProject.Contracts.Contracts = Person.Exist(New PersonProject.Contracts.Contracts With {.PrimaryKey = ProfileVal.PersonID}).Model
-        Dim FamilyVal As MyBook.ValMsg(Of FamilyProject.Family.Contracts.Contracts) = Family.Exist(New FamilyProject.Family.Contracts.Contracts With {.PrimaryKey = ProfileVal.FamilyID})
+        Dim FamilyVal As MyBook.ValMsg(Of FamilyProject.Family.Contracts.Contracts) = Family.Family.Exist(New FamilyProject.Family.Contracts.Contracts With {.PrimaryKey = ProfileVal.FamilyID})
         If FamilyVal.Success = False Then
             FamilyVal.Model = New FamilyProject.Family.Contracts.Contracts
         End If
@@ -103,7 +102,7 @@ Public Class Controller
         Val.Success = True
         Val.Msg = "Βρέθηκαν εγραφες!"
         Val.Model.PersonModel = PersonVal
-        Val.Model.Family = FamilyVal.Model
+        Val.Model.Family.FamilyModel = FamilyVal.Model
         Val.Model.Contacts = ContactModel
         Val.Model.Profile = ProfileRef
         Return Val
@@ -117,7 +116,7 @@ Public Class Controller
         Dim ValProfile As MyBook.ValMsg(Of Profile.Contracts.Contracts) = Profile.Search(Creteria)
         Val.Model.Profile = ValProfile.Model
         Val.Model.PersonModel = Person.Exist(PersonRef).Model
-        Val.Model.Family = Family.Exist(New FamilyProject.Family.Contracts.Contracts With {.PrimaryKey = ValProfile.Model.FamilyID}).Model
+        Val.Model.Family.FamilyModel = Family.Family.Exist(New FamilyProject.Family.Contracts.Contracts With {.PrimaryKey = ValProfile.Model.FamilyID}).Model
 
         Dim CreteriaContacts As ContactsProject.Contracts.ICreteria = New ContactsProject.Contracts.Contracts
         CreteriaContacts.ExternalID = Val.Model.Profile.PrimaryKey
@@ -128,19 +127,40 @@ Public Class Controller
         Return Val
 
     End Function
-    Function ListOfProfiles() As MyBook.ValMsg(Of List(Of Model))
+
+    ''' <summary>
+    ''' List Of Profile
+    ''' </summary>
+    ''' <param name="ProfileRef">Παρακαμπτη το Profile απο το List Of Profile</param>
+    ''' <returns></returns>
+    Function ListOfProfiles(Optional ProfileRef As ProfileComponent.Profile.Able.IReference = Nothing) As MyBook.ValMsg(Of List(Of Model))
         Dim Val As New MyBook.ValMsg(Of List(Of Model))
         Val.Model = New List(Of Model)
         Val.Success = False
         Val.Msg = "Δεν βρέθηκε εγραφή!"
 
         For Each Entity In Profile.Get_All.Model
+
+            If ProfileRef IsNot Nothing Then
+                If Entity.PrimaryKey = ProfileRef.PrimaryKey Then
+                    Continue For
+                End If
+            End If
+
             Dim PersonModel As PersonProject.Contracts.Contracts = Person.Exist(New PersonProject.Contracts.Contracts With {.PrimaryKey = Entity.PersonID}).Model
-            Dim FamilyModel As FamilyProject.Family.Contracts.Contracts = Family.Exist(New FamilyProject.Family.Contracts.Contracts With {.PrimaryKey = Entity.FamilyID}).Model
+            Dim FamilyModel As FamilyProject.Family.Contracts.Contracts = Family.Family.Exist(New FamilyProject.Family.Contracts.Contracts With {.PrimaryKey = Entity.FamilyID}).Model
             Dim ContactCreteria As ContactsProject.Contracts.ICreteria = New ContactsProject.Contracts.Contracts
             ContactCreteria.ExternalID = Entity.PrimaryKey
             Dim ContactModel As List(Of ContactsProject.Contracts.IModel) = Contact.Search(ContactCreteria).Model
-            Val.Model.Add(New Model With {.PersonModel = PersonModel, .Profile = Entity, .Family = FamilyModel, .Contacts = ContactModel})
+            Dim Model As New Model
+            With Model
+                .PersonModel = PersonModel
+                .Profile = Entity
+                .Family.FamilyModel = FamilyModel
+                .Contacts = ContactModel
+            End With
+
+            Val.Model.Add(Model)
             Val.Success = True
             Val.Msg = "Βρέθηκε η εγραφή!"
         Next
@@ -167,7 +187,7 @@ Public Class Controller
             Return Val
         End If
 
-        Dim FamilyVal As MyBook.ValMsg(Of FamilyProject.Family.Contracts.Contracts) = Family.Exist(New FamilyProject.Family.Contracts.Contracts With {.PrimaryKey = ProfileVal.Model.FamilyID})
+        Dim FamilyVal As MyBook.ValMsg(Of FamilyProject.Family.Contracts.Contracts) = Family.Family.Exist(New FamilyProject.Family.Contracts.Contracts With {.PrimaryKey = ProfileVal.Model.FamilyID})
         If FamilyVal.Success = False Then
             Val.Msg = FamilyVal.Msg
             Val.Success = False
@@ -186,7 +206,7 @@ Public Class Controller
             Next
         End If
 
-        Family.Remove(FamilyVal.Model)
+        Family.Family.Remove(FamilyVal.Model)
         Person.Remove(PersonRef)
         Profile.Remove(ProfileVal.Model)
 

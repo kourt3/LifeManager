@@ -41,7 +41,7 @@ Module ProfileModule
                 Case 6
                     ContactModule.Menu(Profile.Model.Profile)
                 Case 7
-                    FamilyModule.Menu(Profile.Model.Profile, Profile.Model.Family)
+                    FamilyModule.Menu(Profile.Model.Profile, Profile.Model.Family.FamilyModel)
                 Case 8
                     Exit While
                 Case Else
@@ -152,9 +152,9 @@ Module ProfileModule
         Loop
 
     End Sub
-    Public Sub ListOfProfiles(ByVal MyRef As Account.Ables.IReference, Optional Choicer As Boolean = False, Optional ByRef ChoiceRef As Account.Ables.IReference = Nothing)
+    Public Sub ListOfProfiles(ByVal MyRef As ProfileComponent.Profile.Able.IReference, Optional Choicer As Boolean = False, Optional ByRef ChoiceRef As ProfileComponent.Profile.Able.IReference = Nothing)
         Do
-            Dim Val As MyBook.ValMsg(Of List(Of ProfileComponent.Model)) = ProfileController.ListOfProfiles
+            Dim Val As MyBook.ValMsg(Of List(Of ProfileComponent.Model)) = ProfileController.ListOfProfiles(MyRef)
             Console.Clear()
             Console.WriteLine("------------ List Of Profiles ----------")
             While Val.Model.Count <= 1
@@ -179,10 +179,6 @@ Module ProfileModule
             While Val.Model.Count > 1
                 Dim Index As Integer = 0
                 For Each Model In Val.Model
-                    If MyRef IsNot Nothing AndAlso MyRef.PrimaryKey = Model.Profile.PrimaryKey Then
-                        Continue For
-                    End If
-
                     Index += 1
                     Console.WriteLine(Index & ") " & Model.PersonModel.FullName)
                 Next
@@ -202,10 +198,10 @@ Module ProfileModule
                 Select Case Choice
                     Case 1 To Index
                         If Choicer = True Then
-                            ChoiceRef = Val.Model(Choice)
+                            ChoiceRef = Val.Model(Choice - 1).Profile
                             Exit Sub
                         End If
-                        Menu(MyRef, Val.Model(Choice))
+                        Menu(MyRef, Val.Model(Choice - 1).Profile)
                         Continue Do
                     Case Index + 1
                         Register()

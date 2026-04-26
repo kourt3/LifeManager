@@ -73,6 +73,7 @@
     <Compile Include="FamilyProject\Childrens\Entity.vb" />
     <Compile Include="FamilyProject\Childrens\Repository.vb" />
     <Compile Include="FamilyProject\Childrens\Service.vb" />
+    <Compile Include="FamilyProject\FamilyController.vb" />
     <Compile Include="FamilyProject\Family\Contracts.vb" />
     <Compile Include="FamilyProject\Family\Entity.vb" />
     <Compile Include="FamilyProject\Family\Repository.vb" />

@@ -1,15 +1,12 @@
 ﻿Namespace FamilyProject.Family.Ables
-    Public Interface IMother
+    Public Interface IMotherID
         Property Mother As Integer
     End Interface
-    Public Interface IFather
+    Public Interface IFatherID
         Property Father As Integer
     End Interface
-    Public Interface IHusband
-        Property Husband As Integer
-    End Interface
-    Public Interface IMePerson
-        Property MePersonID As Integer
+    Public Interface IHusbandID
+        Property Spouse As Integer
     End Interface
 End Namespace
 
@@ -18,16 +15,16 @@ Namespace FamilyProject.Family.Entity
         Dim ID As Integer
         Dim MotherID As Integer
         Dim FatherID As Integer
-        Dim HusbandID As Integer
-        Dim MePersonID As Integer
+        Dim SpouseID As Integer
+        Dim ExternalID As Integer
     End Structure
 
     Public Interface IFamilyEntity
         Inherits MyBook.IHasPrimaryKey(Of Integer)
-        Inherits FamilyProject.Family.Ables.IMother
-        Inherits FamilyProject.Family.Ables.IFather
-        Inherits FamilyProject.Family.Ables.IHusband
-        Inherits FamilyProject.Family.Ables.IMePerson
+        Inherits FamilyProject.Family.Ables.IMotherID
+        Inherits FamilyProject.Family.Ables.IFatherID
+        Inherits FamilyProject.Family.Ables.IHusbandID
+        Inherits MyBook.IHasExtrernalID(Of Integer).IHasFromExternalID
     End Interface
 
     Public Class Entity
@@ -43,7 +40,7 @@ Namespace FamilyProject.Family.Entity
             End Set
         End Property
 
-        Public Property Mother As Integer Implements FamilyProject.Family.Ables.IMother.Mother
+        Public Property Mother As Integer Implements FamilyProject.Family.Ables.IMotherID.Mother
             Get
                 Return Data.MotherID
             End Get
@@ -52,7 +49,7 @@ Namespace FamilyProject.Family.Entity
             End Set
         End Property
 
-        Public Property Father As Integer Implements FamilyProject.Family.Ables.IFather.Father
+        Public Property Father As Integer Implements FamilyProject.Family.Ables.IFatherID.Father
             Get
                 Return Data.FatherID
             End Get
@@ -61,21 +58,21 @@ Namespace FamilyProject.Family.Entity
             End Set
         End Property
 
-        Public Property Husband As Integer Implements FamilyProject.Family.Ables.IHusband.Husband
+        Public Property Spouse As Integer Implements FamilyProject.Family.Ables.IHusbandID.Spouse
             Get
-                Return Data.HusbandID
+                Return Data.SpouseID
             End Get
             Set(value As Integer)
-                Data.HusbandID = value
+                Data.SpouseID = value
             End Set
         End Property
 
-        Public Property MePersonID As Integer Implements FamilyProject.Family.Ables.IMePerson.MePersonID
+        Public Property ExternalID As Integer Implements MyBook.IHasExtrernalID(Of Integer).IHasFromExternalID.ExternalID
             Get
-                Return Data.MePersonID
+                Return Data.ExternalID
             End Get
             Set(value As Integer)
-                Data.MePersonID = value
+                Data.ExternalID = value
             End Set
         End Property
     End Class
