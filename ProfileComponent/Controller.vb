@@ -203,17 +203,16 @@ Public Class Controller
     ''' <returns></returns>
     Function Contact_AllowsFriend(ProfileRef As ProfileComponent.Profile.Able.IReference) As MyBook.ValMsg(Of List(Of Model))
         Dim Val As New MyBook.ValMsg(Of List(Of Model))
-
         Val.Model = New List(Of Model)
         Val.Success = False
         Val.Msg = "Δεν βρέθηκε εγραφή!"
 
-        Dim Model As MyBook.ValMsg(Of Model) = ExistProfile(ProfileRef)
-        For Each ContactL In Model.Model.Contacts
-            Val.Model.Add(ExistProfile(New Profile.Entity.Entity With {.PrimaryKey = ContactL.ExternalID}).Model)
+        For Each ContactL In Contact.Get_All_AllowFriends(ProfileRef.PrimaryKey).Model
+            Val.Model.Add(ExistProfile(New Profile.Contracts.Contracts With {.PrimaryKey = ContactL.ToExternalID}).Model)
             Val.Success = True
             Val.Msg = "Βρέθηκαν εγραφές!"
         Next
+
         Return Val
     End Function
     ''' <summary>
@@ -250,7 +249,6 @@ Public Class Controller
             End If
 
         Next
-
 
         Return Val
     End Function

@@ -73,6 +73,22 @@
             Return MyBase.Remove(SearchVal.Model(0))
 
         End Function
+
+        Public Function Find(Creteria As Contracts.ICreteria) As MyBook.ValMsg(Of Contracts.IModel)
+            Dim Val As New MyBook.ValMsg(Of Contracts.IModel)
+            Val.Success = False
+            Val.Msg = "Δεν βρέθηκε εγραφή!!!"
+            Val.Model = Nothing
+            Dim entity As Entity.Entity = Repository.Find(Creteria)
+            If entity IsNot Nothing Then
+                Val.Model = ToModel(entity)
+                Val.Msg = "Βρέθηκε εγραφή!"
+                Val.Success = True
+            End If
+
+            Return Val
+        End Function
+
         Public Function Search(Creteria As Contracts.ICreteria) As MyBook.ValMsg(Of List(Of Contracts.IModel))
             Dim Val As New MyBook.ValMsg(Of List(Of Contracts.IModel))
             Val.Success = False

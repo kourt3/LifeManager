@@ -69,7 +69,7 @@ Module RelationShipModule
     End Sub
     Sub ListOfFriend(Ref As ProfileComponent.Profile.Able.IReference, Optional SelecectChoice As Boolean = False, Optional ByRef ChoiceRef As ProfileComponent.Profile.Able.IReference = Nothing)
         Do
-            Dim Val As MyBook.ValMsg(Of List(Of Contracts.IModel)) = ProfileController.Contact.Search(New Contracts.Contracts With {.ExternalID = Ref.PrimaryKey})
+            Dim Val As MyBook.ValMsg(Of List(Of ProfileComponent.Model)) = ProfileController.Contact_AllowsFriend(Ref)
             Console.Clear()
             Console.WriteLine("---------- List Of Relationship -------------")
             While Val.Success = False
@@ -96,8 +96,7 @@ Module RelationShipModule
                 For Each Model In Val.Model
                     Index += 1
 
-                    Dim Account As ProfileComponent.Profile.Contracts.IModel = ProfileController.Profile.Exist(New ProfileComponent.Profile.Contracts.Contracts With {.PrimaryKey = Model.ToExternalID}).Model
-                    Console.WriteLine(Index & ") " & ProfileController.Person.Exist(New ProfileComponent.PersonProject.Contracts.Contracts With {.PrimaryKey = Account.PersonID}).Model.FullName & " | " & Model.Description)
+                    Console.WriteLine(Index & ") " & Model.PersonModel.FullName)
                 Next
                 Console.WriteLine("-------- Menu ----------")
 
@@ -113,11 +112,18 @@ Module RelationShipModule
                 Dim Choice As String = Console.ReadLine
                 Select Case Choice
                     Case 1 To Index
+
+                        Dim Creteria As ProfileComponent.ContactsProject.Contracts.ICreteria = New ProfileComponent.ContactsProject.Contracts.Contracts
+                        Creteria.ExternalID = Ref.PrimaryKey
+                        Creteria.ToExternalID = Val.Model(Choice - 1).Profile.PrimaryKey
+
                         If SelecectChoice = True Then
-                            ChoiceRef = New ProfileComponent.Profile.Contracts.Contracts With {.PrimaryKey = Val.Model(Choice - 1).ToExternalID}
+                            ChoiceRef = Val.Model(Choice - 1).Profile
                             Exit Do
                         End If
-                        Menu(Ref, Val.Model(Choice - 1))
+
+                        Dim ValContact As ProfileComponent.ContactsProject.Contracts.IModel = ProfileController.Contact.Find(Creteria).Model
+                        Menu(Ref, ValContact)
                         Continue Do
                     Case Index + 1
                         Register(Ref)
