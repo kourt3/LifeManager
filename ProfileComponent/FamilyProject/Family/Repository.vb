@@ -13,7 +13,7 @@
         Inherits MyBook.Repositories.DatabaseRepository(Of Integer, Family.Entity.Entity)
 
         Sub New()
-            MyBase.New("Microsoft.ACE.OLEDB.16.0", "C:\Users\kourt\Documents\kourt.accdb", "Family", "[ID],[ExternaLID],[MotherID],[FatherID],[HusbandID]")
+            MyBase.New("Microsoft.ACE.OLEDB.16.0", "C:\Users\kourt\Documents\kourt.accdb", "Family", "[ID],[ExternalID],[MotherID],[FatherID],[HusbandID]")
         End Sub
 
         Public Overrides Function ConvertRows(Entity As Entity.Entity) As String()

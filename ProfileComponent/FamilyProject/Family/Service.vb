@@ -18,6 +18,7 @@
         End Function
         Public Function Search(Creteria As Contracts.ICreteria) As MyBook.ValMsg(Of Contracts.IModel)
             Dim Val As New MyBook.ValMsg(Of Contracts.IModel)
+            Val.Model = New Contracts.Contracts
             Val.Success = False
             Val.Msg = "Δεν βρεθηκε εγραφή!"
             For Each EntityL In Repository.Read_All
@@ -25,6 +26,7 @@
                     Val.Success = True
                     Val.Msg = "Βρέθηκε εγραφή!"
                     Val.Model = ToModel(EntityL)
+                    Exit For
                 End If
             Next
             Return Val

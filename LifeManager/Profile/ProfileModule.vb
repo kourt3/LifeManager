@@ -87,7 +87,7 @@ Module ProfileModule
                     Case 5
                         RelationShipModule.ListOfFriend(ThirdRef)
                     Case 6
-                        FamilyModule.Menu(Ref, ValModel.Model.Family)
+                        FamilyModule.Menu(Ref, ValModel.Model.Family.FamilyModel)
                     Case 7
                         RelationShipModule.Register(Ref, ThirdRef)
                         Continue Do
@@ -133,7 +133,7 @@ Module ProfileModule
                         RelationShipModule.ListOfFriend(ThirdRef)
                         Continue Do
                     Case 5
-                        FamilyModule.Menu(Ref, ValModel.Model.Family)
+                        FamilyModule.Menu(Ref, ValModel.Model.Family.FamilyModel)
                     Case 6
                         Dim Creteria As ProfileComponent.ContactsProject.Contracts.ICreteria = New ProfileComponent.ContactsProject.Contracts.Contracts
                         With Creteria

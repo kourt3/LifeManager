@@ -8,6 +8,9 @@
     Public Interface IHusbandID
         Property Spouse As Integer
     End Interface
+    Public Interface IReference
+        Inherits MyBook.IHasPrimaryKey(Of Integer)
+    End Interface
 End Namespace
 
 Namespace FamilyProject.Family.Entity
@@ -20,7 +23,7 @@ Namespace FamilyProject.Family.Entity
     End Structure
 
     Public Interface IFamilyEntity
-        Inherits MyBook.IHasPrimaryKey(Of Integer)
+        Inherits Ables.IReference
         Inherits FamilyProject.Family.Ables.IMotherID
         Inherits FamilyProject.Family.Ables.IFatherID
         Inherits FamilyProject.Family.Ables.IHusbandID

@@ -40,7 +40,7 @@ Namespace FamilyProject
             Val.Msg = "Η εγραφή ολοκληρώθηκε!"
             Return Val
         End Function
-        Function AddMother(FamilyRef As Family.Contracts.IReference, MotherID As Integer) As MyBook.ValMsg(Of Model)
+        Function AddMother(FamilyRef As Family.Ables.IReference, MotherID As Integer) As MyBook.ValMsg(Of Model)
             Dim Val As New MyBook.ValMsg(Of Model)
             Val.Model = New Model
             Dim RegisterDTO As Family.Contracts.IRemoveMotherDTO = New Family.Contracts.Contracts
@@ -58,7 +58,7 @@ Namespace FamilyProject
             Return ExistFamily(FamilyRef)
         End Function
 
-        Function AddMotherWithCompleteChild(FamilyRef As Family.Contracts.IReference, MotherID As Integer) As MyBook.ValMsg(Of Model)
+        Function AddMotherWithCompleteChild(FamilyRef As Family.Ables.IReference, MotherID As Integer) As MyBook.ValMsg(Of Model)
             Dim Val As New MyBook.ValMsg(Of Model)
             Val.Model = New Model
 
@@ -76,6 +76,10 @@ Namespace FamilyProject
 
             Dim Mother As MyBook.ValMsg(Of Family.Contracts.IModel) = Family.Search(Creteria)
 
+            If Mother.Success = False Then
+                Throw New Exception("Δεν βρεθηκε ο Χρήστης")
+            End If
+
             Dim RegisterDTO As Children.Conctracts.IRegister = New Children.Conctracts.Contracts
             With RegisterDTO
                 .FamilyID = Mother.Model.PrimaryKey
@@ -91,7 +95,7 @@ Namespace FamilyProject
 
             Return ExistFamily(FamilyRef)
         End Function
-        Function AddFather(FamilyRef As Family.Contracts.IReference, FatherID As Integer) As MyBook.ValMsg(Of Model)
+        Function AddFather(FamilyRef As Family.Ables.IReference, FatherID As Integer) As MyBook.ValMsg(Of Model)
             Dim Val As New MyBook.ValMsg(Of Model)
             Val.Model = New Model
             Dim RegisterDTO As Family.Contracts.IRegisterFatherDTO = New Family.Contracts.Contracts
@@ -107,7 +111,7 @@ Namespace FamilyProject
 
             Return ExistFamily(FamilyRef)
         End Function
-        Function AddFatherWithCompleteChild(FamilyRef As Family.Contracts.IReference, FatherId As Integer) As MyBook.ValMsg(Of Model)
+        Function AddFatherWithCompleteChild(FamilyRef As Family.Ables.IReference, FatherId As Integer) As MyBook.ValMsg(Of Model)
             Dim Val As New MyBook.ValMsg(Of Model)
             Val.Model = New Model
             Val = AddFather(FamilyRef, FatherId)
@@ -139,7 +143,7 @@ Namespace FamilyProject
 
             Return ExistFamily(FamilyRef)
         End Function
-        Function AddSpouce(FamilyRef As Family.Contracts.IReference, HusbandID As Integer) As MyBook.ValMsg(Of Model)
+        Function AddSpouce(FamilyRef As Family.Ables.IReference, HusbandID As Integer) As MyBook.ValMsg(Of Model)
             Dim Val As New MyBook.ValMsg(Of Model)
             Val.Model = New Model
             Dim RegisterDTO As Family.Contracts.IRegisterHusbandDTO = New Family.Contracts.Contracts
@@ -156,7 +160,7 @@ Namespace FamilyProject
             Return ExistFamily(FamilyRef)
         End Function
 
-        Function AddSpouseWithComplete(FamilyRef As Family.Contracts.IReference, SpouseID As Integer) As MyBook.ValMsg(Of Model)
+        Function AddSpouseWithComplete(FamilyRef As Family.Ables.IReference, SpouseID As Integer) As MyBook.ValMsg(Of Model)
             Dim Val As New MyBook.ValMsg(Of Model)
             Val.Model = New Model
             Val = AddSpouce(FamilyRef, SpouseID)
@@ -176,7 +180,7 @@ Namespace FamilyProject
             Return ExistFamily(FamilyRef)
         End Function
 
-        Function AddChildren(Familyref As Family.Contracts.IReference, ChildId As Integer) As MyBook.ValMsg(Of Model)
+        Function AddChildren(Familyref As Family.Ables.IReference, ChildId As Integer) As MyBook.ValMsg(Of Model)
             Dim Val As New MyBook.ValMsg(Of Model)
             Val.Model = New Model
             Dim RegisterDTO As Children.Conctracts.IRegister = New Children.Conctracts.Contracts
@@ -192,7 +196,7 @@ Namespace FamilyProject
             End If
             Return ExistFamily(Familyref)
         End Function
-        Function AddChildWithCompleteMother(FamilyRef As Family.Contracts.IReference, ChildId As Integer) As MyBook.ValMsg(Of Model)
+        Function AddChildWithCompleteMother(FamilyRef As Family.Ables.IReference, ChildId As Integer) As MyBook.ValMsg(Of Model)
 
             Dim Val As New MyBook.ValMsg(Of Model)
             Val.Model = New Model
@@ -236,7 +240,7 @@ Namespace FamilyProject
             Return ExistFamily(FamilyRef)
         End Function
 
-        Function AddChildWithCompleteFather(FamilyRef As Family.Contracts.IReference, ChildId As Integer) As MyBook.ValMsg(Of Model)
+        Function AddChildWithCompleteFather(FamilyRef As Family.Ables.IReference, ChildId As Integer) As MyBook.ValMsg(Of Model)
             Dim Val As New MyBook.ValMsg(Of Model)
             Val.Model = New Model
             ' ------------- Εγραφη Child
@@ -285,7 +289,7 @@ Namespace FamilyProject
             Return ExistFamily(FamilyRef)
         End Function
 
-        Function ExistFamily(Familyref As Family.Contracts.IReference) As MyBook.ValMsg(Of Model)
+        Function ExistFamily(Familyref As Family.Ables.IReference) As MyBook.ValMsg(Of Model)
             Dim Val As New MyBook.ValMsg(Of Model)
 
             Val.Model = New Model
@@ -310,22 +314,37 @@ Namespace FamilyProject
 
         End Function
 
-        Function RemoveFamily(FamilyRef As Family.Contracts.IReference) As MyBook.ValMsg
+        Function RemoveFamily(FamilyRef As Family.Ables.IReference) As MyBook.ValMsg
             Return Family.Remove(FamilyRef)
         End Function
-        Function RemoveMother(FamilyRef As Family.Contracts.IReference) As MyBook.ValMsg(Of Model)
+        Function RemoveMother(FamilyRef As Family.Ables.IReference) As MyBook.ValMsg(Of Model)
 
         End Function
-        Function RemoveFather(FamilyRef As Family.Contracts.IReference) As MyBook.ValMsg(Of Model)
+        Function RemoveMotherWithCompleteChild(FamilyRef As Family.Ables.IReference) As MyBook.ValMsg(Of Model)
 
         End Function
-        Function RemoveHusband(FamilyRef As Family.Contracts.IReference) As MyBook.ValMsg(Of Model)
-
-        End Function
-        Function RemoveChildren(FamilyRef As Family.Contracts.IReference) As MyBook.ValMsg(Of Model)
+        Function RemoveFather(FamilyRef As Family.Ables.IReference) As MyBook.ValMsg(Of Model)
 
         End Function
 
+        Function RemoveFatherWithCompleteChild(FamilyRef As Family.Ables.IReference) As MyBook.ValMsg(Of Model)
+
+        End Function
+        Function RemoveSpouce(FamilyRef As Family.Ables.IReference) As MyBook.ValMsg(Of Model)
+
+        End Function
+        Function RemoveSpouceWithComplete(Familyref As Family.Ables.IReference) As MyBook.ValMsg(Of Model)
+
+        End Function
+        Function RemoveChild(FamilyRef As Family.Ables.IReference) As MyBook.ValMsg(Of Model)
+
+        End Function
+        Function RemoveChildWithCompleteMother(FamilyRef As Family.Ables.IReference) As MyBook.ValMsg(Of Model)
+
+        End Function
+        Function RemoveChildWithCompleteFather(FamilyRef As Family.Ables.IReference) As MyBook.ValMsg(Of Model)
+
+        End Function
     End Class
 
 

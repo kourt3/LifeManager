@@ -2,9 +2,6 @@
 Imports ProfileComponent.FamilyProject.Family.Ables
 
 Namespace FamilyProject.Family.Contracts
-    Public Interface IReference
-        Inherits MyBook.IHasPrimaryKey(Of Integer)
-    End Interface
     Public Interface ICreteria
         Inherits MyBook.IHasExtrernalID(Of Integer).IHasFromExternalID
     End Interface

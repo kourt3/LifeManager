@@ -1,11 +1,8 @@
 ﻿Namespace FamilyProject.Children.Service
     Public Class ChildrenService
         Inherits MyBook.Services.Service(Of Integer, FamilyProject.Children.Conctracts.Contracts, FamilyProject.Children.Entity.Entity, Children.Repository.DataRepository)
-
-        Private PersonService As PersonProject.Service.PersonService
         Sub New(PersonLinkService As PersonProject.Service.PersonService)
             MyBase.New(New Children.Repository.DataRepository)
-            PersonService = PersonLinkService
         End Sub
         Public Function Search(Creteria As FamilyProject.Children.Conctracts.ICreteria) As MyBook.ValMsg(Of List(Of FamilyProject.Children.Conctracts.IModel))
             Dim Val As New MyBook.ValMsg(Of List(Of FamilyProject.Children.Conctracts.IModel))
@@ -41,7 +38,6 @@
             Dim Model As FamilyProject.Children.Conctracts.IModel = New FamilyProject.Children.Conctracts.Contracts
             With Model
                 .PrimaryKey = Entity.PrimaryKey
-                .PersonModel = PersonService.Exist(New PersonProject.Contracts.Contracts With {.PrimaryKey = Entity.PersonID}).Model
                 .FamilyID = Entity.FamilyID
                 .PersonID = Entity.PersonID
             End With
