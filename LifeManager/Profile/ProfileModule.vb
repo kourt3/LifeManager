@@ -1,16 +1,15 @@
 ﻿Imports AccountComponent
 Module ProfileModule
 
-    Public Sub Menu(Ref As MyBook.IHasPrimaryKey(Of Integer), Optional ThirdRef As MyBook.IHasPrimaryKey(Of Integer) = Nothing)
+    Public Sub Menu(Ref As ProfileComponent.Profile.Able.IReference, Optional ThirdRef As ProfileComponent.Profile.Able.IReference = Nothing)
         While ThirdRef Is Nothing
             Console.Clear()
-            Dim ValModel As MyBook.ValMsg(Of Account.Contracts.Contracts) = AccountController.AccountService.Exist(Ref)
-            If ValModel.Success = False Then
-                Console.WriteLine(ValModel.Msg)
+            Dim Profile As MyBook.ValMsg(Of ProfileComponent.Model) = ProfileController.ExistProfile(Ref)
+            If Profile.Success = False Then
+                Console.WriteLine(Profile.Msg)
                 Console.ReadLine()
                 Exit Sub
             End If
-            Dim Profile As MyBook.ValMsg(Of ProfileComponent.Model) = ProfileController.ExistProfile(New ProfileComponent.Profile.Contracts.Contracts With {.PrimaryKey = ValModel.Model.ToExternalID})
             Console.WriteLine("--------- Profile --------")
             Console.WriteLine("Profile ID: " & Profile.Model.Profile.PrimaryKey)
             PersonModule.Info(Profile.Model.PersonModel)
@@ -34,7 +33,7 @@ Module ProfileModule
                 Case 2
                     PersonModule.Menu(Profile.Model.PersonModel)
                 Case 3
-                    CohrabitionModule.ListOfApartment(Profile.Model)
+                    CohrabitionModule.ListOfApartment(Profile.Model.Profile)
                 Case 4
                     PlateModule.ListOfPlates(Profile.Model.Profile)
                 Case 5
@@ -53,17 +52,15 @@ Module ProfileModule
         Do While ThirdRef IsNot Nothing
             While ProfileController.Contact.Search(New ProfileComponent.ContactsProject.Contracts.Contracts With {.ExternalID = Ref.PrimaryKey, .ToExternalID = ThirdRef.PrimaryKey}).Success = False
                 Console.Clear()
-                Dim ValModel As MyBook.ValMsg(Of Account.Contracts.Contracts) = AccountController.AccountService.Exist(ThirdRef)
+                Dim ValModel As MyBook.ValMsg(Of ProfileComponent.Model) = ProfileController.ExistProfile(ThirdRef)
                 If ValModel.Success = False Then
                     Console.WriteLine(ValModel.Msg)
                     Console.ReadLine()
                     Exit Sub
                 End If
-
-                Dim Model As ProfileComponent.Model = ProfileController.ExistProfile(New ProfileComponent.Profile.Contracts.Contracts With {.PrimaryKey = ValModel.Model.ToExternalID}).Model
                 Console.WriteLine("--------- Profile --------")
-                Console.WriteLine("Profile ID: " & Model.Profile.PrimaryKey)
-                PersonModule.Info(Model.Profile)
+                Console.WriteLine("Profile ID: " & ValModel.Model.Profile.PrimaryKey)
+                PersonModule.Info(ValModel.Model.PersonModel)
                 Console.WriteLine("---------- Menu ---------")
                 Console.WriteLine("1) Economy.")
                 Console.WriteLine("2) Διαχήρηση Προφιλ.")
@@ -82,15 +79,15 @@ Module ProfileModule
                     Case 1
                         EconomyModule.Menu(ThirdRef)
                     Case 2
-                        PersonModule.Menu(Model.PersonModel)
+                        PersonModule.Menu(ValModel.Model.PersonModel)
                     Case 3
-                        CohrabitionModule.ListOfApartment(Model)
+                        CohrabitionModule.ListOfApartment(ValModel.Model)
                     Case 4
                         PlateModule.ListOfPlates(ThirdRef)
                     Case 5
                         RelationShipModule.ListOfFriend(ThirdRef)
                     Case 6
-                        FamilyModule.Menu(Ref, Model.Family)
+                        FamilyModule.Menu(Ref, ValModel.Model.Family)
                     Case 7
                         RelationShipModule.Register(Ref, ThirdRef)
                         Continue Do
@@ -103,16 +100,15 @@ Module ProfileModule
 
             While ProfileController.Contact.Search(New ProfileComponent.ContactsProject.Contracts.Contracts With {.ExternalID = Ref.PrimaryKey, .ToExternalID = ThirdRef.PrimaryKey}).Success = True
                 Console.Clear()
-                Dim ValModel As MyBook.ValMsg(Of Account.Contracts.Contracts) = AccountController.AccountService.Exist(ThirdRef)
+                Dim ValModel As MyBook.ValMsg(Of ProfileComponent.Model) = ProfileController.ExistProfile(ThirdRef)
                 If ValModel.Success = False Then
                     Console.WriteLine(ValModel.Msg)
                     Console.ReadLine()
                     Exit Sub
                 End If
-                Dim Model As ProfileComponent.Model = ProfileController.ExistProfile(New ProfileComponent.Profile.Contracts.Contracts With {.PrimaryKey = ValModel.Model.ToExternalID}).Model
                 Console.WriteLine("--------- Profile --------")
-                Console.WriteLine("Profile ID: " & Model.Profile.PrimaryKey)
-                PersonModule.Info(Model.PersonModel)
+                Console.WriteLine("Profile ID: " & ValModel.Model.Profile.PrimaryKey)
+                PersonModule.Info(ValModel.Model.PersonModel)
                 Console.WriteLine("---------- Menu ---------")
                 Console.WriteLine("1) Economy.")
                 Console.WriteLine("2) Διαχήρηση Προφιλ.")
@@ -130,14 +126,14 @@ Module ProfileModule
                     Case 1
                         EconomyModule.Menu(ThirdRef)
                     Case 2
-                        PersonModule.Menu(Model.PersonModel)
+                        PersonModule.Menu(ValModel.Model.PersonModel)
                     Case 3
-                        CohrabitionModule.ListOfApartment(Model)
+                        CohrabitionModule.ListOfApartment(ValModel.Model)
                     Case 4
                         RelationShipModule.ListOfFriend(ThirdRef)
                         Continue Do
                     Case 5
-                        FamilyModule.Menu(Ref, Model.Family)
+                        FamilyModule.Menu(Ref, ValModel.Model.Family)
                     Case 6
                         Dim Creteria As ProfileComponent.ContactsProject.Contracts.ICreteria = New ProfileComponent.ContactsProject.Contracts.Contracts
                         With Creteria
@@ -156,7 +152,7 @@ Module ProfileModule
         Loop
 
     End Sub
-    Public Sub ListOfProfiles(ByVal MyRef As MyBook.IHasPrimaryKey(Of Integer), Optional Choicer As Boolean = False, Optional ByRef ChoiceRef As MyBook.IHasPrimaryKey(Of Integer) = Nothing)
+    Public Sub ListOfProfiles(ByVal MyRef As Account.Ables.IReference, Optional Choicer As Boolean = False, Optional ByRef ChoiceRef As Account.Ables.IReference = Nothing)
         Do
             Dim Val As MyBook.ValMsg(Of List(Of ProfileComponent.Model)) = ProfileController.ListOfProfiles
             Console.Clear()
@@ -228,7 +224,8 @@ Module ProfileModule
         Console.Clear()
         Console.WriteLine("---------- Register Profile -----------")
         PersonModule.Register(RegisterDTO)
-        Console.WriteLine(ProfileController.Person.Register(RegisterDTO).Msg)
+        Dim Val As MyBook.ValMsg(Of ProfileComponent.Model) = ProfileController.AddProfile(RegisterDTO)
+        Console.WriteLine(Val.Msg)
         Console.ReadLine()
     End Sub
 End Module

@@ -1,8 +1,13 @@
-﻿
-Namespace Account.Entity
+﻿Namespace Account.Ables
     Public Interface ILoginID
         Property LoginID As Integer
     End Interface
+    Public Interface IReference
+        Inherits MyBook.IHasPrimaryKey(Of Integer)
+    End Interface
+End Namespace
+
+Namespace Account.Entity
     Public Structure Data
         Public Id As Integer
         Public LoginId As Integer
@@ -11,13 +16,13 @@ Namespace Account.Entity
 
 
     Public Interface IEntity
-        Inherits MyBook.IHasPrimaryKey(Of Integer)
-        Inherits ILoginID
+        Inherits Ables.IReference
+        Inherits Ables.ILoginID
         Property ToExternalID As Integer
     End Interface
 
     Public Class Entity
-        Implements IEntity
+        Implements IEntity, Ables.IReference
 
         Private Data As New Data
 

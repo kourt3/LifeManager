@@ -5,7 +5,31 @@
         Sub New()
             MyBase.New(New ContactsProject.Repository.Repository)
         End Sub
+        ''' <summary>
+        ''' Το External Εχει Φίλους.
+        ''' </summary>
+        ''' <param name="ExternalId"></param>
+        ''' <returns></returns>
+        Public Function Get_All_AllowFriends(ExternalId As Integer) As MyBook.ValMsg(Of List(Of ContactsProject.Contracts.IModel))
+            Dim Val As New MyBook.ValMsg(Of List(Of ContactsProject.Contracts.IModel))
 
+            Val.Success = False
+            Val.Msg = "Δεν βρέθηκε εγραφή!"
+            Val.Model = New List(Of Contracts.IModel)
+            Dim listOf As List(Of Entity.Entity) = Repository.Search(Function(x As ContactsProject.Entity.Entity)
+                                                                         If x.ExternalID = ExternalId Then Return True
+                                                                         Return False
+                                                                     End Function)
+            If listOf.Count > 0 Then
+                Val.Success = True
+                Val.Msg = "Βρέθηκε η Εγραφή!"
+                For i = 0 To listOf.Count - 1
+                    Val.Model.Add(ToModel(listOf(i)))
+
+                Next
+            End If
+            Return Val
+        End Function
         Public Function RegisterBothRelationship(Of DTO)(RegisterDTO As DTO) As MyBook.ValMsg(Of Contracts.Contracts)
             Dim RegisterClone As Contracts.IRegisterDTO = RegisterDTO
             Dim Result As New MyBook.ValMsg(Of Contracts.Contracts)

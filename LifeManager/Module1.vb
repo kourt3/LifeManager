@@ -14,7 +14,7 @@
         Console.Clear()
         Console.OutputEncoding = System.Text.Encoding.UTF8
         Do
-            Dim MyAccountRef As MyBook.IHasPrimaryKey(Of Integer)
+            Dim MyAccountRef As AccountComponent.Account.Ables.IReference
             Console.Clear()
             Console.WriteLine("------ My Life Manager ------")
             Console.WriteLine("1) Είσοδος.")
@@ -35,6 +35,7 @@
                         Dim Creteria As AccountComponent.Account.Contracts.ICreteria = New AccountComponent.Account.Contracts.Contracts
                         Creteria.LoginID = LoginVal.Model.PrimaryKey
                         MyAccountRef = AccountController.AccountService.Search(Creteria).Model
+
                         Menu(MyAccountRef)
                     End If
                 Case 2
@@ -56,7 +57,7 @@
     End Sub
 
 
-    Sub Menu(Ref As MyBook.IHasPrimaryKey(Of Integer))
+    Sub Menu(Ref As AccountComponent.Account.Ables.IReference)
         Dim ContinueMenu As Boolean = True
         Do
 
@@ -74,7 +75,7 @@
             Console.WriteLine("ID: " & Model.PrimaryKey)
             Console.WriteLine()
 
-            Help.AddOption(Opt, Action, "Προφιλ.", Sub() ProfileModule.Menu(Model))
+            Help.AddOption(Opt, Action, "Προφιλ.", Sub() ProfileModule.Menu(New ProfileComponent.Profile.Contracts.Contracts With {.PrimaryKey = Model.ToExternalID}))
             Help.AddOption(Opt, Action, "Build.", Sub() BuildingsModule.ListOfBuild(Ref))
             Help.AddOption(Opt, Action, "List Of Profiles.", Sub() ProfileModule.ListOfProfiles(Ref))
             Help.AddOption(Opt, Action, "Address.", Sub() AddressRelationShipModule.Menu())

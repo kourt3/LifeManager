@@ -8,6 +8,8 @@ Namespace Profile.Service
             MyBase.New(New Repository.DataBaseRepository)
         End Sub
 
+
+
         Public Function Search(Creteria As Contracts.ICreteria) As MyBook.ValMsg(Of Contracts.Contracts)
             Dim Val As New MyBook.ValMsg(Of Contracts.Contracts)
             Val.Success = False

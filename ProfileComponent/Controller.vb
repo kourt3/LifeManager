@@ -7,7 +7,6 @@
         Profile = New ProfileComponent.Profile.Contracts.Contracts
         PersonModel = New PersonProject.Contracts.Contracts
         Family = New FamilyProject.Family.Contracts.Contracts
-        Family.Childrens = New List(Of FamilyProject.Children.Conctracts.IModel)
         Contacts = New List(Of ContactsProject.Contracts.IModel)
     End Sub
 End Class
@@ -93,14 +92,18 @@ Public Class Controller
         Val.Model = New Model
         Dim ProfileVal As Profile.Contracts.Contracts = Profile.Exist(ProfileRef).Model
         Dim PersonVal As PersonProject.Contracts.Contracts = Person.Exist(New PersonProject.Contracts.Contracts With {.PrimaryKey = ProfileVal.PersonID}).Model
-        Dim FamilyVal As FamilyProject.Family.Contracts.Contracts = Family.Exist(New FamilyProject.Family.Contracts.Contracts With {.PrimaryKey = ProfileVal.FamilyID}).Model
+        Dim FamilyVal As MyBook.ValMsg(Of FamilyProject.Family.Contracts.Contracts) = Family.Exist(New FamilyProject.Family.Contracts.Contracts With {.PrimaryKey = ProfileVal.FamilyID})
+        If FamilyVal.Success = False Then
+            FamilyVal.Model = New FamilyProject.Family.Contracts.Contracts
+        End If
+
         Dim Creteria As ContactsProject.Contracts.ICreteria = New ContactsProject.Contracts.Contracts
         Creteria.ExternalID = ProfileRef.PrimaryKey
         Dim ContactModel As List(Of ContactsProject.Contracts.IModel) = Contact.Search(Creteria).Model
         Val.Success = True
         Val.Msg = "Βρέθηκαν εγραφες!"
         Val.Model.PersonModel = PersonVal
-        Val.Model.Family = FamilyVal
+        Val.Model.Family = FamilyVal.Model
         Val.Model.Contacts = ContactModel
         Val.Model.Profile = ProfileRef
         Return Val
@@ -191,5 +194,64 @@ Public Class Controller
         Val.Msg = "Διαγράφηκε το profile!"
         Return Val
 
+    End Function
+
+    ''' <summary>
+    ''' Friends που εχει το profile
+    ''' </summary>
+    ''' <param name="ProfileRef"></param>
+    ''' <returns></returns>
+    Function Contact_AllowsFriend(ProfileRef As ProfileComponent.Profile.Able.IReference) As MyBook.ValMsg(Of List(Of Model))
+        Dim Val As New MyBook.ValMsg(Of List(Of Model))
+
+        Val.Model = New List(Of Model)
+        Val.Success = False
+        Val.Msg = "Δεν βρέθηκε εγραφή!"
+
+        Dim Model As MyBook.ValMsg(Of Model) = ExistProfile(ProfileRef)
+        For Each ContactL In Model.Model.Contacts
+            Val.Model.Add(ExistProfile(New Profile.Entity.Entity With {.PrimaryKey = ContactL.ExternalID}).Model)
+            Val.Success = True
+            Val.Msg = "Βρέθηκαν εγραφές!"
+        Next
+        Return Val
+    End Function
+    ''' <summary>
+    ''' Φιλους που δεν εχει το profile
+    ''' </summary>
+    ''' <param name="ProfileRef"></param>
+    ''' <returns></returns>
+    Function Contact_NotAllowsFriends(ProfileRef As ProfileComponent.Profile.Able.IReference) As MyBook.ValMsg(Of List(Of Model))
+        Dim Val As New MyBook.ValMsg(Of List(Of Model))
+        Val.Model = New List(Of Model)
+        Val.Success = False
+        Val.Msg = "Δεν βρέθηκε εγραφή!"
+
+        Dim Profiles As List(Of Profile.Contracts.Contracts) = Profile.Get_All().Model
+        Dim ContactCreteria As ContactsProject.Contracts.ICreteria = New ContactsProject.Contracts.Contracts
+        ContactCreteria.ExternalID = ProfileRef.PrimaryKey
+        Dim Contacts As List(Of ProfileComponent.ContactsProject.Contracts.IModel) = Contact.Search(ContactCreteria).Model
+
+        For Each ProfilesL In Profiles
+            Dim Exist As Boolean = False
+            If ProfilesL.PrimaryKey = ProfileRef.PrimaryKey Then
+                Continue For
+            End If
+
+
+            For Each ContactsL In Contacts
+                If ContactsL.ToExternalID = ProfilesL.PrimaryKey Then
+                    Exist = True
+                End If
+            Next
+
+            If Exist = False Then
+                Val.Model.Add(ExistProfile(ProfilesL).Model)
+            End If
+
+        Next
+
+
+        Return Val
     End Function
 End Class

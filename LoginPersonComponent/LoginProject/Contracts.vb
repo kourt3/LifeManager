@@ -4,7 +4,7 @@ Imports MyBook
 Namespace LoginProject.Contracts
 
     Public Interface IModel
-        Inherits MyBook.IHasPrimaryKey(Of Integer)
+        Inherits Ables.IReference
         Inherits LoginProject.Ables.IUserName, Ables.CreateAt
         Inherits Ables.IPassword
     End Interface

@@ -14,14 +14,14 @@ Namespace LoginProject.Entity
         Inherits Ables.IPassword
     End Interface
     Public Interface IEntity
-        Inherits MyBook.IHasPrimaryKey(Of Integer)
+        Inherits Ables.IReference
         Inherits Ables.IUserName
         Inherits Ables.IPassword
         Inherits Ables.CreateAt
     End Interface
 
     Public Class Entity
-        Implements IEntity, ICreteria
+        Implements IEntity, ICreteria, Ables.IReference
 
         Private Data As LoginProject.DataStructure.Data
 

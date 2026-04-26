@@ -38,16 +38,26 @@ Module FamilyModule
     Friend Sub Menu(Myref As ProfileComponent.Profile.Able.IReference, FamilyRef As FamilyProject.Family.Contracts.IReference, Optional ByRef ChoiceRef As ProfileComponent.Profile.Able.IReference = Nothing, Optional AutoComplite As Boolean = False)
         Dim ContinueMenu As Boolean = True
         Do
-
             Dim ChoicerRef As ProfileComponent.Profile.Able.IReference = New ProfileComponent.Profile.Contracts.Contracts
             Dim Val As MyBook.ValMsg(Of ProfileComponent.FamilyProject.Family.Contracts.Contracts) = ProfileController.Family.Exist(FamilyRef)
             Dim Opt As New List(Of String)
             Dim Action As New List(Of Action)
+            ' TODO: να το κανω καλυτερο !!!  και αυτοματο
+            ' δεν γίνεται να κανω ετσι εγραφη!!!
+            ' και να περασω το Family στο Database!!!
             If Val.Success = False Then
+                Dim FamilyRegisterDTO As FamilyProject.Family.Contracts.IRegisterDTO = New FamilyProject.Family.Contracts.Contracts
+                FamilyRegisterDTO.MePersonID = Myref.PrimaryKey
+                FamilyRegisterDTO.Mother = 0
+                FamilyRegisterDTO.Husband = 0
+                FamilyRegisterDTO.Father = 0
+                FamilyRef = ProfileController.Family.Register(FamilyRegisterDTO).Model
                 Console.WriteLine(Val.Msg)
-                Console.ReadLine()
-                Exit Sub
+                Continue Do
+                ' Console.ReadLine()
+                'Exit Sub
             End If
+
             Console.Clear()
             Console.WriteLine("-------- Family ---------")
             Console.WriteLine()

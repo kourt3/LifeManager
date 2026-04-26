@@ -3,8 +3,8 @@ Imports ProfileComponent.ContactsProject
 Module RelationShipModule
 
     Friend Sub Info(Model As Contracts.IModel)
-        Dim AccountModel As ProfileComponent.ContactsProject.Contracts.IModel = ProfileController.Contact.Exist(New ProfileComponent.ContactsProject.Contracts.Contracts With {.PrimaryKey = Model.ToExternalID}).Model
-        PersonModule.Info(ProfileController.Person.Exist(New ProfileComponent.PersonProject.Contracts.Contracts With {.PrimaryKey = AccountModel.ExternalID}).Model)
+        Dim AccountModel As ProfileComponent.Profile.Contracts.IModel = ProfileController.Profile.Exist(New ProfileComponent.Profile.Contracts.Contracts With {.PrimaryKey = Model.ToExternalID}).Model
+        PersonModule.Info(ProfileController.Person.Exist(New ProfileComponent.PersonProject.Contracts.Contracts With {.PrimaryKey = AccountModel.PersonID}).Model)
         Console.WriteLine("Description: " & Model.Description)
     End Sub
     Friend Sub Menu(MyRef As ProfileComponent.Profile.Able.IReference, Ref As Contracts.IReference)
@@ -17,7 +17,7 @@ Module RelationShipModule
                 Exit Do
             End If
 
-            Dim AccountModel As ProfileComponent.ContactsProject.Contracts.IModel = ProfileController.Contact.Exist(New ProfileComponent.ContactsProject.Contracts.Contracts With {.PrimaryKey = val.Model.ToExternalID}).Model
+
             Console.WriteLine("--------- Menu Relationship ---------")
             Info(val.Model)
             Console.WriteLine("--------- Menu ---------")
@@ -28,7 +28,8 @@ Module RelationShipModule
             Dim Choice As String = Console.ReadLine
             Select Case Choice
                 Case 1
-                    ProfileModule.Menu(MyRef, AccountModel)
+                    Dim ProfileVal As ProfileComponent.Profile.Contracts.Contracts = ProfileController.Profile.Exist(New ProfileComponent.Profile.Contracts.Contracts With {.PrimaryKey = val.Model.ToExternalID}).Model
+                    ProfileModule.Menu(MyRef, ProfileVal)
                 Case 2
                     ChangeDescription(Ref)
                 Case 3
@@ -94,7 +95,8 @@ Module RelationShipModule
                 Dim Index As Integer = 0
                 For Each Model In Val.Model
                     Index += 1
-                    Dim Account As ProfileComponent.Profile.Contracts.IModel = ProfileController.Contact.Exist(New ProfileComponent.ContactsProject.Contracts.Contracts With {.PrimaryKey = Model.ToExternalID}).Model
+
+                    Dim Account As ProfileComponent.Profile.Contracts.IModel = ProfileController.Profile.Exist(New ProfileComponent.Profile.Contracts.Contracts With {.PrimaryKey = Model.ToExternalID}).Model
                     Console.WriteLine(Index & ") " & ProfileController.Person.Exist(New ProfileComponent.PersonProject.Contracts.Contracts With {.PrimaryKey = Account.PersonID}).Model.FullName & " | " & Model.Description)
                 Next
                 Console.WriteLine("-------- Menu ----------")
@@ -132,28 +134,14 @@ Module RelationShipModule
     Friend Function ChoiceRelationShipByAccount(Ref As ProfileComponent.Profile.Able.IReference, ByRef ChoiceRef As ProfileComponent.Profile.Able.IReference) As Boolean
         Do
             Console.Clear()
-            Dim AccountVal As MyBook.ValMsg(Of List(Of ProfileComponent.ContactsProject.Contracts.Contracts)) = ProfileController.Contact.Get_All
-            Dim SearchVal As MyBook.ValMsg(Of List(Of Contracts.IModel)) = ProfileController.Contact.Search(New Contracts.Contracts With {.ExternalID = Ref.PrimaryKey})
-            Dim ListOfModelFromAccount As New List(Of ProfileComponent.ContactsProject.Contracts.Contracts)
-            For Each Model In AccountVal.Model
-                Dim Exist As Boolean = False
-                If Model.PrimaryKey = Ref.PrimaryKey Then
-                    Continue For
-                End If
+            Dim NotAllowsFriend As MyBook.ValMsg(Of List(Of ProfileComponent.Model)) = ProfileController.Contact_NotAllowsFriends(Ref)
+            If NotAllowsFriend.Success = False Then
 
-                For i = 0 To SearchVal.Model.Count - 1
-                    If SearchVal.Model(i).ToExternalID = Model.PrimaryKey Then
-                        Exist = True
-                        Exit For
-                    End If
-                Next
+            End If
 
-                If Exist = False Then
-                    ListOfModelFromAccount.Add(Model)
-                End If
-            Next
 
-            While ListOfModelFromAccount.Count = 0
+
+            While NotAllowsFriend.Model.Count = 0
                 Console.WriteLine("----------- Menu ----------")
                 Console.WriteLine("1) Add Profile.")
                 Console.WriteLine("2) Exit.")
@@ -167,11 +155,11 @@ Module RelationShipModule
                 End Select
             End While
 
-            While ListOfModelFromAccount.Count > 0
+            While NotAllowsFriend.Model.Count > 0
                 Dim index As Integer = 0
-                For Each ModelAfterResize In ListOfModelFromAccount
+                For Each ModelAfterResize In NotAllowsFriend.Model
                     index += 1
-                    Console.WriteLine(index & ") " & ProfileController.Person.Exist(New ProfileComponent.PersonProject.Contracts.Contracts With {.PrimaryKey = ModelAfterResize.ToExternalID}).Model.FullName)
+                    Console.WriteLine(index & ") " & ModelAfterResize.PersonModel.FullName)
                 Next
                 Console.WriteLine("----------- Menu ----------")
                 Console.WriteLine(1 & " - " & index & ") Choice Profile.")
@@ -180,7 +168,7 @@ Module RelationShipModule
                 Dim Choice As String = Console.ReadLine
                 Select Case Choice
                     Case 1 To index
-                        ChoiceRef = ListOfModelFromAccount(Choice - 1)
+                        ChoiceRef = NotAllowsFriend.Model(Choice - 1).Profile
                         Return True
                     Case 2
                         ProfileModule.Register()

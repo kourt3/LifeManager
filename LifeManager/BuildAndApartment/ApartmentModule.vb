@@ -10,7 +10,7 @@ Module ApartmentModule
         Console.WriteLine("Diamerisma: " & Model.Diamenrisma)
         Console.WriteLine("Description: " & Model.Description)
     End Sub
-    Friend Sub Menu(Ref As Apartment.Contracts.IReference, MyRef As ProfileComponent.ContactsProject.Contracts.IReference, Optional ThirdRef As ProfileComponent.ContactsProject.Contracts.IReference = Nothing)
+    Friend Sub Menu(Ref As Apartment.Contracts.IReference, MyRef As ProfileComponent.Profile.Able.IReference, Optional ThirdRef As ProfileComponent.Profile.Able.IReference = Nothing)
         While True
             Console.Clear()
             Dim Val As MyBook.ValMsg(Of Apartment.Contracts.Contracts) = BuildAndApartment.ApartmentService.Exist(Ref)
@@ -59,7 +59,7 @@ Module ApartmentModule
         End While
     End Sub
 
-    Friend Sub ListOfApartment(Ref As Build.Contracts.IReference, Myref As ProfileComponent.ContactsProject.Contracts.IReference, Optional ThirdRef As ProfileComponent.ContactsProject.Contracts.IReference = Nothing, Optional Choice As Boolean = False, Optional ByRef ApartmentRef As Apartment.Contracts.IReference = Nothing)
+    Friend Sub ListOfApartment(Ref As Build.Contracts.IReference, Myref As ProfileComponent.Profile.Able.IReference, Optional ThirdRef As ProfileComponent.Profile.Able.IReference = Nothing, Optional Choice As Boolean = False, Optional ByRef ApartmentRef As Apartment.Contracts.IReference = Nothing)
         Do
             Dim Val As MyBook.ValMsg(Of List(Of Apartment.Contracts.IModel)) = BuildAndApartment.ApartmentService.SearchByExternalID(Ref.PrimaryKey)
             Console.Clear()

@@ -138,7 +138,7 @@ Friend Module BuildingsModule
             Console.ReadLine()
         End If
     End Sub
-    Friend Sub ListOfBuild(Myref As ProfileComponent.ContactsProject.Contracts.IReference, Optional Thirdref As ProfileComponent.ContactsProject.Contracts.IReference = Nothing, Optional Choice As Boolean = False, Optional ByRef Ref As Contracts.IReference = Nothing)
+    Friend Sub ListOfBuild(Myref As ProfileComponent.Profile.Able.IReference, Optional Thirdref As ProfileComponent.ContactsProject.Contracts.IReference = Nothing, Optional Choice As Boolean = False, Optional ByRef Ref As Contracts.IReference = Nothing)
         Do
 
             Dim Val As MyBook.ValMsg(Of List(Of Contracts.Contracts)) = BuildAndApartment.BuildService.Get_All
