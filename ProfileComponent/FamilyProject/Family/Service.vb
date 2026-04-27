@@ -11,7 +11,7 @@
                 .PrimaryKey = Entity.PrimaryKey
                 .Mother = Entity.Mother
                 .Father = Entity.Father
-                .Spouse = Entity.Father
+                .Spouse = Entity.Spouse
             End With
             Return Model
         End Function

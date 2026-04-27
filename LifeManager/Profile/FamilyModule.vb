@@ -15,7 +15,7 @@ Module FamilyModule
         End If
         Console.WriteLine("-------- Wife/Husband -------")
         If Model.FamilyModel.Spouse <> Nothing Then
-            Console.WriteLine("FullName: " & ProfileController.ExistProfile(New PersonProject.Contracts.Contracts With {.PrimaryKey = Model.FamilyModel.Spouse}).Model.PersonModel.FullName)
+            Console.WriteLine("FullName: " & ProfileController.ExistProfile(New Profile.Contracts.Contracts With {.PrimaryKey = Model.FamilyModel.Spouse}).Model.PersonModel.FullName)
         Else
             Console.WriteLine("Δεν Έχει καταχωρηθη!")
         End If
@@ -460,7 +460,7 @@ Module FamilyModule
         ElseIf ChoiceFamily = ChoiceFamily.Husband Then
             If AutoComplite = True Then
                 Dim SpouceProfileModel As ProfileComponent.Model = ProfileController.ExistProfile(New Profile.Contracts.Contracts With {.PrimaryKey = Val.Model.Spouse}).Model
-                ProfileController.Family.RemoveSpouceWithComplete(MyRef, SpouceProfileModel.Family.FamilyModel)
+                ProfileController.Family.RemoveSpouceWithComplete(FamilyRef, SpouceProfileModel.Family.FamilyModel)
             Else
                 ProfileController.Family.RemoveSpouce(FamilyRef)
             End If

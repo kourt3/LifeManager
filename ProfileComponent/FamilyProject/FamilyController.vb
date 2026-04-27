@@ -321,7 +321,7 @@ Namespace FamilyProject
         End Function
         Function RemoveSpouce(FamilyRef As Family.Ables.IReference) As MyBook.ValMsg(Of Model)
             Dim Val As New MyBook.ValMsg(Of Model)
-            Dim ChangeDTO As Family.Contracts.IRegisterHusbandDTO = New Family.Contracts.Contracts
+            Dim ChangeDTO As Family.Contracts.IRemoveHusbandDTO = New Family.Contracts.Contracts
             ChangeDTO.Spouse = 0
             Dim ValFamily As MyBook.ValMsg = Family.Change(FamilyRef, ChangeDTO)
             If ValFamily.Success = False Then
@@ -333,12 +333,10 @@ Namespace FamilyProject
         End Function
 
         Function RemoveSpouceWithComplete(Familyref As Family.Ables.IReference, SpouceFamilyRef As Family.Ables.IReference) As MyBook.ValMsg(Of Model)
-            Dim ExistVal As MyBook.ValMsg(Of Family.Contracts.Contracts) = Family.Exist(Familyref)
-            Dim DTO As Family.Contracts.IRegisterHusbandDTO = New Family.Contracts.Contracts
+            Dim DTO As Family.Contracts.IRemoveHusbandDTO = New Family.Contracts.Contracts
             DTO.Spouse = 0
             Family.Change(Familyref, DTO)
             Family.Change(SpouceFamilyRef, DTO)
-
             Return ExistFamily(Familyref)
         End Function
         Function RemoveChild(FamilyRef As Family.Ables.IReference, ChildRef As Children.Ables.IReference) As MyBook.ValMsg(Of Model)
