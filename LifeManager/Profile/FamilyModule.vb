@@ -253,13 +253,13 @@ Module FamilyModule
     End Sub
 
     Friend Sub RemoveChildren(Myref As ProfileComponent.Profile.Able.IReference, FamilyRef As FamilyProject.Family.Ables.IReference, ChildRef As FamilyProject.Children.Ables.IReference, Optional AutoComplite As Boolean = False)
-        Dim PersonModel As ProfileComponent.Model = ProfileController.ExistProfile(ChildRef).Model.PersonModel
+        Dim ChildVal As MyBook.ValMsg(Of ProfileComponent.FamilyProject.Children.Conctracts.Contracts) = ProfileController.Family.Childrens.Exist(ChildRef)
+        Dim ChildModel As ProfileComponent.Model = ProfileController.ExistProfile(New Profile.Contracts.Contracts With {.PrimaryKey = ChildVal.Model.ToExternalID}).Model
         Console.Clear()
         Console.WriteLine("--------- Remove Children -------")
-        PersonModule.Info(PersonModel)
+        PersonModule.Info(ChildModel.PersonModel)
         Console.WriteLine("---------- Menu ---------")
         If Help.AccessChoice("Θέλεις να συνεχησεις με την διαγραφή??") Then
-            Dim ChildVal As MyBook.ValMsg(Of ProfileComponent.FamilyProject.Children.Conctracts.Contracts) = ProfileController.Family.Childrens.Exist(ChildRef)
 
             If AutoComplite = True Then
                 Console.WriteLine("Τι Γωνιος ειστε?")
@@ -271,9 +271,9 @@ Module FamilyModule
                 Dim Choice As String = Console.ReadLine
                 Select Case Choice
                     Case 1
-                        ProfileController.Family.RemoveChildWithCompleteMother(FamilyRef, ChildRef)
+                        ProfileController.Family.RemoveChildWithCompleteMother(FamilyRef, ChildModel.Family.FamilyModel, ChildRef)
                     Case 2
-                        ProfileController.Family.RemoveChildWithCompleteFather(FamilyRef, ChildRef)
+                        ProfileController.Family.RemoveChildWithCompleteFather(FamilyRef, ChildModel.Family.FamilyModel, ChildRef)
                     Case 3
                         Exit Sub
                 End Select

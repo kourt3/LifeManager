@@ -351,25 +351,19 @@ Namespace FamilyProject
             End If
             Return ExistFamily(FamilyRef)
         End Function
-        Function RemoveChildWithCompleteMother(FamilyRef As Family.Ables.IReference, ChildRef As Children.Ables.IReference) As MyBook.ValMsg(Of Model)
-            Dim ChildVal As MyBook.ValMsg(Of Children.Conctracts.Contracts) = Childrens.Exist(ChildRef)
-            Dim FamilyVal As MyBook.ValMsg(Of Family.Contracts.Contracts) = Family.Exist(FamilyRef)
-
+        Function RemoveChildWithCompleteMother(FamilyRef As Family.Ables.IReference, ChildFamilyRef As Family.Ables.IReference, ChildRef As Children.Ables.IReference) As MyBook.ValMsg(Of Model)
             Childrens.Remove(ChildRef)
-            Dim RemoveMother As Family.Contracts.IRegisterMotherDTO = New Family.Contracts.Contracts
+            Dim RemoveMother As Family.Contracts.IRemoveMotherDTO = New Family.Contracts.Contracts
             RemoveMother.Mother = 0
-            Family.Change(ChildRef, RemoveMother)
+            Family.Change(ChildFamilyRef, RemoveMother)
 
             Return ExistFamily(FamilyRef)
         End Function
-        Function RemoveChildWithCompleteFather(FamilyRef As Family.Ables.IReference, ChildRef As Children.Ables.IReference) As MyBook.ValMsg(Of Model)
-            Dim ChildVal As MyBook.ValMsg(Of Children.Conctracts.Contracts) = Childrens.Exist(ChildRef)
-            Dim FamilyVal As MyBook.ValMsg(Of Family.Contracts.Contracts) = Family.Exist(FamilyRef)
-
+        Function RemoveChildWithCompleteFather(FamilyRef As Family.Ables.IReference, ChildFamilyRef As Family.Ables.IReference, ChildRef As Children.Ables.IReference) As MyBook.ValMsg(Of Model)
             Childrens.Remove(ChildRef)
-            Dim RemoveMother As Family.Contracts.IRegisterFatherDTO = New Family.Contracts.Contracts
+            Dim RemoveMother As Family.Contracts.IRemoveFatherDTO = New Family.Contracts.Contracts
             RemoveMother.Father = 0
-            Family.Change(ChildRef, RemoveMother)
+            Family.Change(ChildFamilyRef, RemoveMother)
 
             Return ExistFamily(FamilyRef)
         End Function
