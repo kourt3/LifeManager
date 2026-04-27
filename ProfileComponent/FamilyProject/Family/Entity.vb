@@ -19,7 +19,6 @@ Namespace FamilyProject.Family.Entity
         Dim MotherID As Integer
         Dim FatherID As Integer
         Dim SpouseID As Integer
-        Dim ExternalID As Integer
     End Structure
 
     Public Interface IFamilyEntity
@@ -27,7 +26,6 @@ Namespace FamilyProject.Family.Entity
         Inherits FamilyProject.Family.Ables.IMotherID
         Inherits FamilyProject.Family.Ables.IFatherID
         Inherits FamilyProject.Family.Ables.IHusbandID
-        Inherits MyBook.IHasExtrernalID(Of Integer).IHasFromExternalID
     End Interface
 
     Public Class Entity
@@ -67,15 +65,6 @@ Namespace FamilyProject.Family.Entity
             End Get
             Set(value As Integer)
                 Data.SpouseID = value
-            End Set
-        End Property
-
-        Public Property ExternalID As Integer Implements MyBook.IHasExtrernalID(Of Integer).IHasFromExternalID.ExternalID
-            Get
-                Return Data.ExternalID
-            End Get
-            Set(value As Integer)
-                Data.ExternalID = value
             End Set
         End Property
     End Class

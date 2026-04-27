@@ -11,18 +11,18 @@
             Val.Msg = "Δεν Βρέθηκε Εγραφή!"
 
             For Each ChildEntity In Repository.Read_All
-                If Creteria.FamilyID = Nothing And Creteria.PersonID <> Nothing Then
-                    If Creteria.PersonID = ChildEntity.PersonID Then
+                If Creteria.FamilyID = Nothing And Creteria.ToExternalID <> Nothing Then
+                    If Creteria.ToExternalID = ChildEntity.ToExternalID Then
                         Val.Success = True
                         Val.Model.Add(ToModel(ChildEntity))
                     End If
-                ElseIf Creteria.FamilyID <> Nothing And Creteria.PersonID = Nothing Then
+                ElseIf Creteria.FamilyID <> Nothing And Creteria.ToExternalID = Nothing Then
                     If Creteria.FamilyID = ChildEntity.FamilyID Then
                         Val.Success = True
                         Val.Model.Add(ToModel(ChildEntity))
                     End If
-                ElseIf Creteria.FamilyID <> Nothing And Creteria.PersonID <> Nothing Then
-                    If Creteria.FamilyID = ChildEntity.FamilyID AndAlso Creteria.PersonID = ChildEntity.PersonID Then
+                ElseIf Creteria.FamilyID <> Nothing And Creteria.ToExternalID <> Nothing Then
+                    If Creteria.FamilyID = ChildEntity.FamilyID AndAlso Creteria.ToExternalID = ChildEntity.ToExternalID Then
                         Val.Success = True
                         Val.Model.Add(ToModel(ChildEntity))
                     End If
@@ -34,12 +34,29 @@
             End If
             Return Val
         End Function
+
+        Function Find(Creteria As Children.Conctracts.ICreteria) As MyBook.ValMsg(Of Children.Conctracts.IModel)
+            Dim Val As New MyBook.ValMsg(Of Children.Conctracts.IModel)
+            Val.Success = False
+            Val.Msg = "Δεν βρέθηκε Εγραφή!!!"
+            For Each EntityL In Repository.Read_All
+                If EntityL.ToExternalID = Creteria.ToExternalID And EntityL.FamilyID = Creteria.FamilyID Then
+                    Val.Model = ToModel(EntityL)
+                    Val.Success = True
+                    Val.Msg = "Βρέθηκε Εγραφή!!!"
+                    Exit For
+                End If
+
+            Next
+            Return Val
+        End Function
+
         Public Overrides Function ToModel(Entity As FamilyProject.Children.Entity.Entity) As FamilyProject.Children.Conctracts.Contracts
             Dim Model As FamilyProject.Children.Conctracts.IModel = New FamilyProject.Children.Conctracts.Contracts
             With Model
                 .PrimaryKey = Entity.PrimaryKey
                 .FamilyID = Entity.FamilyID
-                .PersonID = Entity.PersonID
+                .ToExternalID = Entity.ToExternalID
             End With
             Return Model
         End Function
@@ -50,7 +67,7 @@
                 Dim Regilser As FamilyProject.Children.Conctracts.IRegister = DTOLink
                 With Entity
                     .FamilyID = Regilser.FamilyID
-                    .PersonID = Regilser.PersonID
+                    .ToExternalID = Regilser.ToExternalID
                 End With
             End If
             Return Entity
@@ -61,7 +78,7 @@
                 Dim Regilser As FamilyProject.Children.Conctracts.IRegister = DTOLink
                 With Entity
                     .FamilyID = Regilser.FamilyID
-                    .PersonID = Regilser.PersonID
+                    .ToExternalID = Regilser.ToExternalID
                 End With
             End If
             Return Entity

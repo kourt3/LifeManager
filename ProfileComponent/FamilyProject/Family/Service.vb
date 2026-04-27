@@ -12,26 +12,9 @@
                 .Mother = Entity.Mother
                 .Father = Entity.Father
                 .Spouse = Entity.Father
-                .ExternalID = Entity.ExternalID
             End With
             Return Model
         End Function
-        Public Function Search(Creteria As Contracts.ICreteria) As MyBook.ValMsg(Of Contracts.IModel)
-            Dim Val As New MyBook.ValMsg(Of Contracts.IModel)
-            Val.Model = New Contracts.Contracts
-            Val.Success = False
-            Val.Msg = "Δεν βρεθηκε εγραφή!"
-            For Each EntityL In Repository.Read_All
-                If EntityL.ExternalID = Creteria.ExternalID Then
-                    Val.Success = True
-                    Val.Msg = "Βρέθηκε εγραφή!"
-                    Val.Model = ToModel(EntityL)
-                    Exit For
-                End If
-            Next
-            Return Val
-        End Function
-
         Public Overrides Function Change(Of DTO)(Ref As Contracts.Contracts, ChangeDTO As DTO) As MyBook.ValMsg
             Dim Result As New MyBook.ValMsg
             Result.Success = True
@@ -111,7 +94,6 @@
                     .Mother = RegisterDTO.Mother
                     .Father = RegisterDTO.Father
                     .Spouse = RegisterDTO.Spouse
-                    .ExternalID = RegisterDTO.ExternalID
                 End With
             ElseIf GetType(DTO) = GetType(Contracts.IRegisterMotherDTO) Or GetType(DTO) = GetType(Contracts.IRemoveMotherDTO) Then
                 Dim RegisterDTO As Contracts.IRegisterMotherDTO = DTOLink
@@ -139,7 +121,6 @@
                     .Mother = RegisterDTO.Mother
                     .Father = RegisterDTO.Father
                     .Spouse = RegisterDTO.Spouse
-                    .ExternalID = RegisterDTO.ExternalID
                 End With
             ElseIf GetType(DTO) = GetType(Contracts.IRegisterMotherDTO) Or GetType(DTO) = GetType(Contracts.IRemoveMotherDTO) Then
                 Dim RegisterDTO As Contracts.IRegisterMotherDTO = DTOLink

@@ -17,7 +17,7 @@
 
 
         Public Overrides Function ConvertRows(Entity As Entity.Entity) As String()
-            Return {Entity.PrimaryKey, Entity.FamilyID, Entity.PersonID}
+            Return {Entity.PrimaryKey, Entity.FamilyID, Entity.ToExternalID}
         End Function
 
         Public Overrides Function ConvertEntity(DT As DataRow) As Entity.Entity
@@ -25,7 +25,7 @@
             With Entity
                 .PrimaryKey = DT(0)
                 .FamilyID = DT(1)
-                .PersonID = DT(2)
+                .ToExternalID = DT(2)
             End With
             Return Entity
         End Function

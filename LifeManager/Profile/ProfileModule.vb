@@ -41,7 +41,7 @@ Module ProfileModule
                 Case 6
                     ContactModule.Menu(Profile.Model.Profile)
                 Case 7
-                    FamilyModule.Menu(Profile.Model.Profile, Profile.Model.Family.FamilyModel)
+                    FamilyModule.Menu(Profile.Model.Profile, Profile.Model.Family.FamilyModel, Nothing, True)
                 Case 8
                     Exit While
                 Case Else

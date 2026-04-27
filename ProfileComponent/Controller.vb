@@ -35,19 +35,14 @@ Public Class Controller
         End If
         Dim RegisterProfileDTO As Profile.Contracts.IRegisterDTO = New Profile.Contracts.Contracts
         RegisterProfileDTO.PersonID = PersonVal.Model.PrimaryKey
-        Dim FamilyRegisterDTO As FamilyProject.Family.Contracts.IRegisterDTO = New FamilyProject.Family.Contracts.Contracts
-        FamilyRegisterDTO.ExternalID = PersonVal.Model.PrimaryKey
-        FamilyRegisterDTO.Mother = 0
-        FamilyRegisterDTO.Father = 0
-        FamilyRegisterDTO.Spouse = 0
-        Dim FamilyVal As MyBook.ValMsg(Of FamilyProject.Family.Contracts.Contracts) = Family.Family.Register(FamilyRegisterDTO)
+        Dim FamilyVal As MyBook.ValMsg(Of FamilyProject.Model) = Family.AddFamily
         If FamilyVal.Success = False Then
             Val.Msg = FamilyVal.Msg
             Val.Success = False
             Return Val
         End If
 
-        RegisterProfileDTO.FamilyID = FamilyVal.Model.PrimaryKey
+        RegisterProfileDTO.FamilyID = FamilyVal.Model.FamilyModel.PrimaryKey
 
         Dim ProfileVal As MyBook.ValMsg(Of Profile.Contracts.Contracts) = Profile.Register(RegisterProfileDTO)
         If ProfileVal.Success = False Then
@@ -111,6 +106,7 @@ Public Class Controller
     Function ExistPerson(PersonRef As PersonProject.Enity.IReference) As MyBook.ValMsg(Of Model)
 
         Dim Val As New MyBook.ValMsg(Of Model)
+        Val.Model = New Model
         Dim Creteria As Profile.Contracts.ICreteria = New Profile.Contracts.Contracts
         Creteria.PersonID = PersonRef.PrimaryKey
         Dim ValProfile As MyBook.ValMsg(Of Profile.Contracts.Contracts) = Profile.Search(Creteria)
@@ -127,7 +123,26 @@ Public Class Controller
         Return Val
 
     End Function
+    Function ExistFamily(FamilyRef As FamilyProject.Family.Ables.IReference) As MyBook.ValMsg(Of Model)
 
+        Dim Val As New MyBook.ValMsg(Of Model)
+        Val.Model = New Model
+        Dim Creteria As Profile.Contracts.ICreteria = New Profile.Contracts.Contracts
+        Creteria.FamilyID = FamilyRef.PrimaryKey
+        Dim ValProfile As MyBook.ValMsg(Of Profile.Contracts.Contracts) = Profile.Search(Creteria)
+        Val.Model.Profile = ValProfile.Model
+        Val.Model.PersonModel = Person.Exist(New PersonProject.Contracts.Contracts With {.PrimaryKey = ValProfile.Model.PersonID}).Model
+        Val.Model.Family.FamilyModel = Family.Family.Exist(New FamilyProject.Family.Contracts.Contracts With {.PrimaryKey = ValProfile.Model.FamilyID}).Model
+
+        Dim CreteriaContacts As ContactsProject.Contracts.ICreteria = New ContactsProject.Contracts.Contracts
+        CreteriaContacts.ExternalID = Val.Model.Profile.PrimaryKey
+        Dim ContactVal As MyBook.ValMsg(Of List(Of ContactsProject.Contracts.IModel)) = Contact.Search(CreteriaContacts)
+        Val.Model.Contacts = ContactVal.Model
+        Val.Success = True
+        Val.Msg = "Βρέθηκε η εγραφή"
+        Return Val
+
+    End Function
     ''' <summary>
     ''' List Of Profile
     ''' </summary>

@@ -1,29 +1,28 @@
-﻿Namespace FamilyProject.Children.Conctracts
+﻿Imports MyBook
 
-    Public Interface IReference
-        Inherits MyBook.IHasPrimaryKey(Of Integer)
-    End Interface
+Namespace FamilyProject.Children.Conctracts
 
     Public Interface IModel
-        Inherits IReference
-        Inherits Children.Entity.IPersonID, Children.Entity.IFamilyId
+        Inherits Ables.IReference
+        Inherits MyBook.IHasExtrernalID(Of Integer).IHasToExternalID, Children.Ables.IFamilyId
 
     End Interface
 
     Public Interface IRegister
-        Inherits Children.Entity.IPersonID, Children.Entity.IFamilyId
+        Inherits MyBook.IHasExtrernalID(Of Integer).IHasToExternalID, Children.Ables.IFamilyId
     End Interface
 
     Public Interface ICreteria
-        Inherits Children.Entity.IPersonID, Children.Entity.IFamilyId
+        Inherits MyBook.IHasExtrernalID(Of Integer).IHasToExternalID, Children.Ables.IFamilyId
     End Interface
 
     Public Class Contracts
-        Implements IModel, ICreteria, IRegister
+        Implements IModel, ICreteria, IRegister, Ables.IReference
 
         Public Property PrimaryKey As Integer Implements MyBook.IHasPrimaryKey(Of Integer).PrimaryKey
-        Public Property PersonID As Integer Implements FamilyProject.Children.Entity.IPersonID.PersonID
-        Public Property FamilyID As Integer Implements FamilyProject.Children.Entity.IFamilyId.FamilyID
+        Public Property FamilyID As Integer Implements FamilyProject.Children.Ables.IFamilyId.FamilyID
+        Public Property ToExternalID As Integer Implements IHasExtrernalID(Of Integer).IHasToExternalID.ToExternalID
+
     End Class
 End Namespace
 

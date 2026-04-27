@@ -1,24 +1,25 @@
 ﻿Imports MyBook
-
-Namespace FamilyProject.Children.Entity
-    Public Structure Data
-        Dim ID As Integer
-        Dim FamilyID As Integer
-        Dim PersonID As Integer
-    End Structure
-
-
-    Public Interface IPersonID
-        Property PersonID As Integer
+Namespace FamilyProject.Children.Ables
+    Public Interface IReference
+        Inherits MyBook.IHasPrimaryKey(Of Integer)
     End Interface
     Public Interface IFamilyId
         Property FamilyID As Integer
     End Interface
+End Namespace
+Namespace FamilyProject.Children.Entity
+    Public Structure Data
+        Dim ID As Integer
+        Dim FamilyID As Integer
+        Dim ToExternalID As Integer
+    End Structure
+
+
 
 
     Public Interface IEntity
-        Inherits MyBook.IHasPrimaryKey(Of Integer)
-        Inherits IPersonID, IFamilyId
+        Inherits Ables.IReference
+        Inherits MyBook.IHasExtrernalID(Of Integer).IHasToExternalID, Ables.IFamilyId
     End Interface
 
     Public Class Entity
@@ -35,16 +36,16 @@ Namespace FamilyProject.Children.Entity
             End Set
         End Property
 
-        Public Property PersonID As Integer Implements IPersonID.PersonID
+        Public Property ToExternalID As Integer Implements IHasExtrernalID(Of Integer).IHasToExternalID.ToExternalID
             Get
-                Return Data.PersonID
+                Return Data.ToExternalID
             End Get
             Set(value As Integer)
-                Data.PersonID = value
+                Data.ToExternalID = value
             End Set
         End Property
 
-        Public Property FamilyID As Integer Implements IFamilyId.FamilyID
+        Public Property FamilyID As Integer Implements Ables.IFamilyId.FamilyID
             Get
                 Return Data.FamilyID
             End Get
