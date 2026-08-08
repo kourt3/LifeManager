@@ -11,7 +11,9 @@ Namespace Services
     End Interface
 
     ''' <summary>
-    ''' O Service Επιστρέφει το γνησιο αντικειμενο του ENTITY
+    ''' O Service Επιστρέφει το γνησιο αντικειμενο του ENTITY.
+    ''' Δεν ειναι και τοσο ασφαλες γιατι η κάθε αλλαγη δεν περναει απο τον Service.
+    ''' οι αλλαγες μπορουν να γινουν και χωρις καποιο ελενχο απο το χρηστη εκτως αμα περασεις μεσο αντιγραφει στο service.
     ''' </summary>
     ''' <typeparam name="TKey"></typeparam>
     ''' <typeparam name="TEntity"></typeparam>
@@ -203,13 +205,13 @@ Namespace Services
     End Interface
 
     ''' <summary>
-    ''' Service And Mapping Και PK για Μοναδικες Εγραφες!
-    ''' ToModel,ToEntity
-    ''' Return Model
+    ''' Ο Service επιστρέφει το Model που ειναι ενα αντιγραφο του Entity΄,
+    ''' Είναι ποιο ασφάλες και δεν μπορει να αλλαξει το αρχικο entity χώρις να περασει καποια εντολη απο τον Service!
     ''' </summary>
-    ''' <typeparam name="TKey"></typeparam>
-    ''' <typeparam name="TModel"></typeparam>
-    ''' <typeparam name="TEntity"></typeparam>
+    ''' <typeparam name="TKey">Τον Τύπο του PK</typeparam>
+    ''' <typeparam name="TModel">Το Model που κανει αντιγραφη απο το Entity</typeparam>
+    ''' <typeparam name="TEntity">Το Αρχικο entity</typeparam>
+    ''' <typeparam name="TRepository">To Αποθετήριο</typeparam>
     Public MustInherit Class Service(Of TKey, TModel As MyBook.IHasPrimaryKey(Of TKey), TEntity As MyBook.IHasPrimaryKey(Of TKey), TRepository As IRepository(Of TKey, TEntity))
         Implements IService(Of TKey, TModel, TEntity)
 

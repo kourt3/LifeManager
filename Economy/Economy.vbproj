@@ -64,21 +64,26 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BankCard\Contracts.vb" />
-    <Compile Include="BankCard\Entity.vb" />
-    <Compile Include="BankCard\Repository.vb" />
-    <Compile Include="BankCard\Services.vb" />
+    <Compile Include="ECategories\BankCard\Contracts.vb" />
+    <Compile Include="ECategories\BankCard\Entity.vb" />
+    <Compile Include="ECategories\BankCard\Repository.vb" />
+    <Compile Include="ECategories\BankCard\Services.vb" />
     <Compile Include="Controller.vb" />
+    <Compile Include="ECategories\Contracts.vb" />
+    <Compile Include="ECategories\Entity.vb" />
+    <Compile Include="ECategories\Repository.vb" />
+    <Compile Include="ECategories\Service.vb" />
     <Compile Include="Economy\Contact.vb" />
     <Compile Include="Economy\Entity.vb" />
-    <Compile Include="GiftsCard\Contracrs.vb" />
-    <Compile Include="GiftsCard\Entity.vb" />
-    <Compile Include="GiftsCard\Repository.vb" />
-    <Compile Include="GiftsCard\Services.vb" />
+    <Compile Include="ECategories\GiftsCard\Contracrs.vb" />
+    <Compile Include="ECategories\GiftsCard\Entity.vb" />
+    <Compile Include="ECategories\GiftsCard\Repository.vb" />
+    <Compile Include="ECategories\GiftsCard\Services.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>
       <DependentUpon>Application.myapp</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <Compile Include="My Project\Resources.Designer.vb">
       <AutoGen>True</AutoGen>
@@ -90,10 +95,10 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="PortofolioProject\Contracts.vb" />
-    <Compile Include="PortofolioProject\Entity.vb" />
-    <Compile Include="PortofolioProject\PortofolioRepository.vb" />
-    <Compile Include="PortofolioProject\PortofolioService.vb" />
+    <Compile Include="ECategories\PortofolioProject\Contracts.vb" />
+    <Compile Include="ECategories\PortofolioProject\Entity.vb" />
+    <Compile Include="ECategories\PortofolioProject\PortofolioRepository.vb" />
+    <Compile Include="ECategories\PortofolioProject\PortofolioService.vb" />
     <Compile Include="Economy\Repository.vb" />
     <Compile Include="Economy\Service.vb" />
     <Compile Include="TransferController.vb" />

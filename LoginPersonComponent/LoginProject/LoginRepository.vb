@@ -46,12 +46,14 @@ Namespace LoginProject.Repositories
 
     End Class
 
-
     Public Class DatabaseRepository
         Inherits MyBook.Repositories.DatabaseRepository(Of Integer, LoginProject.Entity.Entity)
 
         Sub New()
             MyBase.New("Microsoft.ACE.OLEDB.16.0", "C:\Users\kourt\Documents\kourt.accdb", "Eisodos", "[ID],[Username],[Password],[CreateAt]")
+        End Sub
+        Sub New(Ekdosh As String, LinkDataBase As String, NameDatabase As String, Columns As String)
+            MyBase.New(Ekdosh, LinkDataBase, NameDatabase, Columns)
         End Sub
 
         Public Overrides Function ConvertRows(Entity As LoginProject.Entity.Entity) As String()
@@ -68,8 +70,6 @@ Namespace LoginProject.Repositories
             End With
             Return Entity
         End Function
-
-
 
         Public Function ExistByCreteria(Creteria As LoginProject.Entity.ICreteria) As Boolean
             Dim DT As New DataTable

@@ -1,8 +1,13 @@
-﻿Namespace Portofolio.Entity
+﻿Imports MyBook
+
+Namespace Portofolio.Entity
     Structure Data
         Public Id As Integer
+        Public CategoryID As Integer
         Public Name As String
+        Public DateCreation As Date
         Public Description As String
+
     End Structure
 
     Public Interface IReference
@@ -12,6 +17,7 @@
         Inherits IReference
         Inherits MyBook.IHasName
         Inherits MyBook.IHasDescription
+        Inherits MyBook.IHasCreation
     End Interface
 
     Public Class Entity
@@ -42,6 +48,15 @@
             End Get
             Set(value As String)
                 Data.Description = value
+            End Set
+        End Property
+
+        Public Property Creation As Date Implements IHasCreation.Creation
+            Get
+                Return Data.DateCreation
+            End Get
+            Set(value As Date)
+                Data.DateCreation = value
             End Set
         End Property
     End Class

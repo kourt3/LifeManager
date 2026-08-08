@@ -22,7 +22,7 @@ Module Diplomata
             Console.WriteLine("1) Car")
             Console.WriteLine("2) Moto")
             Console.WriteLine("3) Φορτηγο C")
-            Console.WriteLine("4) φορτηφο D")
+            Console.WriteLine("4) φορτηγο D")
             Console.WriteLine("5) Λεοφορείο")
             Console.WriteLine("6) Exit")
             Dim Str As String = Console.ReadLine

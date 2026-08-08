@@ -6,7 +6,7 @@ Module GiftsCardsModule
     Friend Sub Info(Model As Contracs.IModel)
         Console.WriteLine("ID: " & Model.PrimaryKey)
         Console.WriteLine("Number Card: " & Model.NumberCard)
-        Console.WriteLine("Code: " & Model.Code)
+        Console.WriteLine("Code: " & Model.PIN)
         Console.WriteLine("Description: " & Model.Description)
     End Sub
 
@@ -61,7 +61,7 @@ Module GiftsCardsModule
         Console.WriteLine("Δώσε όνομα Number Card: ")
         RegisterDTO.NumberCard = Console.ReadLine
         Console.WriteLine("Δώσε Code: ")
-        RegisterDTO.Code = Console.ReadLine
+        RegisterDTO.PIN = Console.ReadLine
         Console.WriteLine("Δώσε Περιγραφή:")
         RegisterDTO.Description = Console.ReadLine
         If Help.AccessChoice("Θέλεις να συνεχήσεις?") Then
@@ -118,7 +118,7 @@ Module GiftsCardsModule
         Console.WriteLine()
         If Help.AccessChoice("Θέλει να Αλλάξεις Code?") Then
             Console.Clear()
-            Console.WriteLine("Code: " & Val.Model.Code)
+            Console.WriteLine("Code: " & Val.Model.PIN)
             Console.WriteLine("Δώσε κανουργιο Code: ")
             ChangeDTO.Description = Console.ReadLine
             Console.Clear()

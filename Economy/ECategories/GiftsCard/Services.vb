@@ -12,7 +12,7 @@
                 .PrimaryKey = Entity.PrimaryKey
                 .Name = Entity.Name
                 .NumberCard = Entity.NumberCard
-                .Code = Entity.Code
+                .PIN = Entity.PIN
                 .Description = Entity.Description
             End With
             Return Model
@@ -25,7 +25,7 @@
                 With Entity
                     .Name = RegisterDTO.Name
                     .NumberCard = RegisterDTO.Name
-                    .Code = RegisterDTO.Code
+                    .PIN = RegisterDTO.PIN
                     .Description = RegisterDTO.Description
                 End With
             End If
@@ -38,7 +38,7 @@
                 With Entity
                     .Name = RegisterDTO.Name
                     .NumberCard = RegisterDTO.Name
-                    .Code = RegisterDTO.Code
+                    .PIN = RegisterDTO.PIN
                     .Description = RegisterDTO.Description
                 End With
             End If

@@ -24,7 +24,7 @@ Module TestPei
     Sub Main()
 #Region "Enwthta Prwth"
         Erwthseis(0).NumQuest = "A1"
-        Erwthseis(0).Quest = "Το Επάγγεκμα του οδικού μεταφορέα μεταφοράς εμπορευμάτων"
+        Erwthseis(0).Quest = "Το Επάγγελμα του οδικού μεταφορέα μεταφοράς εμπορευμάτων"
         Erwthseis(0).AddAnswer("Ασκεί όποιος διαθέτει κατάλληλη άδεια οδήγησης (Γ ή Γ + Ε)")
         Erwthseis(0).AddAnswer("Ασκεί όποιος διαθέτει στην κατοχή του φορτηγό με μέγιστο επιτρεπόμενο βάρος μαγαλύτερο των 3,5 τόνων.")
         Erwthseis(0).AddAnswer("Ασκουν μεταφορικές επιχειρήσεις έναντι κομίστρου", True)
@@ -79,7 +79,156 @@ Module TestPei
 #End Region
 
 #Region "Orthologikh Odhghsh"
+        Erwthseis(9).NumQuest = ""
+        Erwthseis(9).Quest = ""
+        Erwthseis(9).AddAnswer("")
+        Erwthseis(9).AddAnswer("", True)
+        Erwthseis(9).AddAnswer("")
 
+        Erwthseis(9).NumQuest = ""
+        Erwthseis(9).Quest = ""
+        Erwthseis(9).AddAnswer("")
+        Erwthseis(9).AddAnswer("", True)
+        Erwthseis(9).AddAnswer("")
+
+        Erwthseis(9).NumQuest = ""
+        Erwthseis(9).Quest = ""
+        Erwthseis(9).AddAnswer("")
+        Erwthseis(9).AddAnswer("", True)
+        Erwthseis(9).AddAnswer("")
+
+        Erwthseis(9).NumQuest = ""
+        Erwthseis(9).Quest = ""
+        Erwthseis(9).AddAnswer("")
+        Erwthseis(9).AddAnswer("", True)
+        Erwthseis(9).AddAnswer("")
+
+        Erwthseis(9).NumQuest = ""
+        Erwthseis(9).Quest = ""
+        Erwthseis(9).AddAnswer("")
+        Erwthseis(9).AddAnswer("", True)
+        Erwthseis(9).AddAnswer("")
+
+        Erwthseis(9).NumQuest = ""
+        Erwthseis(9).Quest = ""
+        Erwthseis(9).AddAnswer("")
+        Erwthseis(9).AddAnswer("", True)
+        Erwthseis(9).AddAnswer("")
+
+        Erwthseis(9).NumQuest = ""
+        Erwthseis(9).Quest = ""
+        Erwthseis(9).AddAnswer("")
+        Erwthseis(9).AddAnswer("", True)
+        Erwthseis(9).AddAnswer("")
+
+        Erwthseis(9).NumQuest = ""
+        Erwthseis(9).Quest = ""
+        Erwthseis(9).AddAnswer("")
+        Erwthseis(9).AddAnswer("", True)
+        Erwthseis(9).AddAnswer("")
+
+        Erwthseis(9).NumQuest = ""
+        Erwthseis(9).Quest = ""
+        Erwthseis(9).AddAnswer("")
+        Erwthseis(9).AddAnswer("", True)
+        Erwthseis(9).AddAnswer("")
+
+        Erwthseis(9).NumQuest = ""
+        Erwthseis(9).Quest = ""
+        Erwthseis(9).AddAnswer("")
+        Erwthseis(9).AddAnswer("", True)
+        Erwthseis(9).AddAnswer("")
+
+        Erwthseis(9).NumQuest = ""
+        Erwthseis(9).Quest = ""
+        Erwthseis(9).AddAnswer("")
+        Erwthseis(9).AddAnswer("", True)
+        Erwthseis(9).AddAnswer("")
+
+        Erwthseis(9).NumQuest = ""
+        Erwthseis(9).Quest = ""
+        Erwthseis(9).AddAnswer("")
+        Erwthseis(9).AddAnswer("", True)
+        Erwthseis(9).AddAnswer("")
+
+        Erwthseis(9).NumQuest = ""
+        Erwthseis(9).Quest = ""
+        Erwthseis(9).AddAnswer("")
+        Erwthseis(9).AddAnswer("", True)
+        Erwthseis(9).AddAnswer("")
+
+        Erwthseis(9).NumQuest = ""
+        Erwthseis(9).Quest = ""
+        Erwthseis(9).AddAnswer("")
+        Erwthseis(9).AddAnswer("", True)
+        Erwthseis(9).AddAnswer("")
+
+
+        Erwthseis(9).NumQuest = ""
+        Erwthseis(9).Quest = ""
+        Erwthseis(9).AddAnswer("")
+        Erwthseis(9).AddAnswer("", True)
+        Erwthseis(9).AddAnswer("")
+
+        Erwthseis(9).NumQuest = ""
+        Erwthseis(9).Quest = ""
+        Erwthseis(9).AddAnswer("")
+        Erwthseis(9).AddAnswer("", True)
+        Erwthseis(9).AddAnswer("")
+
+        Erwthseis(9).NumQuest = ""
+        Erwthseis(9).Quest = ""
+        Erwthseis(9).AddAnswer("")
+        Erwthseis(9).AddAnswer("", True)
+        Erwthseis(9).AddAnswer("")
+
+        Erwthseis(9).NumQuest = ""
+        Erwthseis(9).Quest = ""
+        Erwthseis(9).AddAnswer("")
+        Erwthseis(9).AddAnswer("", True)
+        Erwthseis(9).AddAnswer("")
+
+        Erwthseis(9).NumQuest = ""
+        Erwthseis(9).Quest = ""
+        Erwthseis(9).AddAnswer("")
+        Erwthseis(9).AddAnswer("", True)
+        Erwthseis(9).AddAnswer("")
+
+        Erwthseis(9).NumQuest = ""
+        Erwthseis(9).Quest = ""
+        Erwthseis(9).AddAnswer("")
+        Erwthseis(9).AddAnswer("", True)
+        Erwthseis(9).AddAnswer("")
+
+        Erwthseis(9).NumQuest = ""
+        Erwthseis(9).Quest = ""
+        Erwthseis(9).AddAnswer("")
+        Erwthseis(9).AddAnswer("", True)
+        Erwthseis(9).AddAnswer("")
+
+        Erwthseis(9).NumQuest = ""
+        Erwthseis(9).Quest = ""
+        Erwthseis(9).AddAnswer("")
+        Erwthseis(9).AddAnswer("", True)
+        Erwthseis(9).AddAnswer("")
+
+        Erwthseis(9).NumQuest = ""
+        Erwthseis(9).Quest = ""
+        Erwthseis(9).AddAnswer("")
+        Erwthseis(9).AddAnswer("", True)
+        Erwthseis(9).AddAnswer("")
+
+        Erwthseis(9).NumQuest = ""
+        Erwthseis(9).Quest = ""
+        Erwthseis(9).AddAnswer("")
+        Erwthseis(9).AddAnswer("", True)
+        Erwthseis(9).AddAnswer("")
+
+        Erwthseis(9).NumQuest = ""
+        Erwthseis(9).Quest = ""
+        Erwthseis(9).AddAnswer("")
+        Erwthseis(9).AddAnswer("", True)
+        Erwthseis(9).AddAnswer("")
 #End Region
     End Sub
 End Module

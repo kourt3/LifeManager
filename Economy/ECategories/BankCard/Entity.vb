@@ -5,12 +5,14 @@ Namespace BankCardsProject.My.Entity
         Public ID As Integer
         Public NumberCard As String
         Public Code As Integer
+        Public PIN As Integer
         Public Description As String
     End Structure
 
     Public Interface INumberCard
         Property NumberCard As String
         Property Code As Integer
+        Property PIN As Integer
     End Interface
 
     Public Interface IReference
@@ -58,6 +60,15 @@ Namespace BankCardsProject.My.Entity
             End Get
             Set(value As String)
                 Data.Description = value
+            End Set
+        End Property
+
+        Public Property PIN As Integer Implements INumberCard.PIN
+            Get
+                Return Data.PIN
+            End Get
+            Set(value As Integer)
+                Data.PIN = value
             End Set
         End Property
     End Class

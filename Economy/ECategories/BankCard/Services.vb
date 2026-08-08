@@ -36,8 +36,8 @@
             ElseIf GetType(DTO) = GetType(BankCardsProject.Contracts.IChangeNumberDTO) Then
                 Dim ChangeDTO As BankCardsProject.Contracts.IChangeNumberDTO = DTOLink
                 With Entity
-                    .NumberCard = Entity.NumberCard
-                    .Code = Entity.Code
+                    .NumberCard = ChangeDTO.NumberCard
+                    .Code = ChangeDTO.Code
                 End With
             ElseIf GetType(DTO) = GetType(BankCardsProject.Contracts.IChangeDescriptionDTO) Then
                 Dim ChangeDTO As BankCardsProject.Contracts.IChangeDescriptionDTO = DTOLink
@@ -66,8 +66,8 @@
             ElseIf GetType(DTO) = GetType(BankCardsProject.Contracts.IChangeNumberDTO) Then
                 Dim ChangeDTO As BankCardsProject.Contracts.IChangeNumberDTO = DTOLink
                 With Entity
-                    .NumberCard = Entity.NumberCard
-                    .Code = Entity.Code
+                    .NumberCard = ChangeDTO.NumberCard
+                    .Code = ChangeDTO.Code
                 End With
             ElseIf GetType(DTO) = GetType(BankCardsProject.Contracts.IChangeDescriptionDTO) Then
                 Dim ChangeDTO As BankCardsProject.Contracts.IChangeDescriptionDTO = DTOLink

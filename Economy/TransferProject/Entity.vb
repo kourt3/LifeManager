@@ -60,8 +60,8 @@ Namespace TransferProject.Entity
         Public FromExternalId As Integer
         Public MoneyValue As Double
         Public ToEconomyID As Integer
-        Public ToExternaId As Integer
         Public ToCategory As String
+        Public ToExternaId As Integer
         Public Desctiption As String
     End Structure
 

@@ -23,6 +23,9 @@
             If GetType(DTO) Is GetType(Contracts.IChangeNameDTO) Then
                 Dim ChangeDTO As Contracts.IChangeNameDTO = DTOLink
                 NewEntity.Name = ChangeDTO.Name
+            ElseIf GetType(DTO) Is GetType(Contracts.IChangeCreationDTO) Then
+                Dim ChangeDTO As Contracts.IChangeCreationDTO = DTOLink
+                NewEntity.Creation = ChangeDTO.Creation
             ElseIf GetType(DTO) Is GetType(Contracts.IChangeDescriptionDTO) Then
                 Dim ChangeDTO As Contracts.IChangeDescriptionDTO = DTOLink
                 NewEntity.Description = ChangeDTO.Description

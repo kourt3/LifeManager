@@ -6,7 +6,7 @@ Namespace GiftsCard.Entity
         Dim ID As Integer
         Dim Name As String
         Dim NumberCard As String
-        Dim Code As String
+        Dim PIN As String
         Dim Description As String
     End Structure
 
@@ -14,11 +14,16 @@ Namespace GiftsCard.Entity
         Inherits MyBook.IHasPrimaryKey(Of Integer)
     End Interface
 
+    Public Interface INumberCard
+        Property NumberCard As String
+        Property PIN As String
+    End Interface
+
     Public Interface IEntity
         Inherits IReference
         Inherits MyBook.IHasName
         Inherits MyBook.IHasDescription
-        Inherits BankCardsProject.My.Entity.INumberCard
+        Inherits INumberCard
     End Interface
     Public Class Entity
         Implements IEntity
@@ -51,7 +56,7 @@ Namespace GiftsCard.Entity
             End Set
         End Property
 
-        Public Property NumberCard As String Implements BankCardsProject.My.Entity.INumberCard.NumberCard
+        Public Property NumberCard As String Implements INumberCard.NumberCard
             Get
                 Return Data.NumberCard
             End Get
@@ -60,12 +65,12 @@ Namespace GiftsCard.Entity
             End Set
         End Property
 
-        Public Property Code As Integer Implements BankCardsProject.My.Entity.INumberCard.Code
+        Public Property PIN As String Implements INumberCard.PIN
             Get
-                Return Data.Code
+                Return Data.PIN
             End Get
-            Set(value As Integer)
-                Data.Code = value
+            Set(value As String)
+                Data.PIN = value
             End Set
         End Property
     End Class

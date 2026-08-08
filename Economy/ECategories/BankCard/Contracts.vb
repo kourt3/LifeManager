@@ -17,6 +17,7 @@ Namespace BankCardsProject.Contracts
 
     Public Interface IChangeDTO
         Inherits BankCardsProject.My.Entity.INumberCard
+
         Inherits MyBook.IHasDescription
     End Interface
 
@@ -36,6 +37,8 @@ Namespace BankCardsProject.Contracts
         Public Property NumberCard As String Implements INumberCard.NumberCard
         Public Property Code As Integer Implements INumberCard.Code
         Public Property Description As String Implements IHasDescription.Description
+
+        Public Property PIN As Integer Implements INumberCard.PIN
 
     End Class
 
